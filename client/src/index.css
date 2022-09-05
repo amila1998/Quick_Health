@@ -5,6 +5,18 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* background-color: var(--white); */
+  /* background-image: url('./asserts/background/bg.jpg'); 
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-attachment: fixed;
+  background-position: center; */
+  background-image: url('./asserts/BG.png');
+  background-repeat: repeat;
+  background-size: 100% 100%;
+  background-attachment: fixed;
+  background-position: center;
+  width: 100%;
 }
 
 code {
