@@ -32,6 +32,9 @@ app.use(fileUpload({
 
 //routes
 
+const userRoutes = require("./routes/userRoutes");
+app.use(userRoutes);
+
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'));
