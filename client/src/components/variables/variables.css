@@ -1,0 +1,18 @@
+:root {
+    --blue: rgb(45, 133, 197);
+    --darkGreen2: rgb(44, 175, 0);
+    --darkGreen: rgb(29, 126, 0);
+    --white: rgb(255, 255, 255);
+    --black: black;
+    --gray: rgb(38, 57, 77);
+    --boarderColor: rgb(0, 138, 11);
+    --boarderColorR: rgb(138, 0, 0);
+    --boarderColorY: rgb(89, 145, 0);
+    --boarderColorHover: rgb(0, 202, 17);
+    --slide: rgb(0, 197, 16);
+    --red: rgb(216, 0, 0);
+    --btnOrange: rgb(245, 167, 39);
+    --GradientBG: linear-gradient(to left, var(--slide), var(--boarderColor));
+    --textBorder: rgb(97, 189, 238);
+
+}
