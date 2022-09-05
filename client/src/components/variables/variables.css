@@ -14,5 +14,7 @@
     --btnOrange: rgb(245, 167, 39);
     --GradientBG: linear-gradient(to left, var(--slide), var(--boarderColor));
     --textBorder: rgb(97, 189, 238);
+    --btnGreen: rgb(0, 118, 5);
+    --btnRed: rgb(221, 0, 0);
 
 }

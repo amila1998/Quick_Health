@@ -7,24 +7,6 @@
     height: 100%;
 }
 
-.brand-title {
-    margin: auto;
-    text-align: center;
-    padding: 20px;
-
-}
-
-.form {
-    width: 50%;
-    background-color: rgba(255, 255, 255, 0.5);
-    height: 100%;
-    padding: 20px;
-    border-radius: 50px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    min-width: 300px;
-    justify-content: center;
-    text-align: center;
-}
 
 .rowflex {
     display: flex;
