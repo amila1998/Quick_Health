@@ -34,6 +34,9 @@ app.use(fileUpload({
 
 const userRoutes = require("./routes/userRoutes");
 app.use(userRoutes);
+const pharmacyRoutes = require("./routes/pharmacyRoutes");
+app.use(pharmacyRoutes);
+
 
 
 if (process.env.NODE_ENV === 'production') {
