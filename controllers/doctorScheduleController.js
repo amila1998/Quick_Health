@@ -32,24 +32,24 @@ const doctorScheduleController = {
         }
     } ,
 
-    // getADoctorSchedules : async (req, res) => {
-    //     try {
-    //         let doctorId = req.user.id ;
-    //         const fetch = await DoctorSchedule.find({doctorId});
-    //         res.json(fetch);
+    getADoctorSchedules : async (req, res) => {
+        try {
+            let doctorId = req.user.id ;
+            const fetch = await DoctorSchedule.find({doctorId});
+            res.json(fetch);
 
-    //         res.status(200).json({
-    //             message: "Doctor Schedules Fetched Success ! ",
-    //             success: true,
-    //         });
+            res.status(200).json({
+                message: "Doctor Schedules Fetched Success ! ",
+                success: true,
+            });
 
-    //     } catch (error) {
-    //         res.status(500).json({
-    //             message: error.message,
-    //             success: false
-    //         });
-    //     }
-    // } ,
+        } catch (error) {
+            res.status(500).json({
+                message: error.message,
+                success: false
+            });
+        }
+    } ,
 
     // deleteDoctorSchedule : async (req, res) => {
     //     try {

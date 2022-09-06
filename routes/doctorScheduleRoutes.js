@@ -6,7 +6,7 @@ const doctor = require('../middlewares/doctor');
 const doctorScheduleController = require("../controllers/doctorScheduleController");
 
 route.post("/doctor/addDoctorsSchedule"  , auth , doctor ,  doctorScheduleController.addDoctorSchedule);
-// route.get("/doctor/" , auth , doctor , doctorScheduleController.getADoctorSchedules);
+route.get("/doctor/" , auth , doctor , doctorScheduleController.getADoctorSchedules);
 // route.delete("/doctor/deleteADoctorSchedule/:id" , auth , doctor , doctorScheduleController.deleteDoctorSchedule);
 
 
