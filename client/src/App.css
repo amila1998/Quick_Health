@@ -5,6 +5,7 @@
 }
 
 .btnOrange {
+  overflow: hidden;
   height: 42px;
   width: 30%;
   font-size: 18px;
@@ -16,6 +17,40 @@
   letter-spacing: 1px;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
+  min-width: fit-content;
+}
+
+.btnGreen {
+  overflow: hidden;
+  height: 42px;
+  width: 30%;
+  font-size: 18px;
+  color: var(--white);
+  background: var(--btnGreen);
+  outline: none;
+  border-radius: 100px;
+  border-color: var(--white);
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  min-width: fit-content;
+}
+
+
+.btnRed {
+  overflow: hidden;
+  height: 42px;
+  width: 30%;
+  font-size: 18px;
+  color: var(--white);
+  background: var(--btnRed);
+  outline: none;
+  border-radius: 100px;
+  border-color: var(--white);
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  min-width: fit-content;
 }
 
 
@@ -30,6 +65,7 @@
   font-size: 12px;
   border: 2px solid var(--textBorder);
   font-size: 16px;
+
 }
 
 .bodyLink {
@@ -39,4 +75,33 @@
 
 .bodyLink:hover {
   color: blue;
+}
+
+
+.brand-title {
+  margin: auto;
+  text-align: center;
+  padding: 20px;
+
+
+}
+
+.form {
+  width: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+  height: 100%;
+  padding: 20px;
+  border-radius: 50px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  min-width: 300px;
+  justify-content: center;
+  text-align: center;
+}
+
+hr{
+  border: none;
+  size: 10;
+    height: 1px;
+
+
 }
