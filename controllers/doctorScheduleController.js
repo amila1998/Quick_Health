@@ -51,23 +51,23 @@ const doctorScheduleController = {
         }
     } ,
 
-    // deleteDoctorSchedule : async (req, res) => {
-    //     try {
-    //         const fetch = await DoctorSchedule.findByIdAndDelete(req.params.id);
-    //         res.json( "Doctor Schedule Deleted Success ! ");
+    deleteDoctorSchedule : async (req, res) => {
+        try {
+            const fetch = await DoctorSchedule.findByIdAndDelete(req.params.id);
+            res.json( "Doctor Schedule Deleted Success ! ");
 
-    //         res.status(200).json({
-    //             message: "Doctor Schedule Deleted Success ! ",
-    //             success: true,
-    //         });
+            res.status(200).json({
+                message: "Doctor Schedule Deleted Success ! ",
+                success: true,
+            });
 
-    //     } catch (error) {
-    //         res.status(500).json({
-    //             message: error.message,
-    //             success: false
-    //         });
-    //     }
-    // }
+        } catch (error) {
+            res.status(500).json({
+                message: error.message,
+                success: false
+            });
+        }
+    }
 };
 
 module.exports = doctorScheduleController;

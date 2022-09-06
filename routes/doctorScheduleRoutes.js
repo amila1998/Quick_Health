@@ -7,7 +7,7 @@ const doctorScheduleController = require("../controllers/doctorScheduleControlle
 
 route.post("/doctor/addDoctorsSchedule"  , auth , doctor ,  doctorScheduleController.addDoctorSchedule);
 route.get("/doctor/" , auth , doctor , doctorScheduleController.getADoctorSchedules);
-// route.delete("/doctor/deleteADoctorSchedule/:id" , auth , doctor , doctorScheduleController.deleteDoctorSchedule);
+route.delete("/doctor/deleteADoctorSchedule/:id" , auth , doctor , doctorScheduleController.deleteDoctorSchedule);
 
 
 module.exports = route;
