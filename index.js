@@ -35,6 +35,9 @@ app.use(fileUpload({
 const userRoutes = require("./routes/userRoutes");
 app.use(userRoutes);
 
+const doctorScheduleRoutes = require("./routes/doctorScheduleRoutes");
+app.use(doctorScheduleRoutes);
+
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'));
