@@ -1,6 +1,8 @@
 import React, { useContext } from 'react'
 import { Routes, Route, Navigate } from "react-router-dom";
 import { GlobalState } from '../GlobalState';
+import AddDoctorSchedule from './doctorSchedule/AddDoctorSchedule';
+import DoctorScheduleHome from './doctorSchedule/DoctorScheduleHome';
 import Login from './login/Login';
 import Profile from './profile/Profile';
 import Questions from './questions/allQuestion/Questions';
@@ -20,6 +22,8 @@ const MainPages = () => {
     <Route path='/' element={<Questions />} />
     <Route path='/signin' element={isLogged?<Navigate to={'/'}/>:<Login />} />
     <Route path='/signup' element={isLogged?<Navigate to={'/'}/>:<Register />} />
+    <Route path='/doctor/' element={<DoctorScheduleHome/>} />
+    <Route path='/doctor/addDoctorsSchedule' element={<AddDoctorSchedule/>} />
     <Route path='/profile' element={isLogged&&<Profile />} />
     <Route path='/updateprofile' element={isLogged&&<UpadateProfile />} />
     <Route path='/createQuestion' element={isLogged?<CreateQuestion/>:<Navigate to={'/signin'}/>} />

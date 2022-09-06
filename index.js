@@ -42,6 +42,9 @@ const drugsRoutes = require("./routes/drugsRoutes");
 app.use(drugsRoutes);
 
 
+const doctorScheduleRoutes = require("./routes/doctorScheduleRoutes");
+app.use(doctorScheduleRoutes);
+
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'));
