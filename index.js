@@ -34,6 +34,11 @@ app.use(fileUpload({
 
 const userRoutes = require("./routes/userRoutes");
 app.use(userRoutes);
+const uploadRoutes = require("./routes/uploadProfilePicture");
+app.use('/api', uploadRoutes);
+const pharmacyRoutes = require("./routes/pharmacyRoutes");
+app.use(pharmacyRoutes);
+
 
 const doctorScheduleRoutes = require("./routes/doctorScheduleRoutes");
 app.use(doctorScheduleRoutes);

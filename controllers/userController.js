@@ -91,6 +91,59 @@ const userController = {
             return res.status(500).json({ msg: err.message })
         }
     },
+    logout: async (req, res) => {
+
+        const token = createToken.access({id: 'asdjkasdasdhashdkasd' });
+        res.status(200).json({ msg: "Signout success" });
+    },
+    updateProfile: async (req, res) => {
+        try {
+            // get info
+            const { name, images, phone, officialMail, service, speciality } = req.body;
+
+            var logo;
+
+          
+
+            const userD = await User.findById(req.user.id)
+            if (images) {
+                logo = images.url
+            }else{
+                logo = userD.logo
+            }
+
+            if (userD.role === 'doctor') {
+                await User.findOneAndUpdate({ _id: req.user.id }, {
+                    name,
+                    logo,
+                    "doctor.phone": phone,
+                    "doctor.service": service,
+                    "doctor.speciality": speciality,
+                });
+
+            } else if (userD.role === 'pharmacist') {
+                // update
+                await User.findOneAndUpdate({ _id: req.user.id }, {
+                    name,
+                    logo,
+                    "pharmacist.phone": phone,
+                    "pharmacist.officialMail": officialMail,
+                });
+
+            } else {
+                // update
+                await User.findOneAndUpdate({ _id: req.user.id }, { name, logo });
+
+            }
+
+            // success
+            res.status(200).json({ msg: "Update success." });
+        } catch (err) {
+            console.log("🚀 ~ file: userController.js ~ line 132 ~ updateProfile: ~ err", err)
+            res.status(500).json({ msg: err.message });
+        }
+
+    },
 };
 
 

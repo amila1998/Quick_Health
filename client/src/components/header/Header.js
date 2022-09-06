@@ -78,7 +78,7 @@ const Header = () => {
                         {
                             isLogged && <>
 
-                                <a className="nav-link linkColor" href="#"><img className='profileGP' src={userPhoto} /></a>
+                                <a className="nav-link linkColor" href="/profile"><img className='profileGP' src={userPhoto} /></a>
 
                             </>
                         }

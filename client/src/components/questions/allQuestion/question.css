@@ -1,0 +1,86 @@
+.Qbody{
+    width: 100%;
+    margin-top: 10px;
+    display: block;
+}
+
+.QTop{
+    overflow: hidden;
+    width: 100%;
+    margin-bottom: 10px;
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 20px;
+    border-radius: 50px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    justify-content: space-around;
+    display: flex;
+}
+
+.QRow1{
+    overflow: hidden;
+    width: 100%;
+    display: flex;
+}
+.QRow2{
+    overflow: hidden;
+    text-align: right;
+    align-items: right;
+    width: 100%;
+}
+
+
+.QBottom{
+    width: 100%;
+    display: flex;
+    overflow: auto;
+}
+
+.Qleft{
+    text-align: left;
+}
+
+.Qrow{
+
+    display: flex;
+}
+.Qcenter{
+    align-items: center;
+    text-align: center;
+
+}
+
+.Qrow input{
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.QBottomL{
+    overflow: hidden;
+    width: 30%;
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 20px;
+    border-radius: 50px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    display: inline-table;
+}
+
+.QBottomR{
+    overflow: hidden;
+    width: 69%;
+    margin-left: 10px;
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 20px;
+    border-radius: 50px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.QCardBody{
+    display: inline;
+    overflow: hidden;
+    align-items: center;
+    justify-content: space-between;
+    margin: auto;
+
+
+}
+
