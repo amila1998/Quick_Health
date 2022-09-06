@@ -1,0 +1,16 @@
+@import url('../variables/variables.css');
+
+
+.layout .input .addVisitBtn{
+    height: 42px;
+    width: 150px;
+    font-size: 12px;
+    color: var(--white);
+    background: var(--btnOrange);
+    outline: none;
+    border-radius: 100px;
+    border-color: var(--white);
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
