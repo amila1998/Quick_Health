@@ -8,6 +8,7 @@ function UserAPI(token) {
     const [isPharmacist, setIsPharmacist] = useState(false)
     const [userName, setuserName] = useState("")
     const [userPhoto,setUserPhoto] = useState("")
+    const [user,setUser] = useState("")
 
 
     useEffect(() => {
@@ -34,6 +35,7 @@ function UserAPI(token) {
 
                         setuserName(res.data.name)
                         setUserPhoto(res.data.logo)
+                        setUser(res.data)
                 } catch (err) {
                     console.log("🚀 ~ file: UserAPI.js ~ line 37 ~ getUser ~ err", err)
                     window.sessionStorage.clear();
@@ -60,7 +62,8 @@ function UserAPI(token) {
         isDoctor: [isDoctor, setIsDoctor],
         isPharmacist: [isPharmacist, setIsPharmacist],
         user: [userName, setuserName],
-        userPhoto:[userPhoto,setUserPhoto]
+        userPhoto:[userPhoto,setUserPhoto],
+        userDetails:[user,setUser]
     }
 }
 

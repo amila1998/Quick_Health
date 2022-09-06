@@ -1,8 +1,15 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import QCard from '../questionCard/QCard'
 import './question.css'
 
 const Questions = () => {
+
+const navigate = useNavigate();
+
+  const navigateToCreateQuestion =()=>{
+    navigate('/createQuestion')
+  }
   return (
     <div>
       <div className='Qbody'>
@@ -10,7 +17,7 @@ const Questions = () => {
           <div className='QRow1'><input className="inputs" type="text" name="title" placeholder='Search' />
             <button className="btnOrange"  >Search</button>
           </div>
-          <div className='QRow2 QAlingLeft'> <button className="btnGreen"  >Ask A Question</button>
+          <div className='QRow2 QAlingLeft'> <button className="btnGreen" onClick={navigateToCreateQuestion} >Ask A Question</button>
           </div>
         </div>
 
