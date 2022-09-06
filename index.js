@@ -38,6 +38,8 @@ const uploadRoutes = require("./routes/uploadProfilePicture");
 app.use('/api', uploadRoutes);
 const pharmacyRoutes = require("./routes/pharmacyRoutes");
 app.use(pharmacyRoutes);
+const drugsRoutes = require("./routes/drugsRoutes");
+app.use(drugsRoutes);
 
 
 const doctorScheduleRoutes = require("./routes/doctorScheduleRoutes");

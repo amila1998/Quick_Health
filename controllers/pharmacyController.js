@@ -22,9 +22,9 @@ const pharmacyController={
     
     getAll:async(req,res)=>{
         try {
-            pharmacy = await Pharmacy.find();
+            const AllPharmacy = await Pharmacy.find();
             res.status(200).json({ 
-                pharmacy,
+                AllPharmacy,
                 success: true
             })                
         } catch (error) {
