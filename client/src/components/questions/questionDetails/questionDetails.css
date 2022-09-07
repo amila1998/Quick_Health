@@ -1,0 +1,19 @@
+.report{
+    color: var(--red);
+}
+
+.share{
+    color:var(--darkBlue)
+}
+
+.reply{
+    color:var(--btnOrange)
+}
+
+.fW{
+    font-weight: 700;
+}
+
+.im{
+    margin-right: 2px;
+}

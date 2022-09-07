@@ -10,6 +10,7 @@ const pharmacist = require('../middlewares/pharmacist')
 
 route.post("/api/questions/createQuestion",auth, questionsController.createQuestion);
 route.get("/api/questions/AllQuestions", questionsController.getAllQuestions);
+route.get("/api/questions/questionDetailsByID/:qID", questionsController.getQuestionById);
 
 
 module.exports = route;
