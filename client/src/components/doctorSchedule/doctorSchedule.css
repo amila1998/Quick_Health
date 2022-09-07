@@ -1,16 +1,159 @@
 @import url('../variables/variables.css');
 
 
-.layout .input .addVisitBtn{
+.addVisitBtn {
     height: 42px;
     width: 150px;
-    font-size: 12px;
+    font-size: 16px;
+    font-weight: bolder;
+    margin-right: 40px;
     color: var(--white);
-    background: var(--btnOrange);
+    background: var(--btnGreen);
     outline: none;
     border-radius: 100px;
     border-color: var(--white);
     letter-spacing: 1px;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
-  }
+}
+
+.cancelBtn{
+  height: 42px;
+  width: 150px;
+  font-size: 16px;
+  font-weight: bolder;
+  margin-left: 40px;
+  color: var(--white);
+  background: var(--btnRed);
+  outline: none;
+  border-radius: 100px;
+  border-color: var(--white);
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.deleteBtn{
+  height: 42px;
+  width: 150px;
+  font-size: 16px;
+  font-weight: bolder;
+  color: var(--white);
+  background: var(--btnRed);
+  outline: none;
+  border-radius: 100px;
+  border-color: var(--white);
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+
+.editBtn {
+  height: 42px;
+  width: 150px;
+  font-size: 16px;
+  font-weight: bolder;
+  margin-bottom: 5px;
+  color: var(--white);
+  background: var(--btnOrange);
+  outline: none;
+  border-radius: 100px;
+  border-color: var(--white);
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.layout .input input[type="text"] {
+  margin-left: 30px;
+  height: 45px;
+  width: 90%;
+  outline: none;
+  color: var(--black);
+  background: none;
+  border-radius: 100px;
+  padding-left: 10px;
+  font-size: 20px;
+  border: 2px solid var(--textBorder);
+}
+
+.layout .input input[type="time"] {
+  margin-left: 30px;
+  height: 45px;
+  width: 90%;
+  outline: none;
+  color: var(--black);
+  background: none;
+  border-radius: 100px;
+  padding-left: 10px;
+  font-size: 20px;
+  border: 2px solid var(--textBorder);
+}
+
+
+.layout .input select{
+  margin-left: 30px;
+  height: 45px;
+  width: 90%;
+  outline: none;
+  color: var(--black);
+  background: none;
+  border-radius: 100px;
+  padding-left: 10px;
+  font-size: 20px;
+  border: 2px solid var(--textBorder);
+}
+
+.doctorScheduleLayout {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.5);
+  height: 100%;
+  padding: 20px;
+  border-radius: 20px;
+  margin-bottom: 15px;
+  font-weight :400;
+  font-size: 18px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  min-width: 300px;
+
+}
+
+.doctorScheduleMainLayout {
+  margin: auto;
+  width: 99%;
+  background-color: rgba(255, 255, 255, 0.5);
+  height: 100%;
+  padding: 20px;
+  border-radius: 5px;
+  margin-block-start: 8px;
+  margin-bottom: 5px;
+  font-weight :400;
+  font-size: 18px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  min-width: 300px;
+
+}
+
+.addDoctorScheduleLayout {
+  width: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+  height: 100%;
+  padding: 20px;
+  border-radius: 20px;
+  margin-bottom: 15px;
+  font-weight :400;
+  font-size: 18px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  min-width: 300px;
+
+}
+
+.layout .input label{
+  margin-left: 40px;
+  font-size: 20px;
+  color: #000000;
+  align-content: flex-start;
+  margin-bottom: 5px;
+
+}
