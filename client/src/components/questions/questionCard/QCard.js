@@ -1,9 +1,10 @@
 import React from 'react'
 import './qcard.css'
 import Lable from '../../utils/lable/Lable'
+import { useNavigate } from 'react-router-dom'
 
 const QCard = ({question}) => {
-  console.log("🚀 ~ file: QCard.js ~ line 6 ~ QCard ~ question", question)
+  const navigate = useNavigate()
 
   let date_1 = new Date(question.createdAt);
   let date_2 = new Date();
@@ -14,9 +15,7 @@ const QCard = ({question}) => {
       return TotalDays;
   }
 
-
   let allLbles = [];
-  console.log("🚀 ~ file: QCard.js ~ line 19 ~ QCard ~ allLbles", allLbles)
   for(const l of question.lables){
     for(const v of l.value){
       allLbles.push(v)
@@ -24,15 +23,15 @@ const QCard = ({question}) => {
   }
 
 
-
-
-
+  const handleNavigateQuestionDetails = ()=>{
+    navigate(`/questionDetails/`+question._id)
+  }
 
 
   return (
     <div>
         <div className='Qcard'>
-            <div className='cTitle'>{question.title}</div>
+            <div className='cTitle cMpointer' onClick={handleNavigateQuestionDetails}>{question.title}</div>
             <div className='cLables'>
               {
                 
