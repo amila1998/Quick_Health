@@ -13,13 +13,17 @@ const questionsSchema = new Schema(
         lables: {
             type: Array,
         },
+        userID:String,
+        userName:String,
         replies: [
             {
                 userID:String,
                 replyBody:String,
+                userName:String,
                 voteToCorrect:[
                     {
                         userID:String,
+                        userName:String,
                     },
                     {
                         timestamps: true
@@ -29,6 +33,7 @@ const questionsSchema = new Schema(
                 voteToWrong:[
                     {
                         userID:String,
+                        userName:String,
                     },
                     {
                         timestamps: true
@@ -38,6 +43,7 @@ const questionsSchema = new Schema(
                 childReplies:[
                     {
                         userID:String,
+                        userName:String,
                 replyBody:String,
                     },
                     {
@@ -52,7 +58,8 @@ const questionsSchema = new Schema(
         ],
         stars: [
             {
-                userID:String
+                userID:String,
+                userName:String,
             },
             {
                 timestamps: true
@@ -61,6 +68,7 @@ const questionsSchema = new Schema(
         reports:[
             {
                 userID:String,
+                userName:String,
                 message:String,
                 reportedDate:Date
             
