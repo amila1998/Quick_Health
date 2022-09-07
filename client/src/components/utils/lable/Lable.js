@@ -1,9 +1,9 @@
 import React from 'react'
 import './lable.css'
 
-const Lable = () => {
+const Lable = ({lable}) => {
   return (
-    <div className='lbl'>Lable</div>
+    <div className='lbl'>{lable}</div>
   )
 }
 

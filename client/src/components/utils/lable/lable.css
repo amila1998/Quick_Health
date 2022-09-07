@@ -1,7 +1,10 @@
 .lbl{
+    margin-top: 10px;
     padding:5px;
     text-align: center;
     background-color: var(--gray);
     color: var(--white);
     width: fit-content;
+    margin-left: 5px;
+    height: fit-content;
 }

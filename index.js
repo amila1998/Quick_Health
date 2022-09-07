@@ -31,13 +31,16 @@ app.use(fileUpload({
 }));
 
 //routes
-
+const questionsRoutes = require("./routes/questionRoutes");
+app.use(questionsRoutes);
 const userRoutes = require("./routes/userRoutes");
 app.use(userRoutes);
 const uploadRoutes = require("./routes/uploadProfilePicture");
 app.use('/api', uploadRoutes);
 const pharmacyRoutes = require("./routes/pharmacyRoutes");
 app.use(pharmacyRoutes);
+const drugsRoutes = require("./routes/drugsRoutes");
+app.use(drugsRoutes);
 
 
 const doctorScheduleRoutes = require("./routes/doctorScheduleRoutes");
