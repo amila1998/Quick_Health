@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { GlobalState } from '../GlobalState';
 import AddDoctorSchedule from './doctorSchedule/AddDoctorSchedule';
 import Doctors from './doctorSchedule/Doctors';
+import DoctorScheduleForPatient from './doctorSchedule/DoctorScheduleForPatient';
 import DoctorScheduleHome from './doctorSchedule/DoctorScheduleHome';
 import Login from './login/Login';
 import Profile from './profile/Profile';
@@ -31,6 +32,7 @@ const MainPages = () => {
     <Route path='/createQuestion' element={isLogged?<CreateQuestion/>:<Navigate to={'/signin'}/>} />
     <Route path='/doctors' element={<Doctors />} />
     <Route path='/questionDetails/:qID' element={<QuestionDetails/>} />
+    <Route path='/doctor/:dId/doctorSchedules' element={<DoctorScheduleForPatient/>}/>
     
     </Routes>
   </div>
