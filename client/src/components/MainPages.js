@@ -8,6 +8,7 @@ import Login from './login/Login';
 import Profile from './profile/Profile';
 import Questions from './questions/allQuestion/Questions';
 import CreateQuestion from './questions/createQuestion/CreateQuestion';
+import QuestionDetails from './questions/questionDetails/QuestionDetails';
 import Register from './register/Register';
 import UpadateProfile from './updateProfile/UpadateProfile';
 
@@ -29,6 +30,7 @@ const MainPages = () => {
     <Route path='/updateprofile' element={isLogged&&<UpadateProfile />} />
     <Route path='/createQuestion' element={isLogged?<CreateQuestion/>:<Navigate to={'/signin'}/>} />
     <Route path='/doctors' element={<Doctors />} />
+    <Route path='/questionDetails/:qID' element={<QuestionDetails/>} />
     
     </Routes>
   </div>
