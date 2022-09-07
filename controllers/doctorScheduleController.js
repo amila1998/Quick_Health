@@ -1,4 +1,5 @@
 const DoctorSchedule = require("../models/doctorScheduleModel");
+const User = require("../models/userModel");
 
 const doctorScheduleController = {
     addDoctorSchedule : async (req, res) => {
@@ -58,6 +59,25 @@ const doctorScheduleController = {
 
             res.status(200).json({
                 message: "Doctor Schedule Deleted Success ! ",
+                success: true,
+            });
+
+        } catch (error) {
+            res.status(500).json({
+                message: error.message,
+                success: false
+            });
+        }
+    },
+
+    getAllDoctors : async (req , res) => {
+        try {
+            const fetch = await User.find({role : 'doctor'})
+            res.json(fetch);
+
+
+            res.status(200).json({
+                message: "Doctors Fetched Success ! ",
                 success: true,
             });
 
