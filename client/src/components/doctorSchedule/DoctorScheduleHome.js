@@ -15,7 +15,7 @@ function DoctorScheduleHome() {
     if (callback) {
       const getADoctorSchedules = async () => {
         try {
-          const res = await axios.get("/doctor/", {
+          const res = await axios.get("/api/doctor", {
             headers: { Authorization: token }
           });
           console.log(res);
@@ -33,7 +33,7 @@ function DoctorScheduleHome() {
 
   const deleteDoctorSchedule = async (doctorScheduleId) => {
     try {
-      const res = await axios.delete(`/doctor/deleteADoctorSchedule/${doctorScheduleId}`, {
+      const res = await axios.delete(`/api/doctor/deleteADoctorSchedule/${doctorScheduleId}`, {
         headers: { Authorization: token }
       });
       alert(res.data.msg)
@@ -56,9 +56,9 @@ function DoctorScheduleHome() {
     <div className="doctorScheduleMainLayout">
       <br /><br />
 
-      {/* <div className="container">
+      <div className="container">
         <div className="row">
-          <div className="col-sm-3"><center><img className='pLogo' src={userDetails.logo} style={{ width : "200px"  , height : "200px"}}/></center></div>
+          <div className="col-sm-3"><center><img className='pLogo' src={userDetails.logo} style={{ width: "200px", height: "200px" }} /></center></div>
           <div className="col-sm-6">
             <div className="container" style={{ fontWeight: "400", fontSize: "18px" }}>
               <div className="row m-2">
@@ -66,12 +66,12 @@ function DoctorScheduleHome() {
                   Dr. {userDetails.name}
                 </div>
                 <div className="row">
-                  {userDetails.doctor.speciality} 
+                  {userDetails.doctor?.speciality}
                 </div>
-                <br/>
+                <br />
                 <div className="row m-4">
-                  <div className="col-8">{userDetails.doctor.phone}</div>
-                  <div className="col-4">{userDetails.doctor.service} Years service</div>
+                  <div className="col-8">{userDetails.doctor?.phone}</div>
+                  <div className="col-4">{userDetails.doctor?.service} Years service</div>
                 </div>
                 <div className="row ms-4">
                   <div className="col-3">{userDetails.email}</div>
@@ -81,9 +81,9 @@ function DoctorScheduleHome() {
             </div>
           </div>
         </div>
-      </div> */}
+      </div>
 
-      <br/><br/>
+      <br /><br />
       <div class="container">
         <div class="row">
           <div class="col-sm-9"><center><h2 className="" style={{ fontWeight: "bolder", fontSize: "30px" }}>My Visiting Schedule</h2></center></div>
@@ -103,7 +103,7 @@ function DoctorScheduleHome() {
               <div class="row">
                 <div class="col-sm-9 ">
                   <div class="">
-                    <div class="row">
+                    <div class="row mt-4 ms-4" style={{ fontWeight: "400", fontSize: "20px" }}>
                       <div class="col">
                         {doctorSchedule.day}
                       </div>
@@ -118,10 +118,10 @@ function DoctorScheduleHome() {
                 </div>
                 <div class="col-sm-3 ">
                   <div class="row">
-                    <button className="editBtn" onClick={() => editDoctorSchedule(doctorSchedule._id)}>Edit</button>
+                    <button className="editBtn ms-5" onClick={() => editDoctorSchedule(doctorSchedule._id)}>Edit</button>
                   </div>
                   <div class="row">
-                    <button className="deleteBtn" onClick={() => deleteDoctorSchedule(doctorSchedule._id)}>Delete</button>
+                    <button className="deleteBtn ms-5" onClick={() => deleteDoctorSchedule(doctorSchedule._id)}>Delete</button>
                   </div>
                 </div>
               </div>

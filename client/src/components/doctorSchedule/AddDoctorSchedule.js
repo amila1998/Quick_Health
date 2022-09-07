@@ -38,12 +38,12 @@ const AddDoctorSchedule = () => {
             alert("Fill all the fields");
         } else {
             try {
-                const res = await axios.post("/doctor/addDoctorsSchedule", { day, startTime, endTime, location }, {
+                const res = await axios.post("/api/doctor/addDoctorsSchedule", { day, startTime, endTime, location }, {
                     headers: { Authorization: token }
                 });
                 console.log(res)
                 alert(res.data)
-                window.location.href = '/doctor/'
+                window.location.href = '/doctor'
             } catch (error) {
                 alert(error.response.data);
                 console.log(error);
@@ -52,7 +52,7 @@ const AddDoctorSchedule = () => {
     };
 
     const cancelBtn = () => {
-        navigate('/doctor/')
+        navigate('/doctor')
     }
 
     return (
