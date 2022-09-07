@@ -22,10 +22,7 @@ const CreateQuestion = () => {
   const [body, setBody] = useState('')
   const [lables, setLables] = useState([])
   const [title, setTitle] = useState('')
-
-
-
-
+  const [token] = state.token
 
   let labletopicArray = [];
 
@@ -48,6 +45,51 @@ const CreateQuestion = () => {
 
   const titleHandleChange = (e) => {
     setTitle(e.target.value)
+  }
+
+  const handleQuestionCreate =async(e)=>{
+    e.preventDefault();
+    try {
+      if(!title){
+        return toast("Please fill title field.", {
+          className: "toast-failed",
+          bodyClassName: "toast-failed",
+        });
+      }else{
+        const res = await axios.post('/api/questions/createQuestion',{ title, body, lables }, {
+          headers: { Authorization: token }
+      });
+        toast.success(res.data.msg, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        window.location.href = "/";
+
+        
+      }
+
+      
+    } catch (error) {
+      console.log("🚀 ~ file: CreateQuestion.js ~ line 58 ~ handleQuestionCreate ~ error", error)
+      toast.error(error.response.data.msg, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  }
+
+  const handleCancel =()=>{
+    window.location.href = "/";
   }
 
   return (
@@ -75,8 +117,8 @@ const CreateQuestion = () => {
           </div>
           <br/>
           <div className='btncenter'>
-          <button className='btnGreen'>Publish</button>
-          <button className='btnRed'>Cancel</button>
+          <button className='btnGreen' onClick={handleQuestionCreate}>Publish</button>
+          <button className='btnRed' onClick={handleCancel}>Cancel</button>
           </div>
           
         </div>
