@@ -68,6 +68,17 @@
 
 }
 
+.inputs2{
+  width: 100%;
+  outline: none;
+  color: var(--black);
+  background: none;
+  padding-left: 10px;
+  font-size: 12px;
+  border: 2px solid var(--textBorder);
+  font-size: 16px;
+}
+
 .bodyLink {
   text-decoration: none;
   font-size: 16px;

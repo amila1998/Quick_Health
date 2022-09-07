@@ -31,7 +31,8 @@ app.use(fileUpload({
 }));
 
 //routes
-
+const questionsRoutes = require("./routes/questionRoutes");
+app.use(questionsRoutes);
 const userRoutes = require("./routes/userRoutes");
 app.use(userRoutes);
 const uploadRoutes = require("./routes/uploadProfilePicture");
