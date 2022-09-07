@@ -11,6 +11,27 @@ import sharei from '../../../asserts/icons/share.png';
 import wrongi from '../../../asserts/icons/wrong.png';
 import reporti from '../../../asserts/icons/report.png';
 import { GlobalState } from '../../../GlobalState';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+import Select from "react-select";
+import InputLabel from "@mui/material/InputLabel";
+
+
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    borderRadius: "50px",
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    boxShadow: 24,
+    p: 4,
+};
+
 
 const QuestionDetails = () => {
     const state = useContext(GlobalState)
@@ -21,6 +42,14 @@ const QuestionDetails = () => {
     const params = useParams()
     const questionID = params.qID
     const [questionDetails, setQuestionDetails] = useState('');
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => {
+        setOpen(false);
+        setMessage('')
+    }
+    const [message, setMessage] = useState('');
+
 
 
     useEffect(() => {
@@ -41,20 +70,20 @@ const QuestionDetails = () => {
 
     let allLbles = [];
 
-   
+
     useEffect(() => {
-        if(questionDetails){
-            if (questionDetails.userID!=userDetails._id) {
+        if (questionDetails) {
+            if (questionDetails.userID != userDetails._id) {
                 SetEditMode(false)
-            }else{
+            } else {
                 SetEditMode(true)
             }
 
         }
 
-    }, [userDetails._id,questionDetails.userID])
+    }, [userDetails._id, questionDetails.userID])
 
-    
+
 
 
 
@@ -70,14 +99,72 @@ const QuestionDetails = () => {
             }
         }
 
-       
+
     }
 
+    const handleReport = () => {
+        if (!isLogged) {
+            toast.error("You must Sign in first !", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        } else {
+            handleOpen();
+        }
 
+    }
+
+    const handleCancel = () => {
+        handleClose()
+    }
+
+    const onChnageReportMessage = (e) => {
+        setMessage(e.target.value)
+    }
+
+    const handleReportSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const res = await axios.post(`/api/question/report/${questionID}`, { message }, {
+                headers: { Authorization: token }
+            })
+            console.log("🚀 ~ file: QuestionDetails.js ~ line 142 ~ handleReportSubmit ~ res", res)
+            toast.success(res.data.msg, {
+                
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        handleClose();
+
+        } catch (error) {
+            console.log("🚀 ~ file: QuestionDetails.js ~ line 14 ~ getQuestionDetails ~ error", error)
+            toast.error(error.response.data.message, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        }
+
+    }
 
 
     return (
         <div>
+            <ToastContainer />
             <div>
                 <div className='Qcard'>
                     <div className='cTitle' >{questionDetails.title}</div>
@@ -95,22 +182,42 @@ const QuestionDetails = () => {
                     <hr></hr>
                     <div className='cBottom'>
                         <div className='cbBottom'>
-                            <div className='mar share fW'><img src={sharei} /> Share</div>
-                            <div className='mar reply fW '><img className='im' src={replyi} />Reply</div>
+                            <div className='mar share fW cMpointer'><img src={sharei} /> Share</div>
+                            <div className='mar reply fW cMpointer'><img className='im' src={replyi} />Reply</div>
                         </div>
                         {
                             editMode ?
                                 <>
                                     <div className='cbBottom'>
-                                        <div className='mar edit fW'><img src={editi} /> Edit</div>
-                                        <div className='mar report fW '><img src={deletei} />Delete</div>
+                                        <div className='mar edit fW cMpointer'><img src={editi} /> Edit</div>
+                                        <div className='mar report fW cMpointer' ><img src={deletei} />Delete</div>
                                     </div>
                                 </> :
                                 <>
-                                    <div className='mar report fW '>
+                                    <div className='mar report fW cMpointer' onClick={handleReport}>
                                         <img src={reporti} />
                                         Report
                                     </div>
+                                    <Modal
+                                        open={open}
+                                        onClose={handleClose}
+                                        aria-labelledby="modal-modal-title"
+                                        aria-describedby="modal-modal-description"
+                                    >
+                                        <Box sx={style}>
+                                            <h2 className='brand-title'>Report A Question</h2>
+
+                                            <hr />
+                                            <textarea className='inputs' rows='10' name='message' onChange={onChnageReportMessage} placeholder='Please enter reason here....'></textarea><br /><br />
+                                            <div>
+                                                <div className='btncenter'>
+                                                    <button className='btnGreen' onClick={handleReportSubmit}>Report</button>
+                                                    <button className='btnRed' onClick={handleCancel}>Cancel</button>
+                                                </div>
+                                            </div><br/>
+                                        
+                                        </Box>
+                                    </Modal>
                                 </>
                         }
 

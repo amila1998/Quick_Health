@@ -21,3 +21,17 @@
 .im{
     margin-right: 2px;
 }
+.errorMsg{
+    background-color: var(--red);
+    color: var(--white);
+    padding: 10px;
+    text-align: center;
+
+}
+
+.SuccessMsg{
+    background-color: var(--green);
+    color: var(--white);
+    padding: 10px;
+    text-align: center;
+}
