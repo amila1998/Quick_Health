@@ -1,21 +1,27 @@
 import axios from 'axios';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import Lable from '../../utils/lable/Lable';
 import './questionDetails.css';
 import correcti from '../../../asserts/icons/correct.png';
-import deletei from '../../../asserts/icons/correct.png';
+import deletei from '../../../asserts/icons/delete.png';
 import editi from '../../../asserts/icons/edit.png';
 import replyi from '../../../asserts/icons/reply.png';
 import sharei from '../../../asserts/icons/share.png';
 import wrongi from '../../../asserts/icons/wrong.png';
 import reporti from '../../../asserts/icons/report.png';
+import { GlobalState } from '../../../GlobalState';
 
 const QuestionDetails = () => {
+    const state = useContext(GlobalState)
+    const [isLogged] = state.userAPI.isLogged
+    const [token] = state.token
+    const [userDetails] = state.userAPI.userDetails
+    const [editMode, SetEditMode] = useState(false)
     const params = useParams()
     const questionID = params.qID
     const [questionDetails, setQuestionDetails] = useState('');
-    console.log("🚀 ~ file: QuestionDetails.js ~ line 9 ~ QuestionDetails ~ questionDetails", questionDetails)
+
 
     useEffect(() => {
         const getQuestionDetails = async () => {
@@ -34,7 +40,21 @@ const QuestionDetails = () => {
 
 
     let allLbles = [];
+
    
+    useEffect(() => {
+        if(questionDetails){
+            if (questionDetails.userID!=userDetails._id) {
+                SetEditMode(false)
+            }else{
+                SetEditMode(true)
+            }
+
+        }
+
+    }, [userDetails._id,questionDetails.userID])
+
+    
 
 
 
@@ -49,6 +69,8 @@ const QuestionDetails = () => {
                 allLbles.push(v)
             }
         }
+
+       
     }
 
 
@@ -73,10 +95,25 @@ const QuestionDetails = () => {
                     <hr></hr>
                     <div className='cBottom'>
                         <div className='cbBottom'>
-                            <div className='mar share fW'><img src={sharei}/> Share</div>
-                            <div className='mar reply fW '><img className='im' src={replyi}/>Reply</div>
+                            <div className='mar share fW'><img src={sharei} /> Share</div>
+                            <div className='mar reply fW '><img className='im' src={replyi} />Reply</div>
                         </div>
-                        <div className='mar report fW '><img src={reporti}/>Report</div>
+                        {
+                            editMode ?
+                                <>
+                                    <div className='cbBottom'>
+                                        <div className='mar edit fW'><img src={editi} /> Edit</div>
+                                        <div className='mar report fW '><img src={deletei} />Delete</div>
+                                    </div>
+                                </> :
+                                <>
+                                    <div className='mar report fW '>
+                                        <img src={reporti} />
+                                        Report
+                                    </div>
+                                </>
+                        }
+
                     </div>
                 </div>
             </div>

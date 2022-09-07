@@ -1,10 +1,14 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { GlobalState } from '../../../GlobalState'
 import QCard from '../questionCard/QCard'
 import './question.css'
 
 const Questions = () => {
+  const state = useContext(GlobalState)
+  const [userDetails] = state.userAPI.userDetails
+
 
 const navigate = useNavigate();
 const [questions,setQuestions]=useState([]);
