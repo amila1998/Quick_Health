@@ -1,7 +1,7 @@
 @import url('../variables/variables.css');
 
 
-.addVisitBtn {
+.addVisitBtn , .viewDoctor {
     height: 42px;
     width: 150px;
     font-size: 16px;
@@ -108,7 +108,6 @@
 .doctorScheduleLayout {
   width: 100%;
   background-color: rgba(255, 255, 255, 0.5);
-  height: 100%;
   padding: 20px;
   border-radius: 20px;
   margin-bottom: 15px;
@@ -156,4 +155,110 @@
   align-content: flex-start;
   margin-bottom: 5px;
 
+}
+
+.Qbody{
+  width: 100%;
+  margin-top: 10px;
+  display: block;
+}
+
+.QTop{
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+  width: 93% !important;
+  margin-bottom: 10px;
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 30px !important;
+  border-radius: 10px !important;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  justify-content: space-around;
+  display: flex;
+}
+
+.QRow1{
+  overflow: hidden;
+  width: 50% !important;
+  display: flex;
+}
+.QRow2{
+  overflow: hidden;
+  text-align: right;
+  align-items: right;
+  width: 100%;
+}
+
+
+.QBottom{
+  width: 100%;
+  display: flex;
+  overflow: auto;
+}
+
+.Qleft{
+  text-align: left;
+}
+
+.Qrow{
+
+  display: flex;
+}
+.Qcenter{
+  align-items: center;
+  text-align: center;
+
+}
+
+.Qrow input{
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.QBottomL{
+  margin-left: auto;
+  overflow: hidden;
+  width: 26.5% !important;
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 35px !important;
+  margin-bottom: 10px;
+  border-radius: 20px !important;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  display: inline-table;
+}
+
+.QBottomR{
+  margin-right: auto;
+  overflow: hidden;
+  width: 66% !important;
+  margin-left: 10px;
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 20px;
+  border-radius: 20px !important;
+  margin-bottom: 10px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.QCardBody{
+  display: inline;
+  overflow: hidden;
+  align-items: center;
+  justify-content: space-between;
+  margin: auto;
+
+
+}
+
+.doctorName{
+  font-size: 25px;
+  font-weight: bolder;
+  color: var(--blue);
+}
+
+.doctorType{
+  color: var(--white);
+  background-color: var(--gray);
+  padding-left: 15px;
+  padding-right: 15px;
+  width :fit-content;
 }
