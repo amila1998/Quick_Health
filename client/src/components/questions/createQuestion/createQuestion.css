@@ -1,0 +1,13 @@
+.NQBoday{
+    width: 100%;
+    margin-bottom: 10px;
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 20px;
+    border-radius: 50px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.btncenter{
+    justify-content: space-around;
+    display: flex;   
+}
