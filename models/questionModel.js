@@ -13,70 +13,57 @@ const questionsSchema = new Schema(
         lables: {
             type: Array,
         },
-        userID:String,
-        userName:String,
+        userID: String,
+        userName: String,
         replies: [
             {
-                userID:String,
-                replyBody:String,
-                userName:String,
-                voteToCorrect:[
+                userID: String,
+                replyBody: String,
+                userName: String,
+                voteToCorrect: [
                     {
-                        userID:String,
-                        userName:String,
-                    },
-                    {
-                        timestamps: true
+                        userID: String,
+                        userName: String,
+                        createdDate:Date,
+                        updatedDate:Date,
                     }
 
                 ],
-                voteToWrong:[
+                voteToWrong: [
                     {
-                        userID:String,
-                        userName:String,
-                    },
-                    {
-                        timestamps: true
+                        userID: String,
+                        userName: String,
+                        createdDate:Date
                     }
 
                 ],
-                childReplies:[
+                childReplies: [
                     {
-                        userID:String,
-                        userName:String,
-                replyBody:String,
-                    },
-                    {
-                        timestamps: true
+                        userID: String,
+                        userName: String,
+                        replyBody: String,
+                        createdDate:Date,
+                        updatedDate:Date,
                     }
 
                 ]
-            },
-            {
-                timestamps: true
             }
         ],
         stars: [
             {
-                userID:String,
-                userName:String,
-            },
-            {
-                timestamps: true
+                userID: String,
+                userName: String,
+                createdDate: Date,
+                updatedDate:Date,
             }
         ],
-        reports:[
+        reports: [
             {
-                userID:String,
-                userName:String,
-                message:String,
-                reportedDate:Date
-            
-            },
-            {
-                timestamps: true
+                userID: String,
+                userName: String,
+                message: String,
+                reportedDate: Date,
             }
-
         ],
 
     },
