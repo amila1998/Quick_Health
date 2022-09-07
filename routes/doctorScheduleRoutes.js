@@ -9,6 +9,7 @@ route.post("/api/doctor/addDoctorsSchedule"  , auth , doctor ,  doctorScheduleCo
 route.get("/api/doctor" , auth , doctor , doctorScheduleController.getADoctorSchedules);
 route.delete("/api/doctor/deleteADoctorSchedule/:id" , auth , doctor , doctorScheduleController.deleteDoctorSchedule);
 route.get("/api/doctors" , doctorScheduleController.getAllDoctors );
-
+route.get("/api/doctor/:id/doctorSchedules" , doctorScheduleController.getADoctorSchedulesForPatient);
+route.get("/api/doctor/:id/doctorDetails" , doctorScheduleController.getDoctorDetailsForPatient);
 
 module.exports = route;
