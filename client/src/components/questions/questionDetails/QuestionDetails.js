@@ -1,9 +1,15 @@
-import axios from 'axios'
-import React, { useEffect, useRef, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import Lable from '../../utils/lable/Lable'
-
-
+import axios from 'axios';
+import React, { useEffect, useRef, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import Lable from '../../utils/lable/Lable';
+import './questionDetails.css';
+import correcti from '../../../asserts/icons/correct.png';
+import deletei from '../../../asserts/icons/correct.png';
+import editi from '../../../asserts/icons/edit.png';
+import replyi from '../../../asserts/icons/reply.png';
+import sharei from '../../../asserts/icons/share.png';
+import wrongi from '../../../asserts/icons/wrong.png';
+import reporti from '../../../asserts/icons/report.png';
 
 const QuestionDetails = () => {
     const params = useParams()
@@ -34,8 +40,6 @@ const QuestionDetails = () => {
 
     if (questionDetails) {
 
-        var date_1 = new Date(questionDetails.createdAt);
-        var date_2 = new Date();
         var codeBlock = questionDetails.body;
 
         document.getElementById("wrapper").innerHTML = codeBlock
@@ -69,10 +73,10 @@ const QuestionDetails = () => {
                     <hr></hr>
                     <div className='cBottom'>
                         <div className='cbBottom'>
-                            <div className='mar'>Share</div>
-                            <div className='mar'>Reply</div>
+                            <div className='mar share fW'><img src={sharei}/> Share</div>
+                            <div className='mar reply fW '><img className='im' src={replyi}/>Reply</div>
                         </div>
-                        <div>Report</div>
+                        <div className='mar report fW '><img src={reporti}/>Report</div>
                     </div>
                 </div>
             </div>
