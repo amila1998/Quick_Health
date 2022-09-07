@@ -14,3 +14,25 @@
     font-weight: 600;
     color: rgba(60, 169,238,1);
 }
+
+.cLables{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.cBottom{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.cbBottom{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.mar{
+    margin-right: 20px;
+}
