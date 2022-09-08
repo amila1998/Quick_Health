@@ -14,7 +14,7 @@ const Doctors = () => {
         const getAllDoctors = async () => {
             try {
                 const res = await axios.get('/api/doctors')
-                setDoctors(res.data)
+                setDoctors(res.data.fetch)
                 console.log(res);
             } catch (error) {
                 console.log(error)
@@ -57,9 +57,9 @@ const Doctors = () => {
                             <option value="Oncologists">Oncologists</option>
                             <option value="Radiologists">Radiologists</option>
                             <option value="Rheumatologists">Rheumatologists</option>
-                            <option value="General surgeons">General surgeons</option>
-                            <option value="Orthopedic surgeons">Orthopedic surgeons</option>
-                            <option value="Cardiac surgeons">Cardiac surgeons</option>
+                            <option value="General Surgeons">General Surgeons</option>
+                            <option value="Orthopedic Surgeons">Orthopedic Surgeons</option>
+                            <option value="Cardiac Surgeons">Cardiac Surgeons</option>
                             <option value="Anesthesiologists">Anesthesiologists</option>
                         </select>
                         <div className='Qcenter'>
@@ -75,7 +75,7 @@ const Doctors = () => {
                                         <div class="container">
                                             <div class="row">
                                                 <div class="col-sm-1">
-                                                    <img className='pLogo' src={doctor.logo} style={{ width: "100px", height: "100px" , borderRadius :"100px"}} />
+                                                    <img className='pLogo' src={doctor.logo} alt="userlogo" style={{ width: "100px", height: "100px" , borderRadius :"100px"}} />
                                                 </div>
                                                 <div class="col-sm-8 ms-4">
                                                     <div class="row">

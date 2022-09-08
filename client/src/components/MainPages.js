@@ -32,15 +32,17 @@ const MainPages = () => {
     {/* Doctor Routes */}
     <Route path='/doctor' element={<DoctorScheduleHome/>} />
     <Route path='/doctor/addDoctorsSchedule' element={<AddDoctorSchedule/>} />
+    <Route path='/doctor/:dId/doctorSchedules' element={<DoctorScheduleForPatient/>}/>
+    <Route path='/doctors' element={<Doctors />} />
     {/* Pharmacist */}
     <Route path='/pharmacist/' element={<PharmacistHome/>} />
     {/* Profile */}
     <Route path='/profile' element={isLogged&&<Profile />} />
     <Route path='/updateprofile' element={isLogged&&<UpadateProfile />} />
     <Route path='/createQuestion' element={isLogged?<CreateQuestion/>:<Navigate to={'/signin'}/>} />
-    <Route path='/doctors' element={<Doctors />} />
+   
     <Route path='/questionDetails/:qID' element={<QuestionDetails/>} />
-    <Route path='/doctor/:dId/doctorSchedules' element={<DoctorScheduleForPatient/>}/>
+    
     
     </Routes>
   </div>
