@@ -6,6 +6,7 @@ import c from '../../asserts/icons/Clinic.png'
 import d from '../../asserts/icons/Medical Doctor.png'
 import e from '../../asserts/icons/Tags.png'
 import f from '../../asserts/icons/Edit Pie Chart Report.png'
+import Reports from './reports/Reports'
 
 
 const AdminPageShell = () => {
@@ -25,6 +26,7 @@ const AdminPageShell = () => {
         setPharmacyManagement(false)
         setLableManagemnt(false)
         setReports(false)
+      
     }
     const handleUserManagement = () => {
         setAdminDashboard(false)
@@ -34,6 +36,7 @@ const AdminPageShell = () => {
         setPharmacyManagement(false)
         setLableManagemnt(false)
         setReports(false)
+   
     }
     const handleQAManagemnt = () => {
         setAdminDashboard(false)
@@ -43,6 +46,7 @@ const AdminPageShell = () => {
         setPharmacyManagement(false)
         setLableManagemnt(false)
         setReports(false)
+  
     }
     const handlePharmacyManagement = () => {
         setAdminDashboard(false)
@@ -52,6 +56,7 @@ const AdminPageShell = () => {
         setPharmacyManagement(true)
         setLableManagemnt(false)
         setReports(false)
+     
     }
     const handleDoctorManagemnt = () => {
         setAdminDashboard(false)
@@ -61,6 +66,7 @@ const AdminPageShell = () => {
         setPharmacyManagement(false)
         setLableManagemnt(false)
         setReports(false)
+     
     }
     const handleLableManagemnt = () => {
         setAdminDashboard(false)
@@ -70,6 +76,7 @@ const AdminPageShell = () => {
         setPharmacyManagement(false)
         setLableManagemnt(true)
         setReports(false)
+      
     }
     const handleReports = () => {
         setAdminDashboard(false)
@@ -79,18 +86,19 @@ const AdminPageShell = () => {
         setPharmacyManagement(false)
         setLableManagemnt(false)
         setReports(true)
+     
     }
     return (
         <div>
             <div className='Abody' >
                 <div className='Aleft'>
-                    <div className={AdminDashBoard ? 'select' : 'unselect'}><img src={u} />Admin Dashboard</div>
-                    <div className={userManagement ? 'select' : 'unselect'}><img src={u} />User Management</div>
-                    <div className={qaManagement ? 'select' : 'unselect'}><img src={a} />Q&A Management</div>
-                    <div className={pharmacyManagement ? 'select' : 'unselect'}><img src={c} />Pharmacy Management</div>
-                    <div className={doctorManagement ? 'select' : 'unselect'}><img src={d} />Doctor Management</div>
-                    <div className={lableManagemnt ? 'select' : 'unselect'}><img src={e} />Lable Management</div>
-                    <div className={reports ? 'select' : 'unselect'}><img src={f} />Reports</div>
+                    <div onClick={handleAdminDashBoard} className={AdminDashBoard ? 'select' : 'unselect'}><img src={u} />Admin Dashboard</div>
+                    <div onClick={handleUserManagement} className={userManagement ? 'select' : 'unselect'}><img src={u} />User Management</div>
+                    <div onClick={handleQAManagemnt} className={qaManagement ? 'select' : 'unselect'}><img src={a} />Q&A Management</div>
+                    <div onClick={handlePharmacyManagement} className={pharmacyManagement ? 'select' : 'unselect'}><img src={c} />Pharmacy Management</div>
+                    <div onClick={handleDoctorManagemnt} className={doctorManagement ? 'select' : 'unselect'}><img src={d} />Doctor Management</div>
+                    <div onClick={handleLableManagemnt} className={lableManagemnt ? 'select' : 'unselect'}><img src={e} />Lable Management</div>
+                    <div onClick={handleReports} className={reports ? 'select' : 'unselect'}><img src={f} />Reports</div>
 
                 </div>
                 <div className='ARight'>
@@ -110,7 +118,7 @@ const AdminPageShell = () => {
                         doctorManagement && <></>
                     }
                     {
-                        reports && <></>
+                        reports && <><Reports/></>
                     }
                 </div>
             </div>
