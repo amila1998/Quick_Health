@@ -12,23 +12,47 @@ const Questions = () => {
 
 const navigate = useNavigate();
 const [questions,setQuestions]=useState([]);
+const [callback,setCallback]=useState(true);
+const [search,setSearch]=useState('');
+console.log("🚀 ~ file: Questions.js ~ line 17 ~ Questions ~ search", search)
+const [showBtn,setShowButton]=useState(false)
+
+const handleSearch=(e)=>{
+  setSearch(e.target.value)
+  setShowButton(true)
+}
+
+const handleResetSearch=(e)=>{
+  setSearch(e.target.value='')
+  setShowButton(false)
+  setCallback(true)
+}
+
+
+const handleOnClickSearch = ()=>{
+  setCallback(true)
+}
 
 
 useEffect(() => {
 
   const getAllQuestions = async()=>{
-    try {
-      const res = await axios.get('/api/questions/AllQuestions')
-      setQuestions(res.data.questions)
-    } catch (error) {
-      console.log("🚀 ~ file: Questions.js ~ line 17 ~ getAllQuestions ~ error", error)
-      
+    if(callback){
+      try {
+        const res = await axios.get(`/api/questions/AllQuestions?keyword=${search}`)
+        setQuestions(res.data.questions)
+      } catch (error) {
+        console.log("🚀 ~ file: Questions.js ~ line 17 ~ getAllQuestions ~ error", error)
+        
+      }
+      setCallback(false)
     }
+   
   }
 
   getAllQuestions();
   
-}, [])
+}, [callback])
 
 
   const navigateToCreateQuestion =()=>{
@@ -38,8 +62,12 @@ useEffect(() => {
     <div>
       <div className='Qbody'>
         <div className='QTop'>
-          <div className='QRow1'><input className="inputs" type="text" name="title" placeholder='Search' />
-            <button className="btnOrange"  >Search</button>
+          <div className='QRow1'><input onChange={handleSearch} className="inputs" value={search} type="text" name="search" placeholder='Search' />
+            <button className="btnOrange" onClick={handleOnClickSearch} >Search</button>
+            {
+              showBtn&&<button onClick={handleResetSearch} className="btnRed"  >Reset</button>
+            }
+            
           </div>
           <div className='QRow2 QAlingLeft'> <button className="btnGreen" onClick={navigateToCreateQuestion} >Ask A Question</button>
           </div>
