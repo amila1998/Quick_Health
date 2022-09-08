@@ -41,9 +41,23 @@ const questionController = {
 
     },
     getAllQuestions: async (req, res) => {
+        const query = {};
+        const sort = {};
+
+        if (req.query.keyword) {
+            query.$or = [
+                { "title": { $regex: req.query.keyword, $options: 'i' } }
+            ];
+        }
+        if (req.query.createdAt) {
+            //desc
+            //aces
+            const str = req.query.createdAt.split('=')
+            sort['createdAt'] = str == 'desc' ? -1 : 1
+        }
         try {
 
-            const allQuestions = await Questions.find();
+            const allQuestions = await Questions.find(query).sort(sort);
             res.status(200).json({
                 questions: allQuestions,
                 success: true,
@@ -58,16 +72,16 @@ const questionController = {
             });
         }
     },
-    getQuestionById:async(req,res)=>{
+    getQuestionById: async (req, res) => {
         try {
             const questionID = req.params.qID
 
-            const question= await Questions.findById(questionID)
+            const question = await Questions.findById(questionID)
             res.status(200).json({
                 question,
                 success: true,
             });
-            
+
         } catch (error) {
             console.log("🚀 ~ file: questionsController.js ~ line 65 ~ getQuestionById:async ~ error", error)
             res.status(500).json({
@@ -76,52 +90,52 @@ const questionController = {
             });
         }
     },
-    reportQuestion:async(req,res)=>{
-      try {
-        const {message}=req.body;
-        const questionID = req.params.qID;
-        let existReports=[];
+    reportQuestion: async (req, res) => {
+        try {
+            const { message } = req.body;
+            const questionID = req.params.qID;
+            let existReports = [];
 
-        const question = await Questions.findById(questionID);
+            const question = await Questions.findById(questionID);
 
-        if(!question)
-            return res.status(400).json({ message: "Can't find this question !" });
+            if (!question)
+                return res.status(400).json({ message: "Can't find this question !" });
 
-        for(const rp of question.reports){
-            if(req.user.id==rp.userID)
-                return res.status(400).json({ message: "You are already reported !" });
-            
-            
+            for (const rp of question.reports) {
+                if (req.user.id == rp.userID)
+                    return res.status(400).json({ message: "You are already reported !" });
+
+
+            }
+
+            for (const rp of question.reports) {
+                existReports.push(rp);
+            }
+
+            const user = await User.findById(req.user.id)
+            const newReport = {
+                userID: req.user.id,
+                userName: user.name,
+                message: message,
+                reportedDate: new Date(),
+
+            }
+            existReports.push(newReport);
+
+            await Questions.findByIdAndUpdate({ _id: questionID }, { reports: existReports })
+
+            res.status(200).json({
+                msg: 'This question is successfully reported !',
+                success: true,
+            });
+
+        } catch (error) {
+            console.log("🚀 ~ file: questionsController.js ~ line 83 ~ reportQuestion:async ~ error", error)
+            res.status(500).json({
+                message: error.message,
+                success: false
+            });
         }
-
-        for(const rp of question.reports){
-            existReports.push(rp);
-        }
-
-        const user = await User.findById(req.user.id)
-        const newReport ={
-                userID:req.user.id,
-                userName:user.name,
-                message:message,
-                reportedDate:new Date(),
-
-        }
-        existReports.push(newReport);
-
-        await Questions.findByIdAndUpdate({_id:questionID},{reports:existReports})
-
-        res.status(200).json({
-            msg:'This question is successfully reported !',
-            success: true,
-        });
-        
-      } catch (error) {
-        console.log("🚀 ~ file: questionsController.js ~ line 83 ~ reportQuestion:async ~ error", error)
-        res.status(500).json({
-            message: error.message,
-            success: false
-        });
-      }
 
 
     }
