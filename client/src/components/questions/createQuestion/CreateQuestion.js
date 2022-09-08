@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { GlobalState } from '../../../GlobalState'
 import './createQuestion.css'
@@ -21,15 +21,35 @@ const CreateQuestion = () => {
   const navigate = useNavigate();
   const [body, setBody] = useState('')
   const [lables, setLables] = useState([])
+  const [lables2, setLables2] = useState([])
   const [title, setTitle] = useState('')
   const [token] = state.token
 
   let labletopicArray = [];
 
 
-  const allLables = [
-    'ayurvedic', 'western', 'estern'
-  ]
+  const allLables = []
+
+  for(const lb2 of lables2){
+    allLables.push(lb2.LabelName)
+  }
+
+  
+  useEffect(() => {
+    const getAllLabels = async () => {
+       
+            try {
+                const res = await axios.get("/api/label/")
+                setLables2(res.data.AllLabel)
+            } catch (error) {
+                console.log(error)
+            }
+       
+    }
+    getAllLabels()
+
+}, [])
+
 
   for (const l of allLables) {
     labletopicArray.push({ value: l, label: l })
