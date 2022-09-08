@@ -6,6 +6,7 @@ import c from '../../asserts/icons/Clinic.png'
 import d from '../../asserts/icons/Medical Doctor.png'
 import e from '../../asserts/icons/Tags.png'
 import f from '../../asserts/icons/Edit Pie Chart Report.png'
+import ad from '../../asserts/icons/Admin Settings Male.png'
 import Reports from './reports/Reports'
 import LabelManagement from './LabelManagement/LabelManagement'
 
@@ -93,7 +94,7 @@ const AdminPageShell = () => {
         <div>
             <div className='Abody' >
                 <div className='Aleft'>
-                    <div onClick={handleAdminDashBoard} className={AdminDashBoard ? 'select' : 'unselect'}><img src={u} />Admin Dashboard</div>
+                    <div onClick={handleAdminDashBoard} className={AdminDashBoard ? 'select' : 'unselect'}><img src={ad} />Admin Dashboard</div>
                     <div onClick={handleUserManagement} className={userManagement ? 'select' : 'unselect'}><img src={u} />User Management</div>
                     <div onClick={handleQAManagemnt} className={qaManagement ? 'select' : 'unselect'}><img src={a} />Q&A Management</div>
                     <div onClick={handlePharmacyManagement} className={pharmacyManagement ? 'select' : 'unselect'}><img src={c} />Pharmacy Management</div>

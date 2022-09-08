@@ -97,7 +97,7 @@ const CreateQuestion = () => {
       <div className="layout">
         <ToastContainer />
         <div className='NQBoday'>
-          <h2 className="brand-title">Ask A Question</h2><hr /> <br />
+          <h2 className="brand-title">Ask Question</h2><hr /> <br />
           <lable>Title :</lable>  <br />
           <input className="inputs" onChange={titleHandleChange} placeholder></input>
           <br />  <br />

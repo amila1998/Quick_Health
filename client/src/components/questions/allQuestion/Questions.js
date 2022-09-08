@@ -14,7 +14,6 @@ const navigate = useNavigate();
 const [questions,setQuestions]=useState([]);
 const [callback,setCallback]=useState(true);
 const [search,setSearch]=useState('');
-console.log("🚀 ~ file: Questions.js ~ line 17 ~ Questions ~ search", search)
 const [showBtn,setShowButton]=useState(false)
 
 const handleSearch=(e)=>{
@@ -69,7 +68,7 @@ useEffect(() => {
             }
             
           </div>
-          <div className='QRow2 QAlingLeft'> <button className="btnGreen" onClick={navigateToCreateQuestion} >Ask A Question</button>
+          <div className='QRow2 QAlingLeft'> <button className="btnGreen" onClick={navigateToCreateQuestion} >Ask Question</button>
           </div>
         </div>
 
