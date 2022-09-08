@@ -1,0 +1,24 @@
+.rBody{
+    overflow-y:hidden;
+    margin: auto;
+    text-align: center;
+    display: table;
+}
+
+.rRow{
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.rBody button{
+    width: 100% !important;
+
+}
+.rRow2{
+    width: 100%;
+    align-items: right;
+    justify-content: right;
+    display: flex;
+    right: 0;
+}
+

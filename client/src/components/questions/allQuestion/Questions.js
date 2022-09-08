@@ -12,7 +12,7 @@ const Questions = () => {
 
 const navigate = useNavigate();
 const [questions,setQuestions]=useState([]);
-console.log("🚀 ~ file: Questions.js ~ line 11 ~ Questions ~ questions", questions)
+
 
 useEffect(() => {
 
