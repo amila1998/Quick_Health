@@ -24,6 +24,7 @@ const style = {
     position: 'absolute',
     top: '50%',
     left: '50%',
+    border:'2px read',
     borderRadius: "50px",
     transform: 'translate(-50%, -50%)',
     width: 400,
@@ -205,7 +206,7 @@ const QuestionDetails = () => {
                                         aria-describedby="modal-modal-description"
                                     >
                                         <Box sx={style}>
-                                            <h2 className='brand-title'>Report A Question</h2>
+                                            <h2 className='brand-title'>Report Question</h2>
 
                                             <hr />
                                             <textarea className='inputs' rows='10' name='message' onChange={onChnageReportMessage} placeholder='Please enter reason here....'></textarea><br /><br />
