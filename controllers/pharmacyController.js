@@ -34,6 +34,20 @@ const pharmacyController={
             }); 
         }
     },
+    getOne:async(req,res)=>{
+        try {
+            const pharmacy = await Pharmacy.find({"UserID":req.params.id});
+            res.status(200).json({ 
+                pharmacy,
+                success: true
+            })                
+        } catch (error) {
+            res.status(500).json({ 
+                msg: error.message ,
+                success: false
+            }); 
+        }
+    }
 
 }
 module.exports = pharmacyController;

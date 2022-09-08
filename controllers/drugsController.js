@@ -34,6 +34,7 @@ const drugsController={
             }); 
         }
     },
+    
 
 }
 module.exports = drugsController;
