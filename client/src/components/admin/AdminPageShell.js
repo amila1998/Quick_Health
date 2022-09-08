@@ -8,6 +8,7 @@ import e from '../../asserts/icons/Tags.png'
 import f from '../../asserts/icons/Edit Pie Chart Report.png'
 import ad from '../../asserts/icons/Admin Settings Male.png'
 import Reports from './reports/Reports'
+import LabelManagement from './LabelManagement/LabelManagement'
 
 
 const AdminPageShell = () => {
@@ -120,6 +121,9 @@ const AdminPageShell = () => {
                     }
                     {
                         reports && <><Reports/></>
+                    }
+                    {
+                        lableManagemnt && <><LabelManagement></LabelManagement></>
                     }
                 </div>
             </div>
