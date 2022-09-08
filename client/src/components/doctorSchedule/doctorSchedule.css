@@ -65,6 +65,21 @@
   transition: all 0.3s ease-in-out;
 }
 
+.doctorScheduleReportBtn {
+  height: 42px;
+  width: 300px;
+  font-size: 16px;
+  font-weight: bolder;
+  color: var(--white);
+  background: var(--btnOrange);
+  outline: none;
+  border-radius: 100px;
+  border-color: var(--white);
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
 .layout .input input[type="text"] {
   margin-left: 30px;
   height: 45px;
