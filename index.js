@@ -45,6 +45,8 @@ const uploadDrugRoutes = require("./routes/uploadDrugPicture");
 app.use('/api', uploadDrugRoutes);
 const doctorScheduleRoutes = require("./routes/doctorScheduleRoutes");
 app.use(doctorScheduleRoutes);
+const labelRoutes = require("./routes/labelRoutes");
+app.use(labelRoutes);
 
 
 if (process.env.NODE_ENV === 'production') {

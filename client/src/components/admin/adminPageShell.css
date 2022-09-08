@@ -21,6 +21,7 @@
 }
 
 .select{
+    cursor: pointer;
     padding: 20px;
     background-color: var(--select);
     font-weight: 700;
@@ -30,6 +31,7 @@
 }
 
 .unselect{
+    cursor: pointer;
     padding: 20px; 
     font-weight: 700;
     color: var(--white);
