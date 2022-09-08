@@ -5,9 +5,11 @@ const admin = require('../middlewares/admin')
 const doctor = require('../middlewares/doctor');
 const doctorScheduleController = require("../controllers/doctorScheduleController");
 
-route.post("/doctor/addDoctorsSchedule"  , auth , doctor ,  doctorScheduleController.addDoctorSchedule);
-route.get("/doctor/" , auth , doctor , doctorScheduleController.getADoctorSchedules);
-route.delete("/doctor/deleteADoctorSchedule/:id" , auth , doctor , doctorScheduleController.deleteDoctorSchedule);
-
+route.post("/api/doctor/addDoctorsSchedule"  , auth , doctor ,  doctorScheduleController.addDoctorSchedule);
+route.get("/api/doctor" , auth , doctor , doctorScheduleController.getADoctorSchedules);
+route.delete("/api/doctor/deleteADoctorSchedule/:id" , auth , doctor , doctorScheduleController.deleteDoctorSchedule);
+route.get("/api/doctors" , doctorScheduleController.getAllDoctors );
+route.get("/api/doctor/:id/doctorSchedules" , doctorScheduleController.getADoctorSchedulesForPatient);
+route.get("/api/doctor/:id/doctorDetails" , doctorScheduleController.getDoctorDetailsForPatient);
 
 module.exports = route;

@@ -33,7 +33,7 @@ const Header = () => {
                                 <a className="nav-link linkColor" href="#">Drugs</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link linkColor" href="#">Doctors</a>
+                                <a className="nav-link linkColor" href="/doctors">Doctors</a>
                             </li>
                             {isLogged ?
                                 <>
@@ -59,7 +59,7 @@ const Header = () => {
                             {
                                 isDoctor && <>
                                     <li className="nav-item">
-                                        <a className="nav-link linkColor" href="/doctor/">My Works</a>
+                                        <a className="nav-link linkColor" href="/doctor">My Works</a>
                                     </li>
                                 </>
                             }
