@@ -77,7 +77,7 @@ const Doctors = () => {
                                                 <div class="col-sm-1">
                                                     <img className='pLogo' src={doctor.logo} style={{ width: "100px", height: "100px" , borderRadius :"100px"}} />
                                                 </div>
-                                                <div class="col-sm-6 ms-4">
+                                                <div class="col-sm-8 ms-4">
                                                     <div class="row">
                                                         <div class="col-sm-11 mt-3">
                                                             <div className='doctorName'>Dr. {doctor.name} <br /></div>

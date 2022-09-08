@@ -42,10 +42,10 @@ const AddDoctorSchedule = () => {
                     headers: { Authorization: token }
                 });
                 console.log(res)
-                alert(res.data)
+                //alert(res.data)
                 window.location.href = '/doctor'
             } catch (error) {
-                alert(error.response.data);
+                //alert(error.response.data);
                 console.log(error);
             }
         }
