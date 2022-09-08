@@ -83,13 +83,11 @@ const questionController = {
         let existReports=[];
 
         const question = await Questions.findById(questionID);
-        console.log("🚀 ~ file: questionsController.js ~ line 86 ~ reportQuestion:async ~ question", question.reports)
 
         if(!question)
             return res.status(400).json({ message: "Can't find this question !" });
 
         for(const rp of question.reports){
-            console.log("🚀 ~ file: questionsController.js ~ line 91 ~ reportQuestion:async ~ rp", rp)
             if(req.user.id==rp.userID)
                 return res.status(400).json({ message: "You are already reported !" });
             

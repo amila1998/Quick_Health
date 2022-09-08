@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { Routes, Route, Navigate } from "react-router-dom";
 import { GlobalState } from '../GlobalState';
+import AdminPageShell from './admin/AdminPageShell';
 import AddDoctorSchedule from './doctorSchedule/AddDoctorSchedule';
 import Doctors from './doctorSchedule/Doctors';
 import DoctorScheduleForPatient from './doctorSchedule/DoctorScheduleForPatient';
@@ -24,6 +25,8 @@ const MainPages = () => {
     <div className='main'> 
     <Routes>
     <Route path='/' element={<Questions />} />
+    <Route path='/admin' element={isAdmin&&<AdminPageShell />} />
+
     <Route path='/signin' element={isLogged?<Navigate to={'/'}/>:<Login />} />
     <Route path='/signup' element={isLogged?<Navigate to={'/'}/>:<Register />} />
     {/* Doctor Routes */}
