@@ -57,7 +57,7 @@ const questionController = {
         }
         try {
 
-            const allQuestions = await Questions.find(query).sort(1);
+            const allQuestions = await Questions.find(query);
             res.status(200).json({
                 questions: allQuestions,
                 success: true,
