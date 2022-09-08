@@ -6,6 +6,7 @@ import Doctors from './doctorSchedule/Doctors';
 import DoctorScheduleForPatient from './doctorSchedule/DoctorScheduleForPatient';
 import DoctorScheduleHome from './doctorSchedule/DoctorScheduleHome';
 import Login from './login/Login';
+import PharmacistHome from './pharmacist/pharmacistHome/PharmacistHome';
 import Profile from './profile/Profile';
 import Questions from './questions/allQuestion/Questions';
 import CreateQuestion from './questions/createQuestion/CreateQuestion';
@@ -25,8 +26,12 @@ const MainPages = () => {
     <Route path='/' element={<Questions />} />
     <Route path='/signin' element={isLogged?<Navigate to={'/'}/>:<Login />} />
     <Route path='/signup' element={isLogged?<Navigate to={'/'}/>:<Register />} />
+    {/* Doctor Routes */}
     <Route path='/doctor' element={<DoctorScheduleHome/>} />
     <Route path='/doctor/addDoctorsSchedule' element={<AddDoctorSchedule/>} />
+    {/* Pharmacist */}
+    <Route path='/pharmacist/' element={<PharmacistHome/>} />
+    {/* Profile */}
     <Route path='/profile' element={isLogged&&<Profile />} />
     <Route path='/updateprofile' element={isLogged&&<UpadateProfile />} />
     <Route path='/createQuestion' element={isLogged?<CreateQuestion/>:<Navigate to={'/signin'}/>} />
