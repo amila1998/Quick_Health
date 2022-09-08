@@ -1,0 +1,50 @@
+.Abody {
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.Aleft {
+    width: 30%;
+    margin-right: 10px;
+    background-color: var(--blue);
+}
+
+.ARight {
+    width: 69%;
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 20px;
+    border-radius: 50px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.select{
+    cursor: pointer;
+    padding: 20px;
+    background-color: var(--select);
+    font-weight: 700;
+    color: var(--white);
+    transition: all 0.3s ease-in-out;
+    overflow: hidden;
+}
+
+.unselect{
+    cursor: pointer;
+    padding: 20px; 
+    font-weight: 700;
+    color: var(--white);
+    transition: all 0.3s ease-in-out;
+    overflow: hidden;
+}
+
+.unselect:hover{
+    background-color: var(--selecthover);
+    transition: all 0.3s ease-in-out;
+}
+
+.select img,
+.unselect img{
+    margin-right: 10px;
+}

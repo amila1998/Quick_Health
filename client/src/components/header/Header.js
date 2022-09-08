@@ -51,7 +51,7 @@ const Header = () => {
                                 isAdmin && <>
 
                                     <li className="nav-item">
-                                        <a className="nav-link linkColor" href="#">Admin Dashboard</a>
+                                        <a className="nav-link linkColor" href="/admin">Admin Dashboard</a>
                                     </li>
 
                                 </>
