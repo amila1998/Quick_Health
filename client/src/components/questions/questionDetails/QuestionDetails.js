@@ -209,6 +209,7 @@ const QuestionDetails = () => {
                                             <h2 className='brand-title'>Report Question</h2>
 
                                             <hr />
+                                            <label>Message :</label>
                                             <textarea className='inputs' rows='10' name='message' onChange={onChnageReportMessage} placeholder='Please enter reason here....'></textarea><br /><br />
                                             <div>
                                                 <div className='btncenter'>
