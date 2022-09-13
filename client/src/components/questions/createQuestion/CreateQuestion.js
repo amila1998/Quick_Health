@@ -118,13 +118,13 @@ const CreateQuestion = () => {
         <ToastContainer />
         <div className='NQBoday'>
           <h2 className="brand-title">Ask Question</h2><hr /> <br />
-          <lable>Title :</lable>  <br />
-          <input className="inputs" onChange={titleHandleChange} placeholder></input>
+          <lable>Title * : </lable>  <br />
+          <input className="inputs" onChange={titleHandleChange} placeholder='Enter your question here...'></input>
           <br />  <br />
           <lable>Body :</lable>  <br />
           <TextEditor initialValue='' setBody={setBody} />
           <br />
-          <lable>Lables :</lable>  <br />
+          <lable>Labels :</lable>  <br />
           <div className='inputs2'>
             <Select
               isMulti
