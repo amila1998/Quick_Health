@@ -63,8 +63,10 @@ const Profile = () => {
     }
     return (
         <div>
-            <div className='layout'>
             <ToastContainer />
+            <div className='layoutP'>
+               <div className='pBodyM'>
+                <div className='pBodyL'>
                 <div className='Pbody'>
                     <h2 className='brand-title Qleft'>Profile</h2>
                     <hr />
@@ -98,11 +100,27 @@ const Profile = () => {
                             }
                         </div>
                     </div>
-                    <div className='pBtn'>
-                        <button className="btnOrange" onClick={handleUpdate} >Update</button><br /><br />
-                        <button className="btnRed" onClick={handleLogout} >Sign Out</button>
-                    </div>
                 </div>
+                </div>
+                <div className='pBodyR'>
+                <h3 className='brand-title Qleft'>Navigations</h3><hr/><br/>
+                <div  onClick={handleUpdate} className="pNavs">Update Profile</div>
+                {
+                    isDoctor&&<>
+                    
+                    </>
+                }
+                  {
+                    isPharmacist&&<>
+                    
+                    </>
+                }
+
+                <div onClick={handleLogout} className='pNavsSignOut'>Sign Out</div>
+                </div>
+                         
+               </div>
+
             </div>
         </div>
     )
