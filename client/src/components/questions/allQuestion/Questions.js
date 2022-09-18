@@ -38,7 +38,7 @@ useEffect(() => {
   const getAllQuestions = async()=>{
     if(callback){
       try {
-        const res = await axios.get(`/api/questions/AllQuestions?keyword=${search}`)
+        const res = await axios.get(`/api/questions/AllQuestions?keyword=${search}&createdAt=a`)
         setQuestions(res.data.questions)
       } catch (error) {
         console.log("🚀 ~ file: Questions.js ~ line 17 ~ getAllQuestions ~ error", error)
