@@ -18,13 +18,15 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import Select from "react-select";
 import InputLabel from "@mui/material/InputLabel";
+import Loading from '../../utils/loading/Loading';
+import Share from '../../utils/Share/Share';
 
 
 const style = {
     position: 'absolute',
     top: '50%',
     left: '50%',
-    border:'2px read',
+    border: '2px read',
     borderRadius: "50px",
     transform: 'translate(-50%, -50%)',
     width: 400,
@@ -43,21 +45,47 @@ const QuestionDetails = () => {
     const params = useParams()
     const questionID = params.qID
     const [questionDetails, setQuestionDetails] = useState('');
+    console.log("🚀 ~ file: QuestionDetails.js ~ line 46 ~ QuestionDetails ~ questionDetails", questionDetails)
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => {
         setOpen(false);
         setMessage('')
     }
+    const [openShare, setOpenShare] = useState(false);
+    const handleOpenShare = () => setOpenShare(true);
+    const handleCloseShare = () => {
+        setOpenShare(false);
+        setMessage('')
+    }
+    const [openReply, setOpenReply] = useState(false);
+    const handleOpenReply = () => setOpenReply(true);
+    const handleCloseReply = () => {
+        setOpenReply(false);
+
+    }
     const [message, setMessage] = useState('');
+    const [isLoading, setisLoading] = useState(false)
+    const url = window.location.href
+    const [copied, setCopied] = useState(false);
 
-
+    const copy = ()=> {
+        const el = document.createElement("input");
+        
+        el.value = window.location.href;
+        document.body.appendChild(el);
+        setCopied(true);
+        console.log("🚀 ~ file: QuestionDetails.js ~ line 68 ~ copy ~ el", el.value)
+      }
 
     useEffect(() => {
         const getQuestionDetails = async () => {
+            
             try {
+        
                 const res = await axios.get(`/api/questions/questionDetailsByID/${questionID}`)
                 setQuestionDetails(res.data.question)
+   
             } catch (error) {
                 console.log("🚀 ~ file: QuestionDetails.js ~ line 14 ~ getQuestionDetails ~ error", error)
 
@@ -88,7 +116,7 @@ const QuestionDetails = () => {
 
 
 
-    if (questionDetails) {
+    if (questionDetails&&isLoading===false) {
 
         var codeBlock = questionDetails.body;
 
@@ -120,8 +148,25 @@ const QuestionDetails = () => {
 
     }
 
+    const handleShare =()=>{
+        handleOpenShare();
+    }
+
+    const handleReply =()=>{
+        handleOpenReply();
+    }
+
+
     const handleCancel = () => {
         handleClose()
+    }
+
+    const handleCancelReply = () => {
+        handleCloseReply()
+    }
+
+    const handleCancelShare = () => {
+        handleCloseShare()
     }
 
     const onChnageReportMessage = (e) => {
@@ -136,7 +181,7 @@ const QuestionDetails = () => {
             })
             console.log("🚀 ~ file: QuestionDetails.js ~ line 142 ~ handleReportSubmit ~ res", res)
             toast.success(res.data.msg, {
-                
+
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -145,7 +190,7 @@ const QuestionDetails = () => {
                 draggable: true,
                 progress: undefined,
             });
-        handleClose();
+            handleClose();
 
         } catch (error) {
             console.log("🚀 ~ file: QuestionDetails.js ~ line 14 ~ getQuestionDetails ~ error", error)
@@ -162,73 +207,116 @@ const QuestionDetails = () => {
 
     }
 
-
     return (
         <div>
-            <ToastContainer />
-            <div>
-                <div className='Qcard'>
-                    <div className='cTitle' >{questionDetails.title}</div>
-                    <div id="wrapper"></div>
-                    <div className='cLables'>
-                        {
+            <ToastContainer />  
+                <div>
+                    <div className='Qcard'>
+                        <div className='cTitle' >{questionDetails.title}</div>
+                        <div id="wrapper"></div>
+                        <div className='cLables'>
+                            {
 
-                            allLbles.map(lable => {
-                                return <Lable key={lable} lable={lable}
-                                />
-                            })
+                                allLbles.map(lable => {
+                                    return <Lable key={lable} lable={lable}
+                                    />
+                                })
 
-                        }
-                    </div><br /><br />
-                    <hr></hr>
-                    <div className='cBottom'>
-                        <div className='cbBottom'>
-                            <div className='mar share fW cMpointer'><img src={sharei} /> Share</div>
-                            <div className='mar reply fW cMpointer'><img className='im' src={replyi} />Reply</div>
-                        </div>
-                        {
-                            editMode ?
-                                <>
-                                    <div className='cbBottom'>
-                                        <div className='mar edit fW cMpointer'><img src={editi} /> Edit</div>
-                                        <div className='mar report fW cMpointer' ><img src={deletei} />Delete</div>
-                                    </div>
-                                </> :
-                                <>
-                                    <div className='mar report fW cMpointer' onClick={handleReport}>
-                                        <img src={reporti} />
-                                        Report
-                                    </div>
-                                    <Modal
-                                        open={open}
-                                        onClose={handleClose}
-                                        aria-labelledby="modal-modal-title"
-                                        aria-describedby="modal-modal-description"
-                                    >
-                                        <Box sx={style}>
-                                            <h2 className='brand-title'>Report Question</h2>
-
-                                            <hr />
-                                            <label>Message :</label>
-                                            <textarea className='inputs' rows='10' name='message' onChange={onChnageReportMessage} placeholder='Please enter reason here....'></textarea><br /><br />
-                                            <div>
-                                                <div className='btncenter'>
-                                                    <button className='btnGreen' onClick={handleReportSubmit}>Report</button>
-                                                    <button className='btnRed' onClick={handleCancel}>Cancel</button>
+                            }
+                        </div><br /><br />
+                        <hr></hr>
+                        <div className='cBottom'>
+                            <div className='cbBottom'>
+                                <div className='mar share fW cMpointer' onClick={handleShare}><img src={sharei} /> Share</div>
+                                <Modal
+                                            open={openShare}
+                                            onClose={handleCloseShare}
+                                            aria-labelledby="modal-modal-title"
+                                            aria-describedby="modal-modal-description"
+                                        >
+                                            <Box sx={style}>
+                                                <h2 className='brand-title'>Share With Others</h2>
+                                                <hr />
+                                                {/* <div className='btncenter'>
+                                                <button onClick={copy}>{!copied ? "Copy link" : "Copied!"}</button>
                                                 </div>
-                                            </div><br/>
-                                        
-                                        </Box>
-                                    </Modal>
-                                </>
-                        }
-
+                                                <hr /> */}
+                                                <Share url={url}/>
+                                                <div>
+                                                <br />
+                                                    <div className='btncenter'>
+                                                        <button className='btnRed' onClick={handleCancelShare}>Cancel</button>
+                                                    </div>
+                                                </div><br />
+                                            </Box>
+                                        </Modal>
+                                <div className='mar reply fW cMpointer' onClick={handleReply}><img className='im' src={replyi} />Reply</div>
+                                <Modal
+                                            open={openReply}
+                                            onClose={handleCloseReply}
+                                            aria-labelledby="modal-modal-title"
+                                            aria-describedby="modal-modal-description"
+                                        >
+                                            <Box sx={style}>
+                                                <h2 className='brand-title'>Reply</h2>
+                                                <hr />
+                                             
+                                                <div>
+                                                <br />
+                                                    <div className='btncenter'>
+                                                        <button className='btnRed' onClick={handleCancelReply}>Cancel</button>
+                                                    </div>
+                                                </div><br />
+                                            </Box>
+                                        </Modal>
+                            </div>
+                            {
+                                editMode ?
+                                    <>
+                                        <div className='cbBottom'>
+                                            <div className='mar edit fW cMpointer'><img src={editi} /> Edit</div>
+                                            <div className='mar report fW cMpointer' ><img src={deletei} />Delete</div>
+                                        </div>
+                                    </> :
+                                    <>
+                                        <div className='mar report fW cMpointer' onClick={handleReport}>
+                                            <img src={reporti} />
+                                            Report
+                                        </div>
+                                        <Modal
+                                            open={open}
+                                            onClose={handleClose}
+                                            aria-labelledby="modal-modal-title"
+                                            aria-describedby="modal-modal-description"
+                                        >
+                                            <Box sx={style}>
+                                                <h2 className='brand-title'>Report Question</h2>
+                                                <hr />
+                                                <label>Message :</label>
+                                                <textarea className='inputs' rows='10' name='message' onChange={onChnageReportMessage} placeholder='Please enter reason here....'></textarea><br /><br />
+                                                <div>
+                                                    <div className='btncenter'>
+                                                        <button className='btnGreen' onClick={handleReportSubmit}>Report</button>
+                                                        <button className='btnRed' onClick={handleCancel}>Cancel</button>
+                                                    </div>
+                                                </div><br />
+                                            </Box>
+                                        </Modal>
+                                    </>
+                            }
+                        </div>
                     </div>
                 </div>
-            </div>
-
+                <div className='replyTitle'>
+                    <br />
+                    <h3>Replies ({questionDetails.replies?.length})</h3>
+                    <br />
+                </div>
         </div>
     )
+
+
+    
 }
 
 export default QuestionDetails
