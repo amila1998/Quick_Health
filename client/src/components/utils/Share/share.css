@@ -1,0 +1,9 @@
+.shareIconsB{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.shareIconRow{
+    margin: 5px;
+}
