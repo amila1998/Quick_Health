@@ -1,11 +1,12 @@
 .Phbody{
-    width: 100%;
-    background-color: rgba(255, 255, 255, 0.5);
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.5);
+  /* background-color: brown; */
   height: 100%;
-  padding: 20px;
+  padding: 10px;
   border-radius: 0px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  justify-content: center;
+  /* justify-content: center; */
   display: inline;
 }
 
@@ -49,4 +50,20 @@
     align-items: center;
     flex-wrap: wrap;
 
+}
+.phMain{
+ width: 100%;
+ display:flex;
+ justify-content: space-between;
+}
+.phMainLeft{
+    width: 80%;
+    margin-right: 10px;
+    
+
+}
+.phMainRight{
+    width: 39%;
+    
+    
 }
