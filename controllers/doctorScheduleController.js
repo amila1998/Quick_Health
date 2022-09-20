@@ -37,10 +37,10 @@ const doctorScheduleController = {
         try {
             let doctorId = req.user.id ;
             const fetch = await DoctorSchedule.find({doctorId});
-            res.json(fetch);
 
             res.status(200).json({
                 message: "Doctor Schedules Fetched Success ! ",
+                fetch : fetch,
                 success: true,
             });
 
@@ -55,7 +55,7 @@ const doctorScheduleController = {
     deleteDoctorSchedule : async (req, res) => {
         try {
             const fetch = await DoctorSchedule.findByIdAndDelete(req.params.id);
-            res.json( "Doctor Schedule Deleted Success ! ");
+
 
             res.status(200).json({
                 message: "Doctor Schedule Deleted Success ! ",
@@ -73,11 +73,10 @@ const doctorScheduleController = {
     getAllDoctors : async (req , res) => {
         try {
             const fetch = await User.find({role : 'doctor'})
-            res.json(fetch);
-
 
             res.status(200).json({
                 message: "Doctors Fetched Success ! ",
+                fetch : fetch ,
                 success: true,
             });
 
@@ -93,10 +92,10 @@ const doctorScheduleController = {
         try {
             let doctorId = req.params.id
             const fetch = await DoctorSchedule.find({doctorId});
-            res.json(fetch);
 
             res.status(200).json({
                 message: "Doctor Schedules Fetched Success ! ",
+                fetch : fetch ,
                 success: true,
             });
 
@@ -112,11 +111,10 @@ const doctorScheduleController = {
         try {
             let doctorId = req.params.id
             const fetch = await User.findById(doctorId)
-            res.json(fetch);
-
 
             res.status(200).json({
                 message: "Doctors Fetched Success ! ",
+                fetch : fetch ,
                 success: true,
             });
 

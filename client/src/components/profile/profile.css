@@ -1,47 +1,42 @@
-.Pbody{
+.Pbody {
     width: 100%;
-    background-color: rgba(255, 255, 255, 0.5);
-  height: 100%;
-  padding: 20px;
-  border-radius: 50px;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  justify-content: center;
-  display: inline;
+
 }
 
-.Pdetails{
+.Pdetails {
     justify-content: space-around;
     overflow: auto;
     display: flex;
     flex-wrap: wrap;
 }
 
-.pLogo{
+.pLogo {
     width: 400px;
     height: 400px;
     min-width: 50px;
 
 }
 
-.pL{
+.pL {
     display: inline;
 }
 
-.pRow{
+.pRow {
     display: flex;
     justify-content: space-between;
     text-align: left !important;
     margin-bottom: 5px;
 }
+
 .pRow label {
     margin-right: 10px;
 }
 
-.pifo{
+.pifo {
     font-weight: 500;
 }
 
-.pBtn{
+.pBtn {
     padding: 20px;
     display: flex;
     justify-content: space-around;
@@ -49,4 +44,58 @@
     align-items: center;
     flex-wrap: wrap;
 
+}
+
+.pBodyM {
+    width: 100%;
+    display: flex;
+}
+
+.pBodyL {
+    width: 80%;
+    background-color: rgba(255, 255, 255, 0.5);
+    margin-right: 10px;
+    padding: 20px;
+    border-radius: 50px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    justify-content: center;
+    display: inline;
+}
+
+.pBodyR {
+    background-color: rgba(255, 255, 255, 0.5);
+    width: 19%;
+    padding: 20px;
+    border-radius: 50px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    justify-content: center;
+    display: inline;
+
+}
+
+.pNavsSignOut,
+.pNavs{
+    cursor: pointer;
+    padding: 5px;
+
+
+}
+
+.pNavsSignOut:hover,
+.pNavs:hover{
+    background-color: rgb(223, 237, 248);
+    
+
+}
+
+.pNavsSignOut{
+    color: var(--red);
+}
+
+.pNavs{
+    color: var(--blue);
+}
+
+.layoutP{
+ margin-top: 10px;
 }

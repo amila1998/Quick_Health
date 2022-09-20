@@ -1,27 +1,28 @@
-.report{
+.report {
     color: var(--red);
 }
 
-.share{
-    color:var(--darkBlue)
+.share {
+    color: var(--darkBlue)
 }
 
-.reply{
-    color:var(--btnOrange)
+.reply {
+    color: var(--btnOrange)
 }
 
-.edit{
-    color:var(--btnOrange)
+.edit {
+    color: var(--btnOrange)
 }
 
-.fW{
+.fW {
     font-weight: 700;
 }
 
-.im{
+.im {
     margin-right: 2px;
 }
-.errorMsg{
+
+.errorMsg {
     background-color: var(--red);
     color: var(--white);
     padding: 10px;
@@ -29,9 +30,13 @@
 
 }
 
-.SuccessMsg{
+.SuccessMsg {
     background-color: var(--green);
     color: var(--white);
     padding: 10px;
     text-align: center;
+}
+
+.replyTitle {
+    margin-left: 10px;
 }

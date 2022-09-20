@@ -52,7 +52,7 @@ const questionController = {
         if (req.query.createdAt) {
             //desc
             //aces
-            const str = req.query.createdAt.split('=')
+            const str = req.query.createdAt
             sort['createdAt'] = str == 'desc' ? -1 : 1
         }
         try {

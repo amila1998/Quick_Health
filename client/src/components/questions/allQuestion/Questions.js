@@ -14,7 +14,6 @@ const navigate = useNavigate();
 const [questions,setQuestions]=useState([]);
 const [callback,setCallback]=useState(true);
 const [search,setSearch]=useState('');
-console.log("🚀 ~ file: Questions.js ~ line 17 ~ Questions ~ search", search)
 const [showBtn,setShowButton]=useState(false)
 
 const handleSearch=(e)=>{
@@ -39,7 +38,7 @@ useEffect(() => {
   const getAllQuestions = async()=>{
     if(callback){
       try {
-        const res = await axios.get(`/api/questions/AllQuestions?keyword=${search}`)
+        const res = await axios.get(`/api/questions/AllQuestions?keyword=${search}&createdAt=a`)
         setQuestions(res.data.questions)
       } catch (error) {
         console.log("🚀 ~ file: Questions.js ~ line 17 ~ getAllQuestions ~ error", error)
@@ -69,7 +68,7 @@ useEffect(() => {
             }
             
           </div>
-          <div className='QRow2 QAlingLeft'> <button className="btnGreen" onClick={navigateToCreateQuestion} >Ask A Question</button>
+          <div className='QRow2 QAlingLeft'> <button className="btnGreen" onClick={navigateToCreateQuestion} >Ask Question</button>
           </div>
         </div>
 

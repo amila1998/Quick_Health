@@ -190,9 +190,9 @@ const UpadateProfile = () => {
                                     <option value="Oncologists">Oncologists</option>
                                     <option value="Radiologists">Radiologists</option>
                                     <option value="Rheumatologists">Rheumatologists</option>
-                                    <option value="General surgeons">General surgeons</option>
-                                    <option value="Orthopedic surgeons">Orthopedic surgeons</option>
-                                    <option value="Cardiac surgeons">Cardiac surgeons</option>
+                                    <option value="General Surgeons">General Surgeons</option>
+                                    <option value="Orthopedic Surgeons">Orthopedic Surgeons</option>
+                                    <option value="Cardiac Surgeons">Cardiac Surgeons</option>
                                     <option value="Anesthesiologists">Anesthesiologists</option>
 
                                 </select></div></div>
