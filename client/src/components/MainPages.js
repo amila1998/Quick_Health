@@ -6,6 +6,7 @@ import AddDoctorSchedule from './doctorSchedule/AddDoctorSchedule';
 import Doctors from './doctorSchedule/Doctors';
 import DoctorScheduleForPatient from './doctorSchedule/DoctorScheduleForPatient';
 import DoctorScheduleHome from './doctorSchedule/DoctorScheduleHome';
+import EditDoctorSchedule from './doctorSchedule/EditDoctorSchedule';
 import Login from './login/Login';
 import AddPharmacyDetails from './pharmacist/addPharmacyDetails/AddPharmacyDetails';
 import PharmacistHome from './pharmacist/pharmacistHome/PharmacistHome';
@@ -35,6 +36,7 @@ const MainPages = () => {
     <Route path='/doctor/addDoctorsSchedule' element={<AddDoctorSchedule/>} />
     <Route path='/doctor/:dId/doctorSchedules' element={<DoctorScheduleForPatient/>}/>
     <Route path='/doctors' element={<Doctors />} />
+    <Route path='/doctor/editDoctorSchedule/:doctorScheduleId' element={<EditDoctorSchedule/>} />
     {/* Pharmacist */}
     <Route path='/pharmacist/' element={<PharmacistHome/>} />
     <Route path='/pharmacist/addPharmacyDetails' element={<AddPharmacyDetails/>} />

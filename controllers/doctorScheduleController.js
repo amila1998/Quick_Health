@@ -152,6 +152,26 @@ const doctorScheduleController = {
                 success: false
             });
         }
+    } ,
+
+    getADoctorSchedule : async ( req , res ) => {
+        try {
+
+            let doctorScheduleId = req.params.id ;
+
+            const fetch = await DoctorSchedule.findById(doctorScheduleId);
+
+            res.status(200).json({ 
+                msg: "Fetched a doctor schedule success." ,
+                fetch : fetch    
+            });
+
+        } catch (error) {
+            res.status(500).json({
+                msg: error.message,
+                success: false
+            });
+        }
     }
 };
 

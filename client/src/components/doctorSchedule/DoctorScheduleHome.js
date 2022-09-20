@@ -74,7 +74,7 @@ function DoctorScheduleHome() {
   }
 
   const editDoctorSchedule = (doctorScheduleId) => {
-    navigate(`/doctor/editADoctorSchedule/${doctorScheduleId}`)
+    navigate(`/doctor/editDoctorSchedule/${doctorScheduleId}`)
   }
 
   const addNewVisit = () => {
@@ -151,7 +151,7 @@ function DoctorScheduleHome() {
                 </div>
                 <div class="col-sm-2 ">
                   <div class="row">
-                    <button className="editBtn" >Edit</button>
+                    <button className="editBtn" onClick={() => editDoctorSchedule(doctorSchedule._id)} >Edit</button>
                   </div>
                   <div class="row">
                     <button className="deleteBtn" onClick={handleOpen}>Delete</button>
