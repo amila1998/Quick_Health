@@ -65,8 +65,11 @@ const Header = () => {
                             }
                             {
                                 isPharmacist && <>
+                                {/* <li className="nav-item">
+                                <a className="nav-link linkColor" href="#">Drugs</a>
+                               </li> */}
                                     <li className="nav-item">
-                                        <a className="nav-link linkColor" href="#">My Sellers</a>
+                                        <a className="nav-link linkColor" href="/pharmacist/addDrugsDetails">My Sellers</a>
                                     </li>
                                 </>
                             }

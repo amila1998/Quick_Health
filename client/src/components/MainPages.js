@@ -7,8 +7,10 @@ import Doctors from './doctorSchedule/Doctors';
 import DoctorScheduleForPatient from './doctorSchedule/DoctorScheduleForPatient';
 import DoctorScheduleHome from './doctorSchedule/DoctorScheduleHome';
 import Login from './login/Login';
+import AddDrugsDetails from './pharmacist/addDrugsDetails/AddDrugsDetails';
 import AddPharmacyDetails from './pharmacist/addPharmacyDetails/AddPharmacyDetails';
 import PharmacistHome from './pharmacist/pharmacistHome/PharmacistHome';
+import PharmacyDrugsList from './pharmacist/pharmacyDrugsList/PharmacyDrugsList';
 import Profile from './profile/Profile';
 import Questions from './questions/allQuestion/Questions';
 import CreateQuestion from './questions/createQuestion/CreateQuestion';
@@ -36,6 +38,8 @@ const MainPages = () => {
     {/* Pharmacist */}
     <Route path='/pharmacist/' element={<PharmacistHome/>} />
     <Route path='/pharmacist/addPharmacyDetails' element={<AddPharmacyDetails/>} />
+    <Route path='/pharmacist/pharmacyDrugsList' element={<PharmacyDrugsList/>} />
+    <Route path='/pharmacist/addDrugsDetails' element={<AddDrugsDetails/>} />
     {/* Profile */}
     <Route path='/profile' element={isLogged&&<Profile />} />
     <Route path='/updateprofile' element={isLogged&&<UpadateProfile />} />

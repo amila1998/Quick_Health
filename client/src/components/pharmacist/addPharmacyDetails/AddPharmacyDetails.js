@@ -52,7 +52,7 @@ const AddPharmacyDetails = () => {
                     draggable: true,
                     progress: undefined,
                   });
-                window.location.href = '/pharmacist'
+                // window.location.href = '/pharmacist'
             } catch (err) {
                 console.log(err);
                 toast.error(err.response.data.msg, {
@@ -78,7 +78,7 @@ const AddPharmacyDetails = () => {
   return (
       <div className="layout">
             <ToastContainer />
-          <form className="addDoctorScheduleLayout" controlId="formBasicEmail" action="">
+          <form  controlId="formBasicEmail" action="">
               <h2 className="brand-title" style={{ fontWeight: "bolder", fontSize: "35px" }}>Pharmacy Details</h2>
               <div className="input">
                   <br />
