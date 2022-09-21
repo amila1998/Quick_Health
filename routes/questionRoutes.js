@@ -12,6 +12,7 @@ route.post("/api/questions/createQuestion",auth, questionsController.createQuest
 route.get("/api/questions/AllQuestions", questionsController.getAllQuestions);
 route.get("/api/questions/questionDetailsByID/:qID", questionsController.getQuestionById);
 route.post("/api/question/report/:qID",auth, questionsController.reportQuestion);
+route.post("/api/question/reply/:qID",auth, questionsController.replyToQuestion);
 
 
 
