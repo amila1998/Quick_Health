@@ -138,7 +138,60 @@ const questionController = {
         }
 
 
-    }
+    },
+    replyToQuestion: async (req, res) => {
+        try {
+            const { replyBodyMsg } = req.body;
+                
+            const questionID = req.params.qID;
+            let existReplies = [];
+
+
+            if (!replyBodyMsg)
+                return res.status(400).json({ message: "Please enter reply message." });
+
+            const question = await Questions.findById(questionID);
+
+            if (!question)
+                return res.status(400).json({ message: "Can't find this question !" });
+
+
+            if (question.replies != 0) {
+                for (const rr of question.replies) {
+                    existReplies.push(rr)
+
+                }
+            }
+            const user = await User.findById(req.user.id)
+            const newReply = {
+                userID: user._id,
+                replyBody: replyBodyMsg,
+                userName: user.name,
+                createdDate: new Date(),
+                updatedDate: new Date(),
+                isDeleted:0,
+            }
+
+            existReplies.push(newReply)
+
+            await Questions.findByIdAndUpdate({ _id: questionID }, { replies: existReplies })
+
+            res.status(200).json({
+                msg: 'Reply Submitted Successfully ! ',
+                success: true,
+            });
+
+
+
+        } catch (error) {
+            console.log("🚀 ~ file: questionsController.js ~ line 146 ~ replyToQuestion:async ~ error", error)
+            res.status(500).json({
+                message: error.message,
+                success: false
+            });
+        }
+
+    },
 
 };
 

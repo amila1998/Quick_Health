@@ -68,32 +68,37 @@ const QuestionDetails = () => {
     const [isLoading, setisLoading] = useState(false)
     const url = window.location.href
     const [copied, setCopied] = useState(false);
+    const [replyBody, setReplyBody] = useState('')
+    const [callback, setCallback] = useState(true)
 
-    const copy = ()=> {
+    const copy = () => {
         const el = document.createElement("input");
-        
+
         el.value = window.location.href;
         document.body.appendChild(el);
         setCopied(true);
         console.log("🚀 ~ file: QuestionDetails.js ~ line 68 ~ copy ~ el", el.value)
-      }
+    }
 
     useEffect(() => {
         const getQuestionDetails = async () => {
-            
-            try {
-        
-                const res = await axios.get(`/api/questions/questionDetailsByID/${questionID}`)
-                setQuestionDetails(res.data.question)
-   
-            } catch (error) {
-                console.log("🚀 ~ file: QuestionDetails.js ~ line 14 ~ getQuestionDetails ~ error", error)
+if(callback){
+    try {
 
-            }
+        const res = await axios.get(`/api/questions/questionDetailsByID/${questionID}`)
+        setQuestionDetails(res.data.question)
+        setCallback(false)
 
+    } catch (error) {
+        console.log("🚀 ~ file: QuestionDetails.js ~ line 14 ~ getQuestionDetails ~ error", error)
+
+    }
+
+}
+           
         }
         getQuestionDetails()
-    }, [questionID])
+    }, [questionID,callback])
 
 
 
@@ -116,7 +121,7 @@ const QuestionDetails = () => {
 
 
 
-    if (questionDetails&&isLoading===false) {
+    if (questionDetails && isLoading === false) {
 
         var codeBlock = questionDetails.body;
 
@@ -148,11 +153,11 @@ const QuestionDetails = () => {
 
     }
 
-    const handleShare =()=>{
+    const handleShare = () => {
         handleOpenShare();
     }
 
-    const handleReply =()=>{
+    const handleReply = () => {
         handleOpenReply();
     }
 
@@ -179,7 +184,6 @@ const QuestionDetails = () => {
             const res = await axios.post(`/api/question/report/${questionID}`, { message }, {
                 headers: { Authorization: token }
             })
-            console.log("🚀 ~ file: QuestionDetails.js ~ line 142 ~ handleReportSubmit ~ res", res)
             toast.success(res.data.msg, {
 
                 position: "top-right",
@@ -191,10 +195,20 @@ const QuestionDetails = () => {
                 progress: undefined,
             });
             handleClose();
+            setCallback(true)
 
         } catch (error) {
-            console.log("🚀 ~ file: QuestionDetails.js ~ line 14 ~ getQuestionDetails ~ error", error)
             toast.error(error.response.data.message, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            toast.error(error.response.data.msg, {
+                
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -207,116 +221,174 @@ const QuestionDetails = () => {
 
     }
 
+
+    const handleReplyMsg = (e) => {
+        setReplyBody(e.target.value)
+    }
+    const submitReply = async (e) => {
+       if(!replyBody){
+        toast.error('Please fill the field', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
+       }else if(!token){
+        toast.error('You must signin first !!!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
+       }else{
+        e.preventDefault();
+        try {
+            const res = await axios.post(`/api/question/reply/${questionID}`, { replyBodyMsg:replyBody }, {
+                headers: { Authorization: token }
+            })
+            toast.success(res.data.msg, {
+
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            handleCloseReply();
+            setCallback(true);
+        } catch (error) {
+            console.log("🚀 ~ file: QuestionDetails.js ~ line 218 ~ submitReply ~ error", error)
+            toast.error(error.response.data.message, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        }
+       }
+    }
     return (
         <div>
-            <ToastContainer />  
-                <div>
-                    <div className='Qcard'>
-                        <div className='cTitle' >{questionDetails.title}</div>
-                        <div id="wrapper"></div>
-                        <div className='cLables'>
-                            {
+            <ToastContainer />
+            <div>
+                <div className='Qcard'>
+                    <div className='cTitle' >{questionDetails.title}</div>
+                    <div id="wrapper"></div>
+                    <div className='cLables'>
+                        {
 
-                                allLbles.map(lable => {
-                                    return <Lable key={lable} lable={lable}
-                                    />
-                                })
+                            allLbles.map(lable => {
+                                return <Lable key={lable} lable={lable}
+                                />
+                            })
 
-                            }
-                        </div><br /><br />
-                        <hr></hr>
-                        <div className='cBottom'>
-                            <div className='cbBottom'>
-                                <div className='mar share fW cMpointer' onClick={handleShare}><img src={sharei} /> Share</div>
-                                <Modal
-                                            open={openShare}
-                                            onClose={handleCloseShare}
-                                            aria-labelledby="modal-modal-title"
-                                            aria-describedby="modal-modal-description"
-                                        >
-                                            <Box sx={style}>
-                                                <h2 className='brand-title'>Share With Others</h2>
-                                                <hr />
-                                                {/* <div className='btncenter'>
+                        }
+                    </div><br /><br />
+                    <hr></hr>
+                    <div className='cBottom'>
+                        <div className='cbBottom'>
+                            <div className='mar share fW cMpointer' onClick={handleShare}><img src={sharei} /> Share</div>
+                            <Modal
+                                open={openShare}
+                                onClose={handleCloseShare}
+                                aria-labelledby="modal-modal-title"
+                                aria-describedby="modal-modal-description"
+                            >
+                                <Box sx={style}>
+                                    <h2 className='brand-title'>Share With Others</h2>
+                                    <hr />
+                                    {/* <div className='btncenter'>
                                                 <button onClick={copy}>{!copied ? "Copy link" : "Copied!"}</button>
                                                 </div>
                                                 <hr /> */}
-                                                <Share url={url}/>
-                                                <div>
-                                                <br />
-                                                    <div className='btncenter'>
-                                                        <button className='btnRed' onClick={handleCancelShare}>Cancel</button>
-                                                    </div>
-                                                </div><br />
-                                            </Box>
-                                        </Modal>
-                                <div className='mar reply fW cMpointer' onClick={handleReply}><img className='im' src={replyi} />Reply</div>
-                                <Modal
-                                            open={openReply}
-                                            onClose={handleCloseReply}
-                                            aria-labelledby="modal-modal-title"
-                                            aria-describedby="modal-modal-description"
-                                        >
-                                            <Box sx={style}>
-                                                <h2 className='brand-title'>Reply</h2>
-                                                <hr />
-                                             
-                                                <div>
-                                                <br />
-                                                    <div className='btncenter'>
-                                                        <button className='btnRed' onClick={handleCancelReply}>Cancel</button>
-                                                    </div>
-                                                </div><br />
-                                            </Box>
-                                        </Modal>
-                            </div>
-                            {
-                                editMode ?
-                                    <>
-                                        <div className='cbBottom'>
-                                            <div className='mar edit fW cMpointer'><img src={editi} /> Edit</div>
-                                            <div className='mar report fW cMpointer' ><img src={deletei} />Delete</div>
+                                    <Share url={url} />
+                                    <div>
+                                        <br />
+                                        <div className='btncenter'>
+                                            <button className='btnRed' onClick={handleCancelShare}>Cancel</button>
                                         </div>
-                                    </> :
-                                    <>
-                                        <div className='mar report fW cMpointer' onClick={handleReport}>
-                                            <img src={reporti} />
-                                            Report
+                                    </div><br />
+                                </Box>
+                            </Modal>
+                            <div className='mar reply fW cMpointer' onClick={handleReply}><img className='im' src={replyi} />Reply</div>
+                            <Modal
+                                open={openReply}
+                                onClose={handleCloseReply}
+                                aria-labelledby="modal-modal-title"
+                                aria-describedby="modal-modal-description"
+                            >
+                                <Box sx={style}>
+                                    <h2 className='brand-title'>Reply</h2>
+                                    <hr />
+                                    <textarea className='inputs' onChange={handleReplyMsg} name='replyBody' placeholder='Please enter your answer here....' />
+                                    <div>
+                                        <br />
+                                        <div className='btncenter'>
+                                            <button className='btnGreen' onClick={submitReply}>Confirm</button>
+                                            <button className='btnRed' onClick={handleCancelReply}>Cancel</button>
                                         </div>
-                                        <Modal
-                                            open={open}
-                                            onClose={handleClose}
-                                            aria-labelledby="modal-modal-title"
-                                            aria-describedby="modal-modal-description"
-                                        >
-                                            <Box sx={style}>
-                                                <h2 className='brand-title'>Report Question</h2>
-                                                <hr />
-                                                <label>Message :</label>
-                                                <textarea className='inputs' rows='10' name='message' onChange={onChnageReportMessage} placeholder='Please enter reason here....'></textarea><br /><br />
-                                                <div>
-                                                    <div className='btncenter'>
-                                                        <button className='btnGreen' onClick={handleReportSubmit}>Report</button>
-                                                        <button className='btnRed' onClick={handleCancel}>Cancel</button>
-                                                    </div>
-                                                </div><br />
-                                            </Box>
-                                        </Modal>
-                                    </>
-                            }
+                                    </div><br />
+                                </Box>
+                            </Modal>
                         </div>
+                        {
+                            editMode ?
+                                <>
+                                    <div className='cbBottom'>
+                                        <div className='mar edit fW cMpointer'><img src={editi} /> Edit</div>
+                                        <div className='mar report fW cMpointer' ><img src={deletei} />Delete</div>
+                                    </div>
+                                </> :
+                                <>
+                                    <div className='mar report fW cMpointer' onClick={handleReport}>
+                                        <img src={reporti} />
+                                        Report
+                                    </div>
+                                    <Modal
+                                        open={open}
+                                        onClose={handleClose}
+                                        aria-labelledby="modal-modal-title"
+                                        aria-describedby="modal-modal-description"
+                                    >
+                                        <Box sx={style}>
+                                            <h2 className='brand-title'>Report Question</h2>
+                                            <hr />
+                                            <label>Message :</label>
+                                            <textarea className='inputs' rows='10' name='message' onChange={onChnageReportMessage} placeholder='Please enter reason here....'></textarea><br /><br />
+                                            <div>
+                                                <div className='btncenter'>
+                                                    <button className='btnGreen' onClick={handleReportSubmit}>Report</button>
+                                                    <button className='btnRed' onClick={handleCancel}>Cancel</button>
+                                                </div>
+                                            </div><br />
+                                        </Box>
+                                    </Modal>
+                                </>
+                        }
                     </div>
                 </div>
-                <div className='replyTitle'>
-                    <br />
-                    <h3>Replies ({questionDetails.replies?.length})</h3>
-                    <br />
-                </div>
+            </div>
+            <div className='replyTitle'>
+                <br />
+                <h3>Replies ({questionDetails.replies?.length})</h3>
+                <br />
+            </div>
         </div>
     )
 
 
-    
+
 }
 
 export default QuestionDetails
