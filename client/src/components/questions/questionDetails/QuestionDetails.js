@@ -20,6 +20,7 @@ import Select from "react-select";
 import InputLabel from "@mui/material/InputLabel";
 import Loading from '../../utils/loading/Loading';
 import Share from '../../utils/Share/Share';
+import ReplyCard from '../replyCard/ReplyCard';
 
 
 const style = {
@@ -45,7 +46,7 @@ const QuestionDetails = () => {
     const params = useParams()
     const questionID = params.qID
     const [questionDetails, setQuestionDetails] = useState('');
-    console.log("🚀 ~ file: QuestionDetails.js ~ line 46 ~ QuestionDetails ~ questionDetails", questionDetails)
+    //console.log("🚀 ~ file: QuestionDetails.js ~ line 46 ~ QuestionDetails ~ questionDetails", questionDetails)
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => {
@@ -382,7 +383,15 @@ if(callback){
             <div className='replyTitle'>
                 <br />
                 <h3>Replies ({questionDetails.replies?.length})</h3>
-                <br />
+            </div>
+            <div>
+            {
+                questionDetails.replies?.map(reply => {
+                    return <ReplyCard key={reply._id} reply={reply}
+                     />
+                })
+            } 
+
             </div>
         </div>
     )
