@@ -142,7 +142,7 @@ const questionController = {
     replyToQuestion: async (req, res) => {
         try {
             const { replyBodyMsg } = req.body;
-                
+
             const questionID = req.params.qID;
             let existReplies = [];
 
@@ -169,7 +169,7 @@ const questionController = {
                 userName: user.name,
                 createdDate: new Date(),
                 updatedDate: new Date(),
-                isDeleted:0,
+                isDeleted: 0,
             }
 
             existReplies.push(newReply)
@@ -192,6 +192,25 @@ const questionController = {
         }
 
     },
+    deleteQuestion: async (req, res) => {
+        try {
+            const questionID = req.params.qID;
+
+            await Questions.findByIdAndDelete({ _id: questionID })
+
+            res.status(200).json({
+                msg: 'Question Deleted Successfully ! ',
+                success: true,
+            });
+
+        } catch (error) {
+            console.log("🚀 ~ file: questionsController.js ~ line 199 ~ constdeleteQuestion: ~ error", error)
+            res.status(500).json({
+                message: error.message,
+                success: false
+            });
+        }
+    }
 
 };
 

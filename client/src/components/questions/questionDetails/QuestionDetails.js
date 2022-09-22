@@ -65,6 +65,12 @@ const QuestionDetails = () => {
         setOpenReply(false);
 
     }
+    const [openQuestionDelete, setOpenQuestionDelete] = useState(false);
+    const handleOpenQuestionDelete = () => setOpenQuestionDelete(true);
+    const handleCloseQuestionDelete = () => {
+        setOpenQuestionDelete(false);
+
+    }
     const [message, setMessage] = useState('');
     const [isLoading, setisLoading] = useState(false)
     const url = window.location.href
@@ -83,23 +89,23 @@ const QuestionDetails = () => {
 
     useEffect(() => {
         const getQuestionDetails = async () => {
-if(callback){
-    try {
+            if (callback) {
+                try {
 
-        const res = await axios.get(`/api/questions/questionDetailsByID/${questionID}`)
-        setQuestionDetails(res.data.question)
-        setCallback(false)
+                    const res = await axios.get(`/api/questions/questionDetailsByID/${questionID}`)
+                    setQuestionDetails(res.data.question)
+                    setCallback(false)
 
-    } catch (error) {
-        console.log("🚀 ~ file: QuestionDetails.js ~ line 14 ~ getQuestionDetails ~ error", error)
+                } catch (error) {
+                    console.log("🚀 ~ file: QuestionDetails.js ~ line 14 ~ getQuestionDetails ~ error", error)
 
-    }
+                }
 
-}
-           
+            }
+
         }
         getQuestionDetails()
-    }, [questionID,callback])
+    }, [questionID, callback])
 
 
 
@@ -158,6 +164,10 @@ if(callback){
         handleOpenShare();
     }
 
+    const handleOnclickOepnQuestionDelete = () => {
+        handleOpenQuestionDelete();
+    }
+
     const handleReply = () => {
         handleOpenReply();
     }
@@ -173,6 +183,10 @@ if(callback){
 
     const handleCancelShare = () => {
         handleCloseShare()
+    }
+
+    const handleCancelQuestionDelete = () => {
+        handleCloseQuestionDelete()
     }
 
     const onChnageReportMessage = (e) => {
@@ -209,7 +223,7 @@ if(callback){
                 progress: undefined,
             });
             toast.error(error.response.data.msg, {
-                
+
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -227,30 +241,63 @@ if(callback){
         setReplyBody(e.target.value)
     }
     const submitReply = async (e) => {
-       if(!replyBody){
-        toast.error('Please fill the field', {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-        });
-       }else if(!token){
-        toast.error('You must signin first !!!', {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-        });
-       }else{
-        e.preventDefault();
+        if (!replyBody) {
+            toast.error('Please fill the field', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        } else if (!token) {
+            toast.error('You must signin first !!!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        } else {
+            e.preventDefault();
+            try {
+                const res = await axios.post(`/api/question/reply/${questionID}`, { replyBodyMsg: replyBody }, {
+                    headers: { Authorization: token }
+                })
+                toast.success(res.data.msg, {
+
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+                handleCloseReply();
+                setCallback(true);
+            } catch (error) {
+                console.log("🚀 ~ file: QuestionDetails.js ~ line 218 ~ submitReply ~ error", error)
+                toast.error(error.response.data.message, {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            }
+        }
+    }
+
+
+    const submitQuestionDelete = async () => {
         try {
-            const res = await axios.post(`/api/question/reply/${questionID}`, { replyBodyMsg:replyBody }, {
+            const res = await axios.delete(`/api/question/delete/${questionID}`, {
                 headers: { Authorization: token }
             })
             toast.success(res.data.msg, {
@@ -263,10 +310,11 @@ if(callback){
                 draggable: true,
                 progress: undefined,
             });
-            handleCloseReply();
-            setCallback(true);
+            handleCloseQuestionDelete();
+            window.location.href = "/";
+
         } catch (error) {
-            console.log("🚀 ~ file: QuestionDetails.js ~ line 218 ~ submitReply ~ error", error)
+            console.log("🚀 ~ file: QuestionDetails.js ~ line 302 ~ submitQuestionDelete ~ error", error)
             toast.error(error.response.data.message, {
                 position: "top-right",
                 autoClose: 5000,
@@ -277,7 +325,7 @@ if(callback){
                 progress: undefined,
             });
         }
-       }
+
     }
     return (
         <div>
@@ -348,7 +396,27 @@ if(callback){
                                 <>
                                     <div className='cbBottom'>
                                         <div className='mar edit fW cMpointer'><img src={editi} /> Edit</div>
-                                        <div className='mar report fW cMpointer' ><img src={deletei} />Delete</div>
+
+                                        <div className='mar report fW cMpointer' onClick={handleOnclickOepnQuestionDelete} ><img src={deletei} />Delete</div>
+                                        <Modal
+                                            open={openQuestionDelete}
+                                            onClose={handleCloseQuestionDelete}
+                                            aria-labelledby="modal-modal-title"
+                                            aria-describedby="modal-modal-description"
+                                        >
+                                            <Box sx={style}>
+                                                <h2 className='brand-title'>Delete</h2>
+                                                <hr />
+                                                <h6>Are you sure to Delete this question ?</h6>
+                                                <div>
+                                                    <br />
+                                                    <div className='btncenter'>
+                                                        <button className='btnGreen' onClick={submitQuestionDelete}>Yes</button>
+                                                        <button className='btnRed' onClick={handleCancelQuestionDelete}>No</button>
+                                                    </div>
+                                                </div><br />
+                                            </Box>
+                                        </Modal>
                                     </div>
                                 </> :
                                 <>
@@ -385,12 +453,12 @@ if(callback){
                 <h3>Replies ({questionDetails.replies?.length})</h3>
             </div>
             <div>
-            {
-                questionDetails.replies?.map(reply => {
-                    return <ReplyCard key={reply._id} reply={reply}
-                     />
-                })
-            } 
+                {
+                    questionDetails.replies?.map(reply => {
+                        return <ReplyCard key={reply._id} reply={reply}
+                        />
+                    })
+                }
 
             </div>
         </div>
