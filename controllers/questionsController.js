@@ -210,6 +210,28 @@ const questionController = {
                 success: false
             });
         }
+    },
+    updateQuestion: async (req, res) => {
+        try {
+            const questionID = req.params.qID;
+            const { title, body, lables } = req.body;
+            console.log("🚀 ~ file: questionsController.js ~ line 218 ~ updateQuestion: ~ title", title)
+
+            if (!title)
+                return res.status(400).json({ message: "Please fill in Title field." });
+
+            await Questions.findByIdAndUpdate({ _id: questionID },{'title':title,'body':body,'lables':lables})
+            res.status(200).json({
+                msg: 'Question Update Successfull',
+                success: true,
+            });
+        } catch (error) {
+            console.log("🚀 ~ file: pharmacyController.js ~ line 55 ~ updateQuestion:async ~ error", error)
+            res.status(500).json({
+                msg: error.message,
+                success: false
+            });
+        }
     }
 
 };

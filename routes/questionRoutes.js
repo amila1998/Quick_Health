@@ -14,6 +14,7 @@ route.get("/api/questions/questionDetailsByID/:qID", questionsController.getQues
 route.post("/api/question/report/:qID",auth, questionsController.reportQuestion);
 route.post("/api/question/reply/:qID",auth, questionsController.replyToQuestion);
 route.delete("/api/question/delete/:qID",auth, questionsController.deleteQuestion);
+route.patch("/api/question/questionUpdate/:qID",auth, questionsController.updateQuestion);
 
 
 
