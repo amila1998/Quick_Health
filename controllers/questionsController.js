@@ -232,6 +232,38 @@ const questionController = {
                 success: false
             });
         }
+    },
+    deleteQuestionReply:async(req,res)=>{
+        try {
+            const replyID = req.params.rQID;
+            const questionID = req.params.qID;
+
+            const question = await Questions.findById({'_id':questionID})
+               
+            if (!question)
+                return res.status(400).json({ message: "Can not find the question" });
+
+            let allReplies =[]
+
+            for(const q of question.replies){
+                if (q._id!=replyID) {
+                    allReplies.push(q) 
+                }
+            }
+
+            await Questions.findByIdAndUpdate({ _id: questionID }, { replies: allReplies })
+
+            res.status(200).json({
+                msg: 'Reply Delete Successfull',
+                success: true,
+            });
+        } catch (error) {
+            console.log("🚀 ~ file: questionsController.js ~ line 240 ~ deleteQuestionReply:async ~ error", error)
+            res.status(500).json({
+                msg: error.message,
+                success: false
+            });
+        }
     }
 
 };

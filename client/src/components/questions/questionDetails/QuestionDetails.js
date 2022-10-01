@@ -647,7 +647,7 @@ const QuestionDetails = () => {
             <div>
                 {
                     questionDetails.replies?.map(reply => {
-                        return <ReplyCard key={reply._id} reply={reply}
+                        return <ReplyCard key={reply._id} reply={reply} questionID={questionID} setCallback={setCallback}
                         />
                     })
                 }
