@@ -26,23 +26,17 @@ const questionsSchema = new Schema(
                     type:Number,
                     Default:0,
                 },
-                voteToCorrect: [
+                vote: [
                     {
                         userID: String,
                         userName: String,
                         createdDate:Date,
                         updatedDate:Date,
+                        voteStatus:Number,
                     }
 
                 ],
-                voteToWrong: [
-                    {
-                        userID: String,
-                        userName: String,
-                        createdDate:Date
-                    }
 
-                ],
                 childReplies: [
                     {
                         userID: String,

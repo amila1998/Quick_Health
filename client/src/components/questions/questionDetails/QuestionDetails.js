@@ -21,6 +21,7 @@ import InputLabel from "@mui/material/InputLabel";
 import Loading from '../../utils/loading/Loading';
 import Share from '../../utils/Share/Share';
 import ReplyCard from '../replyCard/ReplyCard';
+import TextEditor from '../../utils/textEditor/TextEditor';
 
 
 const style = {
@@ -34,6 +35,32 @@ const style = {
     bgcolor: 'background.paper',
     boxShadow: 24,
     p: 4,
+
+};
+
+const style2 = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    border: '2px read',
+    borderRadius: "50px",
+    transform: 'translate(-50%, -50%)',
+    width: '90%',
+    height: '90%',
+    margin: 'auto',
+    bgcolor: 'background.paper',
+    boxShadow: 24,
+    p: 4,
+
+
+};
+
+const style3 = {
+    overflowY: 'scroll',
+    height: '60%',
+    zIndex: 5,
+
+
 };
 
 
@@ -71,13 +98,21 @@ const QuestionDetails = () => {
         setOpenQuestionDelete(false);
 
     }
+    const [openEditeQuestion, setOpenEditeQuestion] = useState(false);
+    const handleOpenEditeQuestion = () => { setOpenEditeQuestion(true); setSetExLables(true) };
+    const handleCloseEditeQuestion = () => {
+        setOpenEditeQuestion(false);
+
+    }
+
+
     const [message, setMessage] = useState('');
     const [isLoading, setisLoading] = useState(false)
     const url = window.location.href
     const [copied, setCopied] = useState(false);
     const [replyBody, setReplyBody] = useState('')
     const [callback, setCallback] = useState(true)
-
+    const [setExLables, setSetExLables] = useState(false)
     const copy = () => {
         const el = document.createElement("input");
 
@@ -94,6 +129,8 @@ const QuestionDetails = () => {
 
                     const res = await axios.get(`/api/questions/questionDetailsByID/${questionID}`)
                     setQuestionDetails(res.data.question)
+                    setBody(res.data.question.body)
+                    setTitle(res.data.question.title)
                     setCallback(false)
 
                 } catch (error) {
@@ -164,12 +201,30 @@ const QuestionDetails = () => {
         handleOpenShare();
     }
 
+    const handleEditeQuestion = () => {
+        handleOpenEditeQuestion();
+    }
+
     const handleOnclickOepnQuestionDelete = () => {
         handleOpenQuestionDelete();
     }
 
     const handleReply = () => {
-        handleOpenReply();
+        if (!isLogged) {
+            toast.error('You must Sign in first !', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+
+        } else {
+            handleOpenReply();
+        }
+
     }
 
 
@@ -179,6 +234,10 @@ const QuestionDetails = () => {
 
     const handleCancelReply = () => {
         handleCloseReply()
+    }
+
+    const handleCancelEditQuestion = () => {
+        handleCloseEditeQuestion()
     }
 
     const handleCancelShare = () => {
@@ -327,6 +386,100 @@ const QuestionDetails = () => {
         }
 
     }
+
+    const [body, setBody] = useState('')
+    const [title, setTitle] = useState('')
+    const [selectedValue, setSelectedValue] = useState([]);
+    const [lables, setLables] = useState([])
+    const [lables2, setLables2] = useState([])
+    let option = [];
+    let exAllLabels = []
+
+    if (questionDetails) {
+        for (const lb of questionDetails?.lables) {
+            for (const l of lb.value) {
+                exAllLabels.push(l)
+            }
+        }
+    }
+
+    useEffect(() => {
+        if (setExLables) {
+            for (let index = 0; index < exAllLabels.length; index++) {
+                option.push(exAllLabels[index])
+            }
+            setSelectedValue(option)
+            setLables({value: option})
+            setSetExLables(false)
+        }
+    }, [exAllLabels, setExLables])
+
+    let labletopicArray = [];
+
+    const allLables = []
+
+    for (const lb2 of lables2) {
+        allLables.push(lb2.LabelName)
+    }
+
+    useEffect(() => {
+        const getAllLabels = async () => {
+            try {
+                const res = await axios.get("/api/label/")
+                setLables2(res.data.AllLabel)
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        getAllLabels()
+    }, [])
+
+    for (const l of allLables) {
+        labletopicArray.push({ value: l, label: l })
+    }
+
+    const handleChange = (e) => {
+        setSelectedValue(Array.isArray(e) ? e.map(x => x.value) : []);   
+    }
+
+    useEffect(() => {
+        setLables({value: selectedValue})
+    }, [selectedValue])
+    
+    const questionUpdate = async () => {
+        try {
+            const res = await axios.patch(`/api/question/questionUpdate/${questionID}`,{title,body,lables} ,{
+                headers: { Authorization: token }
+            })
+            toast.success(res.data.msg, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            handleCloseEditeQuestion();
+            setCallback(true)
+        } catch (error) {
+           console.log("🚀 ~ file: QuestionDetails.js ~ line 479 ~ submitQuestionDelete ~ error", error) 
+            toast.error(error.response.data.message, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        }
+    }
+
+    const handleOnChangeTitle =(e)=>{
+        setTitle(e.target.value)
+    }
+
     return (
         <div>
             <ToastContainer />
@@ -336,12 +489,10 @@ const QuestionDetails = () => {
                     <div id="wrapper"></div>
                     <div className='cLables'>
                         {
-
                             allLbles.map(lable => {
                                 return <Lable key={lable} lable={lable}
                                 />
                             })
-
                         }
                     </div><br /><br />
                     <hr></hr>
@@ -395,8 +546,49 @@ const QuestionDetails = () => {
                             editMode ?
                                 <>
                                     <div className='cbBottom'>
-                                        <div className='mar edit fW cMpointer'><img src={editi} /> Edit</div>
-
+                                        <div className='mar edit fW cMpointer' onClick={handleEditeQuestion}><img src={editi} /> Edit</div>
+                                        <Modal
+                                            open={openEditeQuestion}
+                                            onClose={handleCloseEditeQuestion}
+                                            aria-labelledby="modal-modal-title"
+                                            aria-describedby="modal-modal-description"
+                                        >
+                                            <Box sx={style2}>
+                                                <h2 className='brand-title'>Edit Question</h2>
+                                                <hr />
+                                                <Box sx={style3}>
+                                                    <div >
+                                                        <lable>Title * : </lable>  <br />
+                                                        <input className="inputs" defaultValue={title} onChange={handleOnChangeTitle}  placeholder='Enter your question here...'></input>
+                                                        <br />  <br />
+                                                        <lable>Body :</lable>  <br />
+                                                        <TextEditor initialValue={body} setBody={setBody} />
+                                                        <br />
+                                                        <lable>Labels :</lable>  <br />
+                                                        <div className='inputs2'>
+                                                            <Select
+                                                                isMulti
+                                                                isClearable
+                                                                name="computingTopics"
+                                                                value={labletopicArray.filter(obj => selectedValue.includes(obj.value))}
+                                                                options={labletopicArray}
+                                                                className="basic-multi-select"
+                                                                classNamePrefix="select"
+                                                                onChange={handleChange}
+                                                            />
+                                                        </div>
+                                                        <br />
+                                                    </div>
+                                                </Box>
+                                                <div>
+                                                    <br />
+                                                    <div className='btncenter'>
+                                                        <button className='btnGreen' onClick={questionUpdate} >Edit</button>
+                                                        <button className='btnRed' onClick={handleCancelEditQuestion}>Cancel</button>
+                                                    </div>
+                                                </div><br />
+                                            </Box>
+                                        </Modal>
                                         <div className='mar report fW cMpointer' onClick={handleOnclickOepnQuestionDelete} ><img src={deletei} />Delete</div>
                                         <Modal
                                             open={openQuestionDelete}

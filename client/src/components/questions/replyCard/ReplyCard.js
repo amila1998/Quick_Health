@@ -17,6 +17,8 @@ const ReplyCard = ({ reply }) => {
     const [userDetails] = state.userAPI.userDetails
     const [myReply, setMyReply] = useState(false)
     const [replilesHide, setReplyHide] = useState(false)
+    const correctVotes=[];
+    const incorrectVotes=[];
 
     useEffect(() => {
         if (userDetails) {
@@ -25,6 +27,19 @@ const ReplyCard = ({ reply }) => {
             }
         }
     }, [userDetails, reply])
+
+    useEffect(() => {
+        if (reply) {
+           for(const rv of reply.vote){
+                if (rv.voteStatus === 0) {
+                    correctVotes.push(rv)
+                }
+                if (rv.voteStatus === 1) {
+                    incorrectVotes.push(rv)
+                }
+           }
+        }
+    }, [reply])
 
 
     return (
@@ -57,7 +72,7 @@ const ReplyCard = ({ reply }) => {
                 <hr />
             </div>
             <div className='rCW'>
-                {reply.voteToCorrect.length} users said this answer is correct and  {reply.voteToWrong.length} users is said this is wrong answer
+                {correctVotes.length} users said this answer is correct and  {incorrectVotes.length} users is said this is wrong answer
                 <br />
 
             </div>
