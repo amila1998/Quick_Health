@@ -29,7 +29,7 @@ const style = {
 
 };
 
-const ReplyCard = ({ reply ,questionID ,setCallback}) => {
+const ReplyCard = ({ reply, questionID, setCallback }) => {
     console.log("🚀 ~ file: ReplyCard.js ~ line 5 ~ ReplyCard ~ reply", reply)
     const state = useContext(GlobalState)
     const [userDetails] = state.userAPI.userDetails
@@ -37,10 +37,11 @@ const ReplyCard = ({ reply ,questionID ,setCallback}) => {
     const [isLogged] = state.userAPI.isLogged
     const [myReply, setMyReply] = useState(false)
     const [replilesHide, setReplyHide] = useState(false)
-    const correctVotes=[];
-    const incorrectVotes=[];
+    const correctVotes = [];
+    const incorrectVotes = [];
 
     const [openQuestionReplyDelete, setOpenQuestionReplyDelete] = useState(false);
+    const [openQuestionReplyEdit, setOpenQuestionReplyEdit] = useState(false);
     const handleOpenQuestionReplyDelete = () => {
         if (!isLogged) {
             toast.error("You must Sign in first !", {
@@ -55,9 +56,29 @@ const ReplyCard = ({ reply ,questionID ,setCallback}) => {
         } else {
             setOpenQuestionReplyDelete(true);
         }
-       };
+    };
+    const handleOpenQuestionReplyEdit = () => {
+        if (!isLogged) {
+            toast.error("You must Sign in first !", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        } else {
+            setOpenQuestionReplyEdit(true);
+        }
+    };
     const handleCloseQuestionReplyDelete = () => {
         setOpenQuestionReplyDelete(false);
+
+    }
+
+    const handleCloseQuestionReplyEdit = () => {
+        setOpenQuestionReplyEdit(false);
 
     }
 
@@ -75,20 +96,20 @@ const ReplyCard = ({ reply ,questionID ,setCallback}) => {
 
     useEffect(() => {
         if (reply) {
-           for(const rv of reply.vote){
+            for (const rv of reply.vote) {
                 if (rv.voteStatus === 0) {
                     correctVotes.push(rv)
                 }
                 if (rv.voteStatus === 1) {
                     incorrectVotes.push(rv)
                 }
-           }
+            }
         }
     }, [reply])
 
-    const submitQuestionReplyDelete = async()=>{
+    const submitQuestionReplyDelete = async () => {
         try {
-            const res = await axios.delete(`/api/question/deleteQuestionReply/${reply._id}/${questionID}`,{
+            const res = await axios.delete(`/api/question/deleteQuestionReply/${reply._id}/${questionID}`, {
                 headers: { Authorization: token }
             })
             toast.success(res.data.msg, {
@@ -103,9 +124,45 @@ const ReplyCard = ({ reply ,questionID ,setCallback}) => {
             });
             setCallback(true)
             setOpenQuestionReplyDelete(false)
-            
+
         } catch (error) {
             console.log("🚀 ~ file: ReplyCard.js ~ line 48 ~ deleteReply ~ error", error)
+            toast.error(error.response.data.message, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        }
+    }
+    const [replyBody, setReplyBody] = useState(reply.replyBody)
+    const handleReplyBody = (e) => {
+        setReplyBody(e.target.value)
+    }
+
+    const updateReply = async (e) => {
+        e.preventDefault();
+        try {
+            const res = await axios.patch(`/api/question/updateReply/${reply._id}/${questionID}`, { replyBody }, {
+                headers: { Authorization: token }
+            })
+            toast.success(res.data.msg, {
+
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            setCallback(true)
+            setOpenQuestionReplyEdit(false);
+        } catch (error) {
+            console.log("🚀 ~ file: ReplyCard.js ~ line 151 ~ updateReply ~ error", error)
             toast.error(error.response.data.message, {
                 position: "top-right",
                 autoClose: 5000,
@@ -129,34 +186,55 @@ const ReplyCard = ({ reply ,questionID ,setCallback}) => {
                 {reply.replyBody}
                 <br />  <br />
                 <div className='rActions'>
+                    <div className='mar reply fW cMpointer' ><img className='im' src={replyi} />Reply</div>
                     {
                         myReply ?
                             <>
-                                <div className='mar edit fW cMpointer' ><img className='im' src={editi} />Edit</div>
-                                <div className='mar report fW cMpointer' onClick={handleOpenQuestionReplyDelete}><img className='im'  src={deletei} />Delete</div>
+
+                                <div className='mar edit fW cMpointer' onClick={handleOpenQuestionReplyEdit} ><img className='im' src={editi} />Edit</div>
                                 <Modal
-                                            open={openQuestionReplyDelete}
-                                            onClose={handleCloseQuestionReplyDelete}
-                                            aria-labelledby="modal-modal-title"
-                                            aria-describedby="modal-modal-description"
-                                        >
-                                            <Box sx={style}>
-                                                <h2 className='brand-title'>Delete</h2>
-                                                <hr />
-                                                <h6>Are you sure to Delete this Reply ?</h6>
-                                                <div>
-                                                    <br />
-                                                    <div className='btncenter'>
-                                                        <button className='btnGreen' onClick={submitQuestionReplyDelete}>Yes</button>
-                                                        <button className='btnRed' onClick={handleOnclickCloseQuestionReplyDelete}>No</button>
-                                                    </div>
-                                                </div><br />
-                                            </Box>
-                                        </Modal>
-                                </>
+                                    open={openQuestionReplyEdit}
+                                    onClose={handleCloseQuestionReplyEdit}
+                                    aria-labelledby="modal-modal-title"
+                                    aria-describedby="modal-modal-description"
+                                >
+                                    <Box sx={style}>
+                                        <h2 className='brand-title'>Update Reply</h2>
+                                        <hr />
+                                        <textarea className='inputs' value={replyBody} onChange={handleReplyBody} name='replyBody' placeholder='Please enter your answer here....' />
+                                        <div>
+                                            <br />
+                                            <div className='btncenter'>
+                                                <button className='btnGreen' onClick={updateReply}>Update</button>
+                                                <button className='btnRed' onClick={handleCloseQuestionReplyEdit}>Cancel</button>
+                                            </div>
+                                        </div><br />
+                                    </Box>
+                                </Modal>
+                                <div className='mar report fW cMpointer' onClick={handleOpenQuestionReplyDelete}><img className='im' src={deletei} />Delete</div>
+                                <Modal
+                                    open={openQuestionReplyDelete}
+                                    onClose={handleCloseQuestionReplyDelete}
+                                    aria-labelledby="modal-modal-title"
+                                    aria-describedby="modal-modal-description"
+                                >
+                                    <Box sx={style}>
+                                        <h2 className='brand-title'>Delete</h2>
+                                        <hr />
+                                        <h6>Are you sure to delete this reply ?</h6>
+                                        <div>
+                                            <br />
+                                            <div className='btncenter'>
+                                                <button className='btnGreen' onClick={submitQuestionReplyDelete}>Yes</button>
+                                                <button className='btnRed' onClick={handleOnclickCloseQuestionReplyDelete}>No</button>
+                                            </div>
+                                        </div><br />
+                                    </Box>
+                                </Modal>
+                            </>
                             :
                             <>
-                                <div className='mar reply fW cMpointer' ><img className='im' src={replyi} />Reply</div>
+
                                 <div className='mar correct fW cMpointer' ><img className='im' src={correcti} />Correct</div>
                                 <div className='mar report fW cMpointer' ><img className='im' src={wrongi} />Wrong</div>
                             </>
