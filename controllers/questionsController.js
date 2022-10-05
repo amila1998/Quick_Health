@@ -374,6 +374,98 @@ const questionController = {
                 success: false
             });
         }
+    },
+    submitVote: async (req, res) => {
+        try {
+            const { voteStatus, isCorrect } = req.body;
+            const replyID = req.params.rQID;
+            const questionID = req.params.qID;
+            let allReplies = []
+            let allVotes = []
+            const question = await Questions.findById({ '_id': questionID })
+            if (!question)
+                return res.status(400).json({ message: "Can not find the question" });
+
+            const user = await User.findById(req.user.id)
+            for (const q of question.replies) {
+                if (q._id != replyID) {
+                    allReplies.push(q)
+                } else {
+                    if (q.vote.length === 0) {
+                        const newVote = {
+                            userID: user._id,
+                            userName: user.name,
+                            createdDate: new Date(),
+                            updatedDate: new Date(),
+                            voteStatus: voteStatus,
+                        }
+                        await allVotes.push(newVote);
+                    } else {
+                        for (const v of q.vote) {
+                            if (v.userID != user._id) {
+                                await allVotes.push(v)
+                                if (isCorrect === 0) {
+                                    const newVote = {
+                                        userID: user._id,
+                                        userName: user.name,
+                                        createdDate: new Date(),
+                                        updatedDate: new Date(),
+                                        voteStatus: voteStatus,
+                                    }
+                                    await allVotes.push(newVote);
+                                }
+                            } else {
+                                if (isCorrect != 0) {
+                                    const updatedVote = {
+                                        userID: v.userID,
+                                        userName: v.userName,
+                                        createdDate: v.createdDate,
+                                        updatedDate: new Date(),
+                                        voteStatus: voteStatus,
+                                    }
+                                    await allVotes.push(updatedVote);
+                                } else {
+                                    const newVote = {
+                                        userID: user._id,
+                                        userName: user.name,
+                                        createdDate: new Date(),
+                                        updatedDate: new Date(),
+                                        voteStatus: voteStatus,
+                                    }
+                                    await allVotes.push(newVote);
+                                }
+                            }
+                        }
+                    }
+                    const updatedReply = {
+                        _id: q._id,
+                        userID: q.userID,
+                        replyBody: q.replyBody,
+                        userName: q.userName,
+                        createdDate: q.createdDate,
+                        updatedDate: q.updatedDate,
+                        isDeleted: 0,
+                        vote: allVotes,
+                        childReplies: q.childReplies,
+                    }
+                    await allReplies.push(updatedReply)
+
+                }
+            }
+            await Questions.findByIdAndUpdate({ _id: questionID }, { replies: allReplies })
+            res.status(200).json({
+                msg: 'Your vote is submitted',
+                success: true,
+            });
+
+
+        } catch (error) {
+            console.log("🚀 ~ file: questionsController.js ~ line 382 ~ submitVote: ~ error", error)
+            res.status(500).json({
+                msg: error.message,
+                success: false
+            });
+        }
     }
 
 };

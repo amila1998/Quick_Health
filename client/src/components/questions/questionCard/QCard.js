@@ -45,7 +45,7 @@ const QCard = ({question}) => {
             <hr></hr>
             <div className='cBottom'>
                 <div className='cbBottom'>
-                <div className='mar'>Votes : {question.stars.length}</div>
+                <div className='mar'>Stars : {question.stars.length}</div>
                 <div className='mar'>Answers : {question.replies.length}</div>
                 </div>
                 <div> <a href='#'>{question.userName}</a> - {days(date_2, date_1)} days a ago</div>
