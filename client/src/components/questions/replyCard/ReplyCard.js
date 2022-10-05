@@ -14,6 +14,7 @@ import { Box, Modal } from '@mui/material';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from 'axios';
+import ChildReplyCard from '../childReplyCard/ChildReplyCard';
 
 const style = {
     position: 'absolute',
@@ -42,6 +43,7 @@ const ReplyCard = ({ reply, questionID, setCallback }) => {
 
     const [openQuestionReplyDelete, setOpenQuestionReplyDelete] = useState(false);
     const [openQuestionReplyEdit, setOpenQuestionReplyEdit] = useState(false);
+    const [openQuestionChildReply, setOpenQuestionChildReply] = useState(false);
     const handleOpenQuestionReplyDelete = () => {
         if (!isLogged) {
             toast.error("You must Sign in first !", {
@@ -72,8 +74,28 @@ const ReplyCard = ({ reply, questionID, setCallback }) => {
             setOpenQuestionReplyEdit(true);
         }
     };
+    const handleOpenQuestionChildReply = () => {
+        if (!isLogged) {
+            toast.error("You must Sign in first !", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        } else {
+            setOpenQuestionChildReply(true);
+        }
+    };
     const handleCloseQuestionReplyDelete = () => {
         setOpenQuestionReplyDelete(false);
+
+    }
+
+    const handleCloseQuestionChildReply = () => {
+        setOpenQuestionChildReply(false);
 
     }
 
@@ -175,6 +197,59 @@ const ReplyCard = ({ reply, questionID, setCallback }) => {
         }
     }
 
+    const [childReplyBody, setChildReplyBody] = useState('')
+
+    const handleChildReplyBody = (e) => {
+        setChildReplyBody(e.target.value)
+    }
+
+    const submitQuestionChildReply = async (e) => {
+        try {
+            if (childReplyBody) {
+                e.preventDefault();
+
+                const res = await axios.patch(`/api/question/addChildReply/${reply._id}/${questionID}`, { childReplyBody }, {
+                    headers: { Authorization: token }
+                })
+                toast.success(res.data.msg, {
+
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+                setCallback(true)
+                setOpenQuestionChildReply(false);
+
+            } else {
+                toast.error('Reply can not be empty', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            }
+
+        } catch (error) {
+            console.log("🚀 ~ file: ReplyCard.js ~ line 209 ~ submitQuestionChildReply ~ error", error)
+            toast.error(error.response.data.message, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        }
+    }
+
 
     return (
         <div className='rBody'>
@@ -186,7 +261,26 @@ const ReplyCard = ({ reply, questionID, setCallback }) => {
                 {reply.replyBody}
                 <br />  <br />
                 <div className='rActions'>
-                    <div className='mar reply fW cMpointer' ><img className='im' src={replyi} />Reply</div>
+                    <div className='mar reply fW cMpointer' onClick={handleOpenQuestionChildReply}><img className='im' src={replyi} />Reply</div>
+                    <Modal
+                        open={openQuestionChildReply}
+                        onClose={handleCloseQuestionChildReply}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                    >
+                        <Box sx={style}>
+                            <h2 className='brand-title'>Reply</h2>
+                            <hr />
+                            <textarea className='inputs' onChange={handleChildReplyBody} name='replyBody' placeholder='Please enter your answer here....' />
+                            <div>
+                                <br />
+                                <div className='btncenter'>
+                                    <button className='btnGreen' onClick={submitQuestionChildReply}>Submit</button>
+                                    <button className='btnRed' onClick={handleCloseQuestionChildReply}>Cancel</button>
+                                </div>
+                            </div><br />
+                        </Box>
+                    </Modal>
                     {
                         myReply ?
                             <>
@@ -257,7 +351,14 @@ const ReplyCard = ({ reply, questionID, setCallback }) => {
             </div>
             {
                 replilesHide && <div className='rReplies'>
-                    <hr /><hr />
+                    {
+                        reply.childReplies?.map(reply => {
+                            return <><hr />
+                                <ChildReplyCard reply={reply} />
+                            </>
+
+                        })
+                    }
                 </div>
             }
             <hr />

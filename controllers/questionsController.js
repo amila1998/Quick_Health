@@ -268,7 +268,7 @@ const questionController = {
         try {
             const replyID = req.params.rQID;
             const questionID = req.params.qID;
-            const {replyBody} = req.body
+            const { replyBody } = req.body
 
             const question = await Questions.findById({ '_id': questionID })
 
@@ -282,20 +282,20 @@ const questionController = {
             let allReplies = []
 
             for (const q of question.replies) {
-                
+
                 if (q._id != replyID) {
                     allReplies.push(q)
                 } else {
                     const updateReply = {
-                        _id:q._id,
+                        _id: q._id,
                         userID: q.userID,
                         replyBody: replyBody,
                         userName: q.userName,
                         createdDate: q.createdDate,
                         updatedDate: new Date(),
                         isDeleted: 0,
-                        vote:q.vote,
-                        childReplies:q.childReplies
+                        vote: q.vote,
+                        childReplies: q.childReplies
                     }
                     allReplies.push(updateReply)
                 }
@@ -308,6 +308,67 @@ const questionController = {
 
         } catch (error) {
             console.log("🚀 ~ file: questionsController.js ~ line 271 ~ editQuestion:async ~ error", error)
+            res.status(500).json({
+                msg: error.message,
+                success: false
+            });
+        }
+    },
+    addChildReply: async (req, res) => {
+        try {
+            const replyID = req.params.rQID;
+            const questionID = req.params.qID;
+            const { childReplyBody } = req.body;
+
+            if (!childReplyBody)
+                return res.status(400).json({ message: "Reply can not be empty" });
+
+            const question = await Questions.findById({ '_id': questionID })
+            if (!question)
+                return res.status(400).json({ message: "Can not find the question" });
+
+            let allReplies = []
+            const user = await User.findById(req.user.id)
+            for (const q of question.replies) {
+
+                if (q._id != replyID) {
+                    allReplies.push(q)
+                } else {
+                    let allChildReplies = []
+                    for (const chr of q.childReplies) {
+                        allChildReplies.push(chr)
+                    }
+                    const newChildReply = {
+                        userID: user._id,
+                        userName: user.name,
+                        replyBody: childReplyBody,
+                        createdDate: new Date(),
+                        updatedDate: new Date(),
+                        isDeleted: 0,
+                    }
+                    allChildReplies.push(newChildReply)
+                    const updatedReply = {
+                        _id: q._id,
+                        userID: q.userID,
+                        replyBody: q.replyBody,
+                        userName: q.userName,
+                        createdDate: q.createdDate,
+                        updatedDate: q.updatedDate,
+                        isDeleted: 0,
+                        vote: q.vote,
+                        childReplies: allChildReplies
+                    }
+                    allReplies.push(updatedReply)
+                }
+            }
+            await Questions.findByIdAndUpdate({ _id: questionID }, { replies: allReplies })
+            res.status(200).json({
+                msg: 'Reply submetted successfully',
+                success: true,
+            });
+
+        } catch (error) {
+            console.log("🚀 ~ file: questionsController.js ~ line 321 ~ addChildReply:async ~ error", error)
             res.status(500).json({
                 msg: error.message,
                 success: false
