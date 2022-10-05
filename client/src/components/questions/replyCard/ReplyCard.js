@@ -31,16 +31,13 @@ const style = {
 };
 
 const ReplyCard = ({ reply, questionID, setCallback }) => {
-    console.log("🚀 ~ file: ReplyCard.js ~ line 5 ~ ReplyCard ~ reply", reply)
     const state = useContext(GlobalState)
     const [userDetails] = state.userAPI.userDetails
     const [token] = state.token
     const [isLogged] = state.userAPI.isLogged
     const [myReply, setMyReply] = useState(false)
     const [replilesHide, setReplyHide] = useState(false)
-    const correctVotes = [];
-    const incorrectVotes = [];
-
+    const [isCorrect, setIsCorrect] = useState(0);
     const [openQuestionReplyDelete, setOpenQuestionReplyDelete] = useState(false);
     const [openQuestionReplyEdit, setOpenQuestionReplyEdit] = useState(false);
     const [openQuestionChildReply, setOpenQuestionChildReply] = useState(false);
@@ -115,18 +112,29 @@ const ReplyCard = ({ reply, questionID, setCallback }) => {
             }
         }
     }, [userDetails, reply])
-
+    const [c, setC] = useState(0)
+    const [w, setW] = useState(0)
     useEffect(() => {
-        if (reply) {
-            for (const rv of reply.vote) {
-                if (rv.voteStatus === 0) {
-                    correctVotes.push(rv)
+        const setVotesCount = async () => {
+            if (reply) {
+                var ic = 0
+                var iw = 0
+                for (let index = 0; index < reply.vote.length; index++) {
+                    if (reply.vote[index]?.voteStatus == 1) {
+                        ic = ic + 1
+                    }
+                    if (reply.vote[index]?.voteStatus == 2) {
+                        iw = iw + 1
+                    }
                 }
-                if (rv.voteStatus === 1) {
-                    incorrectVotes.push(rv)
-                }
+
+                setC(ic);
+                setW(iw);
             }
+
+
         }
+        setVotesCount();
     }, [reply])
 
     const submitQuestionReplyDelete = async () => {
@@ -249,7 +257,133 @@ const ReplyCard = ({ reply, questionID, setCallback }) => {
             });
         }
     }
+    const [voteStatus, setVoteStatus] = useState(0)
+    useEffect(() => {
+        if (reply.vote?.length > 0) {
 
+            for (const v of reply.vote) {
+                if (userDetails._id === v.userID) {
+                    setIsCorrect(v.voteStatus)
+                    setVoteStatus(v.voteStatus)
+                }
+            }
+
+        }
+    }, [userDetails, reply])
+
+
+
+    const submitCorrect = async () => {
+        if (isLogged) {
+            try {
+                if (voteStatus === 1) {
+                    const res = await axios.patch(`/api/question/vote/${reply._id}/${questionID}`, { 'voteStatus': 0, isCorrect }, {
+                        headers: { Authorization: token }
+                    })
+                    toast.success(res.data.msg, {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
+                } else {
+                    const res = await axios.patch(`/api/question/vote/${reply._id}/${questionID}`, { 'voteStatus': 1, isCorrect }, {
+                        headers: { Authorization: token }
+                    })
+                    toast.success(res.data.msg, {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
+                }
+                setCallback(true)
+            } catch (error) {
+                console.log("🚀 ~ file: ReplyCard.js ~ line 276 ~ submitCorrect ~ error", error)
+                toast.error(error.response.data.message, {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            }
+        } else {
+            toast.error('Please signin before voting ', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        }
+    }
+
+    const submitWrong = async () => {
+        if (isLogged) {
+            try {
+                if (voteStatus === 2) {
+                    const res = await axios.patch(`/api/question/vote/${reply._id}/${questionID}`, { 'voteStatus': 0, isCorrect }, {
+                        headers: { Authorization: token }
+                    })
+                    toast.success(res.data.msg, {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
+                } else {
+                    const res = await axios.patch(`/api/question/vote/${reply._id}/${questionID}`, { 'voteStatus': 2, isCorrect }, {
+                        headers: { Authorization: token }
+                    })
+                    toast.success(res.data.msg, {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
+                }
+                setCallback(true)
+            } catch (error) {
+                console.log("🚀 ~ file: ReplyCard.js ~ line 276 ~ submitCorrect ~ error", error)
+                toast.error(error.response.data.message, {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            }
+        } else {
+            toast.error('Please signin before voting ', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        }
+    }
 
     return (
         <div className='rBody'>
@@ -329,8 +463,8 @@ const ReplyCard = ({ reply, questionID, setCallback }) => {
                             :
                             <>
 
-                                <div className='mar correct fW cMpointer' ><img className='im' src={correcti} />Correct</div>
-                                <div className='mar report fW cMpointer' ><img className='im' src={wrongi} />Wrong</div>
+                                <div onClick={submitCorrect} className={isCorrect === 0 && 'mar ncorrect fW cMpointer' || isCorrect === 1 && 'mar correct fW cMpointer' || isCorrect === 2 && 'mar ncorrect fW cMpointer'} ><img className='im' src={correcti} />Correct</div>
+                                <div onClick={submitWrong} className={isCorrect === 0 && 'mar nwrong fW cMpointer' || isCorrect === 1 && 'mar nwrong fW cMpointer' || isCorrect === 2 && 'mar wrong fW cMpointer'} ><img className='im' src={wrongi} />Wrong</div>
                             </>
                     }
 
@@ -341,7 +475,7 @@ const ReplyCard = ({ reply, questionID, setCallback }) => {
                 <hr />
             </div>
             <div className='rCW'>
-                {correctVotes.length} users said this answer is correct and  {incorrectVotes.length} users is said this is wrong answer
+                {c} users said this answer is correct and  {w} users is said this is wrong answer
                 <br />
 
             </div>

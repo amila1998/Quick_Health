@@ -18,6 +18,7 @@ route.patch("/api/question/questionUpdate/:qID", auth, questionsController.updat
 route.delete("/api/question/deleteQuestionReply/:rQID/:qID", auth, questionsController.deleteQuestionReply);
 route.patch("/api/question/updateReply/:rQID/:qID", auth, questionsController.editQuestionReply);
 route.patch("/api/question/addChildReply/:rQID/:qID", auth, questionsController.addChildReply);
+route.patch("/api/question/vote/:rQID/:qID", auth, questionsController.submitVote);
 
 
 
