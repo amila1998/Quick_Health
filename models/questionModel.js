@@ -20,23 +20,23 @@ const questionsSchema = new Schema(
                 userID: String,
                 replyBody: String,
                 userName: String,
-                voteToCorrect: [
+                createdDate:Date,
+                updatedDate:Date,
+                isDeleted:{
+                    type:Number,
+                    Default:0,
+                },
+                vote: [
                     {
                         userID: String,
                         userName: String,
                         createdDate:Date,
                         updatedDate:Date,
+                        voteStatus:Number,
                     }
 
                 ],
-                voteToWrong: [
-                    {
-                        userID: String,
-                        userName: String,
-                        createdDate:Date
-                    }
 
-                ],
                 childReplies: [
                     {
                         userID: String,
@@ -44,6 +44,10 @@ const questionsSchema = new Schema(
                         replyBody: String,
                         createdDate:Date,
                         updatedDate:Date,
+                        isDeleted:{
+                            type:Number,
+                            Default:0,
+                        },
                     }
 
                 ]

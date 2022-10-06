@@ -7,3 +7,8 @@
 .shareIconRow{
     margin: 5px;
 }
+
+.rCW{
+    font-size: 12px;
+    color: var(--gray);
+}
