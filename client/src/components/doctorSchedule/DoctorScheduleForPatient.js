@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import  "./doctorSchedule.css"
+import "./doctorSchedule.css"
 import phone from "../../asserts/icons/phone.png";
 import experience from "../../asserts/icons/experience.png";
 import email from "../../asserts/icons/email.png";
@@ -15,11 +15,11 @@ function DoctorScheduleForPatient() {
     const { dId } = useParams();
     const navigate = useNavigate()
 
+
     useEffect(() => {
         const getADoctorSchedulesForPatient = async () => {
             try {
                 const res = await axios.get(`/api/doctor/${dId}/doctorSchedules`);
-                console.log(res);
                 setDoctorSchedules(res.data.fetch);
             } catch (error) {
                 console.log(error)
@@ -32,7 +32,6 @@ function DoctorScheduleForPatient() {
         const getDoctorDetailsForPatient = async () => {
             try {
                 const res = await axios.get(`/api/doctor/${dId}/doctorDetails`);
-                console.log(res);
                 setDoctorDetails(res.data.fetch);
             } catch (error) {
                 console.log(error)
@@ -53,7 +52,7 @@ function DoctorScheduleForPatient() {
             <div className="container">
                 <div className="row">
 
-                    <div className="col-sm-3"><center><img className='pLogo' src={doctorDetails?.logo} style={{ width: "200px", height: "200px" }} alt="userImage"/></center></div>
+                    <div className="col-sm-3"><center><img className='pLogo' src={doctorDetails?.logo} style={{ width: "200px", height: "200px" }} alt="userImage" /></center></div>
                     <div className="col-sm-7">
                         <div className="container" style={{ fontWeight: "400", fontSize: "18px" }}>
                             <div className="row m-2">
@@ -65,11 +64,11 @@ function DoctorScheduleForPatient() {
                                 </div>
                                 <br />
                                 <div className="row m-4">
-                                    <img src={phone} style={{ width: "50px", height: "34px" }} alt="phone"/><div className="col-6">{doctorDetails.doctor?.phone}</div>
+                                    <img src={phone} style={{ width: "50px", height: "34px" }} alt="phone" /><div className="col-6">{doctorDetails.doctor?.phone}</div>
                                     <img src={experience} style={{ width: "50px", height: "36px" }} alt="experience" /><div className="col-4">{doctorDetails.doctor?.service} Years service</div>
                                 </div>
                                 <div className="row ms-4">
-                                    <img src={email} style={{ width: "50px", height: "33px" }} alt="email"/><div className="col-3">{doctorDetails?.email}</div>
+                                    <img src={email} style={{ width: "50px", height: "33px" }} alt="email" /><div className="col-3">{doctorDetails?.email}</div>
                                     <div className="col-3"></div>
                                 </div>
                             </div>
@@ -77,7 +76,7 @@ function DoctorScheduleForPatient() {
                     </div>
                 </div>
             </div>
-            <br/>
+            <br />
             <div class="container">
                 <div class="row">
                     <div class="col-sm-8"></div>
@@ -87,7 +86,7 @@ function DoctorScheduleForPatient() {
 
             <br /><br />
             <div class="container">
-                <center><h2  style={{ fontWeight: "bolder", fontSize: "30px" }}>Doctor's Schedule</h2></center>
+                <center><h2 style={{ fontWeight: "bolder", fontSize: "30px" }}>Doctor's Schedule</h2></center>
             </div>
 
 
@@ -107,10 +106,10 @@ function DoctorScheduleForPatient() {
                                                 <img src={day} style={{ width: "25px", height: "30px", marginRight: "15px", marginBottom: "8px" }} alt="day" />{doctorSchedule.day}
                                             </div>
                                             <div class="col-sm ">
-                                                <img src={time} style={{ width: "30px", height: "30px", marginRight: "15px", marginBottom: "8px" }} alt="time"/>{doctorSchedule.startTime} - {doctorSchedule.endTime}
+                                                <img src={time} style={{ width: "30px", height: "30px", marginRight: "15px", marginBottom: "8px" }} alt="time" />{doctorSchedule.startTime} - {doctorSchedule.endTime}
                                             </div>
                                             <div class="col-sm">
-                                                <img src={location} style={{ width: "22.17px", height: "29.17px", marginRight: "15px", marginBottom: "5px" }} alt="location"/>{doctorSchedule.location}
+                                                <img src={location} style={{ width: "22.17px", height: "29.17px", marginRight: "15px", marginBottom: "5px" }} alt="location" />{doctorSchedule.location}
                                             </div>
                                         </div>
                                     </div>

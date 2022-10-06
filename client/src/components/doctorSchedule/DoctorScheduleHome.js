@@ -46,7 +46,6 @@ function DoctorScheduleHome() {
           const res = await axios.get("/api/doctor", {
             headers: { Authorization: token }
           });
-          console.log(res);
           setDoctorSchedules(res.data.fetch);
           setCallback(false)
         } catch (error) {
@@ -65,7 +64,6 @@ function DoctorScheduleHome() {
         headers: { Authorization: token }
       });
       //alert(res.data.msg)
-      console.log(res.data)
       handleClose();
     } catch (error) {
       //alert(error.response.data);

@@ -7,21 +7,43 @@ const Doctors = () => {
 
     const navigate = useNavigate();
     const [doctors, setDoctors] = useState([]);
-    // console.log("🚀 ~ file: Questions.js ~ line 11 ~ Questions ~ questions", questions)
+    const [search, setSearch] = useState('');
+    const [showBtn, setShowButton] = useState(false)
+    const [callback, setCallback] = useState(true);
+
+    const handleSearch = (e) => {
+        setSearch(e.target.value)
+        setShowButton(true)
+    }
+
+    const handleResetSearch = (e) => {
+        setSearch(e.target.value = '')
+        setShowButton(false)
+        setCallback(true)
+    }
+
+
+    const handleOnClickSearch = () => {
+        setCallback(true)
+    }
+
 
     useEffect(() => {
 
         const getAllDoctors = async () => {
-            try {
-                const res = await axios.get('/api/doctors')
-                setDoctors(res.data.fetch)
-                console.log(res);
-            } catch (error) {
-                console.log(error)
+            if (callback) {
+                try {
+                    const res = await axios.get(`/api/doctors?keyword=${search}`)
+                    setDoctors(res.data.fetch)
+                } catch (error) {
+                    console.log(error)
+                }
+                setCallback(false)
             }
+
         }
         getAllDoctors();
-    }, [])
+    }, [callback])
 
 
     const navigateToDoctorSchedules = (doctorId) => {
@@ -31,8 +53,11 @@ const Doctors = () => {
         <div>
             <div className='Qbody'>
                 <div className='QTop'>
-                    <div className='QRow1'><input className="inputs" type="text" name="title" placeholder='Search' />
-                        <button className="btnOrange"  >Search</button>
+                    <div className='QRow1'><input onChange={handleSearch} className="inputs" value={search} type="text" name="search" placeholder='Search' />
+                        <button className="btnOrange" onClick={handleOnClickSearch} >Search</button>
+                        {
+                            showBtn && <button onClick={handleResetSearch} className="btnRed"  >Reset</button>
+                        }
                     </div>
                 </div>
 
@@ -71,18 +96,18 @@ const Doctors = () => {
                         <div className=''>
                             {doctors.map(doctor => (
                                 <div className="parent container d-flex justify-content-center align-items-center h-100">
-                                    <div className="doctorScheduleLayout" style={{ width: "95%"}}>
+                                    <div className="doctorScheduleLayout" style={{ width: "95%" }}>
                                         <div class="container">
                                             <div class="row">
                                                 <div class="col-sm-1">
-                                                    <img className='pLogo' src={doctor.logo} alt="userlogo" style={{ width: "100px", height: "100px" , borderRadius :"100px"}} />
+                                                    <img className='pLogo' src={doctor.logo} alt="userlogo" style={{ width: "100px", height: "100px", borderRadius: "100px" }} />
                                                 </div>
                                                 <div class="col-sm-8 ms-4">
                                                     <div class="row">
                                                         <div class="col-sm-11 mt-3">
                                                             <div className='doctorName'>Dr. {doctor.name} <br /></div>
                                                             <div className='doctorType ms-3'>{doctor.doctor?.speciality}</div>
-                                                            
+
                                                         </div>
                                                         <div class="col-sm-1 mt-4">
                                                             <center><button className="viewDoctor ms-5 float-start" onClick={() => navigateToDoctorSchedules(doctor._id)}>View Doctor</button></center>
