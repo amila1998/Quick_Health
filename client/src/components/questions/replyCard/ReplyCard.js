@@ -486,9 +486,9 @@ const ReplyCard = ({ reply, questionID, setCallback }) => {
             {
                 replilesHide && <div className='rReplies'>
                     {
-                        reply.childReplies?.map(reply => {
+                        reply.childReplies?.map(rc => {
                             return <><hr />
-                                <ChildReplyCard reply={reply} />
+                                <ChildReplyCard reply={rc} replyID={reply._id} questionID={questionID}  setCallback={setCallback}/>
                             </>
 
                         })
