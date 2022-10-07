@@ -466,6 +466,56 @@ const questionController = {
                 success: false
             });
         }
+    },
+    questionDeleteChildReply:async(req,res)=>{
+        try {
+            const replyID = req.params.rQID;
+            const questionID = req.params.qID;
+            const childReplyID = req.params.rCID;
+
+            let allReplies = []
+            let allChileReplies=[]
+
+            const question = await Questions.findById({ '_id': questionID })
+            if (!question)
+                return res.status(400).json({ message: "Can not find the question" });
+            
+            for(const r of question.replies){
+                if(r._id!=replyID){
+                    allReplies.push(r)
+                }else{
+                    for(const cr of r.childReplies){
+                        if (cr._id!=childReplyID){
+                            allChileReplies.push(cr)
+                        }
+                    }
+                    const updatedReply = {
+                        _id: r._id,
+                        userID: r.userID,
+                        replyBody: r.replyBody,
+                        userName: r.userName,
+                        createdDate: r.createdDate,
+                        updatedDate: r.updatedDate,
+                        isDeleted: 0,
+                        vote: r.vote,
+                        childReplies:allChileReplies,
+                    }
+                    await allReplies.push(updatedReply)
+                }
+            }
+
+            await Questions.findByIdAndUpdate({ _id: questionID }, { replies: allReplies })
+            res.status(200).json({
+                msg: 'Your Reply successfully deleted !',
+                success: true,
+            });
+        } catch (error) {
+            console.log("🚀 ~ file: questionsController.js ~ line 474 ~ questionDeleteChildReply:async ~ error", error)
+            res.status(500).json({
+                msg: error.message,
+                success: false
+            });
+        }
     }
 
 };
