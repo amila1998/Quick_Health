@@ -49,8 +49,7 @@
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
-    <li><a href="#Development">Development Status</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#Development Status">Development Status</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#contact">Contact</a></li>
    
@@ -113,7 +112,7 @@ Demo : <a href='https://quick-health-app.herokuapp.com/'>Quick Health Demo</a>
       CLOUD_API_KEY=(Your Cloudanary Api Key)
       CLOUD_API_SECRET=(Your Cloudanary SECRET Key)
    ```
- 5. To Run the server
+ 5. To Run the local
       ```sh
         npm run dev
        ```
@@ -128,13 +127,13 @@ Demo : <a href='https://quick-health-app.herokuapp.com/'>Quick Health Demo</a>
 ## Usage
 
 
-      <p align="right">(<a href="#top">back to top</a>)</p>
+   <p align="right">(<a href="#top">back to top</a>)</p>
 
 
 <!-- CONTRIBUTING -->
 ## Development Status
 
-      Backlog : <br/>
+   Backlog : <br/>
       [![Board Status](https://dev.azure.com/it20089436/b74471b0-c697-4875-a0bc-1b0da065e017/a4b2f6d7-3cf1-496e-a15c-5642f50d1d04/_apis/work/boardbadge/9a9220aa-482c-4c0a-be74-e2257fab43fd?columnOptions=1)](https://dev.azure.com/it20089436/b74471b0-c697-4875-a0bc-1b0da065e017/_boards/board/t/a4b2f6d7-3cf1-496e-a15c-5642f50d1d04/Microsoft.RequirementCategory/)
       <br/>
       Features : <br/>
