@@ -22,12 +22,22 @@ const style = {
 
 };
 
-const ChildReplyCard = ({ reply,setCallback,questionID,replyID }) => {
+const ChildReplyCard = ({ reply, setCallback, questionID, replyID }) => {
     const state = useContext(GlobalState)
     const [userDetails] = state.userAPI.userDetails
     const [token] = state.token
     const [isLogged] = state.userAPI.isLogged
     const [myReply, setMyReply] = useState(false)
+    const [replyChildBody, setReplyChildBody] = useState(reply.replyBody)
+    const [openQuestionChildReplyEdit, setOpenQuestionChildReplyEdit] = useState(false)
+
+    const handleOpenQuestionChildReplyEdit = () => {
+        setOpenQuestionChildReplyEdit(true)
+    }
+
+    const handleCloseQuestionChildReplyEdit = () => {
+        setOpenQuestionChildReplyEdit(false)
+    }
 
 
     useEffect(() => {
@@ -39,9 +49,9 @@ const ChildReplyCard = ({ reply,setCallback,questionID,replyID }) => {
     }, [userDetails, reply])
 
 
-    const childReplyDelete =async()=>{
+    const childReplyDelete = async () => {
         try {
-            const res = await axios.delete(`/api/question/questionDeleteChildReply/${questionID}/${replyID}/${reply._id}`,{
+            const res = await axios.delete(`/api/question/questionDeleteChildReply/${questionID}/${replyID}/${reply._id}`, {
                 headers: { Authorization: token }
             })
             toast.success(res.data.msg, {
@@ -54,9 +64,46 @@ const ChildReplyCard = ({ reply,setCallback,questionID,replyID }) => {
                 progress: undefined,
             });
             setCallback(true)
-            
+
         } catch (error) {
             console.log("🚀 ~ file: ChildReplyCard.js ~ line 46 ~ childReplyDelete ~ error", error)
+            toast.error(error.response.data.message, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        }
+    }
+
+    const handleChildReplyBody = (e) => {
+        setReplyChildBody(e.target.value)
+    }
+
+    const updateChildReply = async (e) => {
+        try {
+            e.preventDefault();
+            const res = await axios.patch(`/api/question/questionEditChildReply/${questionID}/${replyID}/${reply._id}`, { replyBody: replyChildBody }, {
+                headers: { Authorization: token }
+            })
+            toast.success(res.data.msg, {
+
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            setCallback(true)
+            handleCloseQuestionChildReplyEdit();
+
+        } catch (error) {
+            console.log("🚀 ~ file: ReplyCard.js ~ line 48 ~ deleteReply ~ error", error)
             toast.error(error.response.data.message, {
                 position: "top-right",
                 autoClose: 5000,
@@ -81,7 +128,26 @@ const ChildReplyCard = ({ reply,setCallback,questionID,replyID }) => {
                 {myReply && <>
                     <hr />
                     <div className='rActions'>
-                        <div className='mar edit fW cMpointer'  ><img className='im' src={editi} />Edit</div>
+                        <div className='mar edit fW cMpointer'  onClick={handleOpenQuestionChildReplyEdit}><img className='im' src={editi} />Edit</div>
+                        <Modal
+                            open={openQuestionChildReplyEdit}
+                            onClose={handleCloseQuestionChildReplyEdit}
+                            aria-labelledby="modal-modal-title"
+                            aria-describedby="modal-modal-description"
+                        >
+                            <Box sx={style}>
+                                <h2 className='brand-title'>Update Reply</h2>
+                                <hr />
+                                <textarea className='inputs' value={replyChildBody} onChange={handleChildReplyBody} name='replyBody' placeholder='Please enter your answer here....' />
+                                <div>
+                                    <br />
+                                    <div className='btncenter'>
+                                        <button className='btnGreen' onClick={updateChildReply}>Update</button>
+                                        <button className='btnRed' onClick={handleCloseQuestionChildReplyEdit}>Cancel</button>
+                                    </div>
+                                </div><br />
+                            </Box>
+                        </Modal>
                         <div className='mar report fW cMpointer' onClick={childReplyDelete}><img className='im' src={deletei} />Delete</div>
                     </div>
                 </>
