@@ -17,6 +17,10 @@ body {
   background-attachment: fixed;
   background-position: center;
   width: 100%;
+  -webkit-transition: background-image 1000s;
+    -moz-transition: background-image 1000s;
+    -o-transition: background-image 1000s;
+    transition: background-image 1000s;
 }
 
 code {

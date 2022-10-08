@@ -12,35 +12,35 @@
 
 .edit {
     color: var(--btnOrange);
-    animation       : 2s pulsate infinite;
+    animation: 2s pulsate infinite;
 }
 
 .correct {
     color: var(--btnGreen);
-    animation       : 2s pulsate infinite;
+    animation: 2s pulsate infinite;
 }
 
 .ncorrect {
-    fill            : none;
-    stroke          : var(--btnGreen);
-    stroke-width    : .5px;
-    stroke-linejoin : round;
-    animation       : 2s pulsate infinite;
+    fill: none;
+    stroke: var(--btnGreen);
+    stroke-width: .5px;
+    stroke-linejoin: round;
+    animation: 2s pulsate infinite;
     -webkit-text-fill-color: transparent;
     -webkit-text-stroke: 1px;
     -webkit-text-stroke-color: var(--btnGreen);
 }
 
-.wrong{
+.wrong {
     color: var(--red);
 }
 
-.nwrong{
-    fill            : none;
-    stroke          : var(--red);
-    stroke-width    : .5px;
-    stroke-linejoin : round;
-    animation       : 2s pulsate infinite;
+.nwrong {
+    fill: none;
+    stroke: var(--red);
+    stroke-width: .5px;
+    stroke-linejoin: round;
+    animation: 2s pulsate infinite;
     -webkit-text-fill-color: transparent;
     -webkit-text-stroke: 1px;
     -webkit-text-stroke-color: var(--red);
@@ -59,7 +59,7 @@
     color: var(--white);
     padding: 10px;
     text-align: center;
-    
+
 
 }
 
@@ -74,6 +74,10 @@
     margin-left: 10px;
 }
 
-.editQbody{
+.replyTitle h3 {
+    color: rgb(0, 0, 0);
+}
+
+.editQbody {
     overflow-y: scroll !important;
 }
