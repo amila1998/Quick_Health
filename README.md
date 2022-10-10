@@ -160,13 +160,13 @@ Don't forget to give the project a star! Thanks again!
 ## Contact
 
 
-Group Leader - [Aththanayaka H.A.M.U.I - IT20259334]() - it20259334@my.sliit.lk
+Group Leader - [Aththanayaka H.A.M.U.I - IT20259334](https://www.linkedin.com/in/uthpala-isuranga-1419b820b/) - it20259334@my.sliit.lk
 
 Member - [Senarathne S M A D - IT20089436](https://www.linkedin.com/in/amila-devin-37811b83/) - it20089436@my.sliit.lk
 
 Member - [Udayantha Yapa Y M S - IT20045708](https://www.linkedin.com/in/sean-udayantha/) - it20045708@my.sliit.lk
 
-Member - [Lakpriya K.H.A.V - IT20275006]() - it20275006@my.sliit.lk
+Member - [Lakpriya K.H.A.V - IT20275006](https://www.linkedin.com/in/vishwalakpriya/) - it20275006@my.sliit.lk
 
 Project Link: https://github.com/amila1998/Quick_Health
 
