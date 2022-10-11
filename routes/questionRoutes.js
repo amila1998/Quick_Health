@@ -19,6 +19,8 @@ route.delete("/api/question/deleteQuestionReply/:rQID/:qID", auth, questionsCont
 route.patch("/api/question/updateReply/:rQID/:qID", auth, questionsController.editQuestionReply);
 route.patch("/api/question/addChildReply/:rQID/:qID", auth, questionsController.addChildReply);
 route.patch("/api/question/vote/:rQID/:qID", auth, questionsController.submitVote);
+route.delete("/api/question/questionDeleteChildReply/:qID/:rQID/:rCID", auth, questionsController.questionDeleteChildReply);
+route.patch("/api/question/questionEditChildReply/:qID/:rQID/:rCID", auth, questionsController.questionEditChildReply);
 
 
 
