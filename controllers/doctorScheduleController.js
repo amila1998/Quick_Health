@@ -75,7 +75,6 @@ const doctorScheduleController = {
         const query = {}
         query.role = "doctor" ;
         if (req.query.keyword){
-            console.log(req.query.keyword);
             query.$or=[{"name" : {$regex : req.query.keyword , $options : "i"}}]
         }
         try {

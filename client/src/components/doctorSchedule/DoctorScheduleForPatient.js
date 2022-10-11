@@ -80,7 +80,7 @@ function DoctorScheduleForPatient() {
             <div class="container">
                 <div class="row">
                     <div class="col-sm-8"></div>
-                    <div class="col-sm-3"><button className="doctorScheduleReportBtn ms-5 float-start" >Doctor Schedule Report</button></div>
+                    <div class="col-sm-3"><button className="doctorScheduleReportBtn ms-5 float-start" onClick={() => doctorScheduleReport(doctorDetails._id)}>Doctor Schedule Report</button></div>
                 </div>
             </div>
 
