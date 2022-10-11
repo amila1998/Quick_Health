@@ -41,7 +41,6 @@ const AddDoctorSchedule = () => {
                 const res = await axios.post("/api/doctor/addDoctorsSchedule", { day, startTime, endTime, location }, {
                     headers: { Authorization: token }
                 });
-                console.log(res)
                 //alert(res.data)
                 window.location.href = '/doctor'
             } catch (error) {

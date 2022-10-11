@@ -71,8 +71,14 @@ const doctorScheduleController = {
     },
 
     getAllDoctors : async (req , res) => {
+
+        const query = {}
+        query.role = "doctor" ;
+        if (req.query.keyword){
+            query.$or=[{"name" : {$regex : req.query.keyword , $options : "i"}}]
+        }
         try {
-            const fetch = await User.find({role : 'doctor'})
+            const fetch = await User.find( query )
 
             res.status(200).json({
                 msg: "Doctors Fetched Success ! ",
