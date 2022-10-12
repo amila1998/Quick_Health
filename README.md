@@ -12,7 +12,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/amila1998/Quick_Health">
-    <img src="zREAD_ME_DOCUMENTS/IMAGES/SLIIT_Logo_Crest.png" alt="Logo" width="80" height="80">
+    <img src="https://github.com/amila1998/Quick_Health/blob/main/client/src/asserts/SLIIT_Logo_Crest.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">Research Project Management Tool
