@@ -15,7 +15,7 @@
     <img src="https://github.com/amila1998/Quick_Health/blob/main/client/src/asserts/SLIIT_Logo_Crest.png" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">Research Project Management Tool
+  <h3 align="center">QUICK HEALTH WEB APPLICATION
 </h3>
 
   <p align="center">
