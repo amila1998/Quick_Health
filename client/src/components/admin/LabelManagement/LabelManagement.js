@@ -22,20 +22,41 @@ const style = {
 const LabelManagement = () => {
     const [callBack, setCallBack] = useState(true)
     const [labels, setLabels] = useState([])
+    const [LabelName, setLabelName] = useState('')
+    const [label, setLabel] = useState('')
+    console.log(LabelName)
 
     const [open, setOpen] = useState(false);
+    const [editOpen, setEditOpen] = useState(false);
+    const [OpenDelete, setOpenDelete] = useState(false);
+
     const handleOpen = () => setOpen(true);
     const handleClose = () => {
         setOpen(false);
-        setLabelName('')
+        setLabelName('');
     }
 
-    const [LabelName, setLabelName] = useState('')
+    const handleEditOpen = (lb) => {setEditOpen(true);setLabel(lb);setLabelName(lb.LabelName)}
+    const handleEditClose = () => {
+        setEditOpen(false);
+        setLabel('');
+        setLabelName('');
+    }
+
+    const handleOpenDelete = (lb) => {setOpenDelete(true);setLabel(lb)}
+    const handleDeleteClose = () => {
+        setOpenDelete(false);
+        setLabel('');
+    }
+   
+
 
     const handleOnChange = (e) => {
         setLabelName(e.target.value)
     }
-
+    const handleOnEditChange = (e) => {
+        setLabel(...label,{LabelName:e.target.value})
+    }
     const handleOnClickAddLble = () => {
         handleOpen()
     }
@@ -94,6 +115,64 @@ const LabelManagement = () => {
         handleClose();
     }
 
+    const handleUpdateLabel =async(e)=>{
+        e.preventDefault()
+        try {
+            const res = await axios.put(`/api/label/update/${label._id}`,{LabelName})
+            toast.success(res.data.msg, {
+                
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            handleEditClose();
+            setCallBack(true)       
+        } catch (error) {
+            console.log(error);
+            toast.error(error.response.data.msg, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        }
+    }
+    const handleDeleteLabel =async(e)=>{
+        e.preventDefault()
+        try {
+            const res = await axios.delete(`/api/label/delete/${label._id}`)
+            toast.success(res.data.msg, {
+                
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            handleDeleteClose();
+            setCallBack(true)       
+        } catch (error) {
+            console.log(error);
+            toast.error(error.response.data.msg, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        }
+    }
     return (
         <div>
             <ToastContainer />
@@ -148,8 +227,9 @@ const LabelManagement = () => {
                                     <td>{lb.LabelName}</td>
                                     <td>{lb.createdAt}</td>
                                     <td>{lb.updatedAt}</td>
-                                    <td> <div className='labelBtnEdit'><button className='btnOrange'>Edit</button>
-                                        <button className='btnRed'>Delete</button>
+                                    <td> <div className='labelBtnEdit'><button onClick={()=>handleEditOpen(lb)} className='btnOrange'>Edit</button>
+                                    
+                                        <button onClick={()=>handleOpenDelete(lb)} className='btnRed'>Delete</button>
                                     </div>
                                     </td>
                                 </tr>
@@ -160,6 +240,44 @@ const LabelManagement = () => {
 
 
                     </table>
+                    <Modal
+                            open={editOpen}
+                            onClose={handleEditClose}
+                            aria-labelledby="modal-modal-title"
+                            aria-describedby="modal-modal-description"
+                        >
+                            <Box sx={style}>
+                                <h3 className='brand-title'>Edit Label</h3>
+                                <hr />
+
+                                <input value={LabelName} className='inputs' onChange={handleOnChange} placeholder='Enter Lable Name'/>
+                                <br/> <br/>
+                                <div className='ADLBtn'><button onClick={handleUpdateLabel} className='btnGreen'>Edit</button>
+                                <button onClick={handleEditClose} className='btnRed'>Cancel</button></div>
+                                
+
+
+                            </Box>
+                        </Modal>
+
+                        <Modal
+                            open={OpenDelete}
+                            onClose={handleDeleteClose}
+                            aria-labelledby="modal-modal-title"
+                            aria-describedby="modal-modal-description"
+                        >
+                            <Box sx={style}>
+                                <h3 className='brand-title'>Delete Label</h3>
+                                <hr />
+                                <h5>Do you want to delete this label?</h5>
+                                <br/> <br/>
+                                <div className='ADLBtn'><button onClick={handleDeleteLabel} className='btnGreen'>Yes</button>
+                                <button onClick={handleDeleteClose} className='btnRed'>No</button></div>
+                                
+
+
+                            </Box>
+                        </Modal>
                 </div>
 
             </div>
