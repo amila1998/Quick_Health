@@ -20,14 +20,14 @@ const doctorScheduleController = {
             await newDoctorSchedule.save();
 
             res.status(200).json({
-                message: "Doctor Schedule Added Success ! ",
+                msg: "Doctor Schedule Added Success ! ",
                 success: true,
             });
 
 
         } catch (error) {
             res.status(500).json({
-                message: error.message,
+                msg: error.message,
                 success: false
             });
         }
@@ -39,14 +39,14 @@ const doctorScheduleController = {
             const fetch = await DoctorSchedule.find({doctorId});
 
             res.status(200).json({
-                message: "Doctor Schedules Fetched Success ! ",
+                msg: "Doctor Schedules Fetched Success ! ",
                 fetch : fetch,
                 success: true,
             });
 
         } catch (error) {
             res.status(500).json({
-                message: error.message,
+                msg: error.message,
                 success: false
             });
         }
@@ -58,31 +58,37 @@ const doctorScheduleController = {
 
 
             res.status(200).json({
-                message: "Doctor Schedule Deleted Success ! ",
+                msg: "Doctor Schedule Deleted Success ! ",
                 success: true,
             });
 
         } catch (error) {
             res.status(500).json({
-                message: error.message,
+                msg: error.message,
                 success: false
             });
         }
     },
 
     getAllDoctors : async (req , res) => {
+
+        const query = {}
+        query.role = "doctor" ;
+        if (req.query.keyword){
+            query.$or=[{"name" : {$regex : req.query.keyword , $options : "i"}}]
+        }
         try {
-            const fetch = await User.find({role : 'doctor'})
+            const fetch = await User.find( query )
 
             res.status(200).json({
-                message: "Doctors Fetched Success ! ",
+                msg: "Doctors Fetched Success ! ",
                 fetch : fetch ,
                 success: true,
             });
 
         } catch (error) {
             res.status(500).json({
-                message: error.message,
+                msg: error.message,
                 success: false
             });
         }
@@ -94,14 +100,14 @@ const doctorScheduleController = {
             const fetch = await DoctorSchedule.find({doctorId});
 
             res.status(200).json({
-                message: "Doctor Schedules Fetched Success ! ",
+                msg: "Doctor Schedules Fetched Success ! ",
                 fetch : fetch ,
                 success: true,
             });
 
         } catch (error) {
             res.status(500).json({
-                message: error.message,
+                msg: error.message,
                 success: false
             });
         }
@@ -113,14 +119,62 @@ const doctorScheduleController = {
             const fetch = await User.findById(doctorId)
 
             res.status(200).json({
-                message: "Doctors Fetched Success ! ",
+                msg: "Doctors Fetched Success ! ",
                 fetch : fetch ,
                 success: true,
             });
 
         } catch (error) {
             res.status(500).json({
-                message: error.message,
+                msg: error.message,
+                success: false
+            });
+        }
+    } ,
+
+    editDoctorSchedule : async ( req , res ) => {
+        try {
+
+            let doctorScheduleId = req.params.id ;
+            const { doctorId , day , startTime , endTime , location } = req.body;
+
+            const newEditDoctorSchedule = {
+                day , 
+                startTime , 
+                endTime , 
+                location
+            };
+
+            const fetch = await DoctorSchedule.findByIdAndUpdate(doctorScheduleId , newEditDoctorSchedule);
+
+            res.status(200).json({ 
+                msg: "Update success." ,
+                fetch : fetch    
+            });
+
+        } catch (error) {
+            res.status(500).json({
+                msg: error.message,
+                success: false
+            });
+        }
+    } ,
+
+    getADoctorSchedule : async ( req , res ) => {
+        try {
+
+            let doctorScheduleId = req.params.id ;
+
+            const fetch = await DoctorSchedule.findById(doctorScheduleId);
+
+            res.status(200).json({ 
+                msg: "Fetched a doctor schedule success." ,
+                fetch : fetch    
+            });
+
+        } catch (error) {
+            res.status(500).json({
+                msg: error.message,
                 success: false
             });
         }

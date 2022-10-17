@@ -2,19 +2,13 @@ import React from 'react'
 import './qcard.css'
 import Lable from '../../utils/lable/Lable'
 import { useNavigate } from 'react-router-dom'
+import moment from 'moment'
 
 const QCard = ({question}) => {
   const navigate = useNavigate()
 
-  let date_1 = new Date(question.createdAt);
-  let date_2 = new Date();
-  
-  const days = (date_1, date_2) =>{
-      let difference = date_1.getTime() - date_2.getTime();
-      let TotalDays = Math.ceil(difference / (1000 * 3600 * 24));
-      return TotalDays;
-  }
-
+  const dateMoment = moment.utc(question.createdAt).local().startOf('seconds').fromNow();
+   
   let allLbles = [];
   for(const l of question.lables){
     for(const v of l.value){
@@ -45,10 +39,10 @@ const QCard = ({question}) => {
             <hr></hr>
             <div className='cBottom'>
                 <div className='cbBottom'>
-                <div className='mar'>Votes : {question.stars.length}</div>
+                <div className='mar'>Stars : {question.stars.length}</div>
                 <div className='mar'>Answers : {question.replies.length}</div>
                 </div>
-                <div> <a href='#'>{question.userName}</a> - {days(date_2, date_1)} days a ago</div>
+                <div> <a href='#'>{question.userName}</a> - {dateMoment}</div>
             </div>
         </div>
     </div>

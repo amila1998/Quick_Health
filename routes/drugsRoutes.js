@@ -9,4 +9,5 @@ route.get('/api/drugs/:id',drugsController. getOne);
 route.delete('/api/drugs/delete/:id',drugsController.deleteDrug);
 route.put('/api/drugs/editDrug/:id',drugsController.editDrug);
 
+
 module.exports = route;

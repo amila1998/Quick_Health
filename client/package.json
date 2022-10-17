@@ -17,6 +17,7 @@
     "jodit-react": "^1.3.18",
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.5.25",
+    "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.3.0",

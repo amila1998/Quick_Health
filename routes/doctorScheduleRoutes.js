@@ -11,5 +11,7 @@ route.delete("/api/doctor/deleteADoctorSchedule/:id" , auth , doctor , doctorSch
 route.get("/api/doctors" , doctorScheduleController.getAllDoctors );
 route.get("/api/doctor/:id/doctorSchedules" , doctorScheduleController.getADoctorSchedulesForPatient);
 route.get("/api/doctor/:id/doctorDetails" , doctorScheduleController.getDoctorDetailsForPatient);
+route.put("/api/doctor/editDoctorSchedule/:id" , auth , doctor , doctorScheduleController.editDoctorSchedule);
+route.get("/api/doctor/getADoctorSchedule/:id" , auth , doctor , doctorScheduleController.getADoctorSchedule);
 
 module.exports = route;
