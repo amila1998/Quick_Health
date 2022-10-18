@@ -16,12 +16,15 @@ const initialState = {
 const AddPharmacyDetails = () => {
     const gState = useContext(GlobalState)
     const [token] = gState.token
+    const [userDetails] = gState.userAPI.userDetails
+    console.log("🚀 ~ file: AddPharmacyDetails.js ~ line 20 ~ AddPharmacyDetails ~ userDetails",userDetails._id)
     const [data, setData] = useState(initialState);
     const {  PharmacyName,StreetAddress,City, State,number,OpenTime,  CloseTime } = data
     console.log("🚀 ~ file: AddPharmacyDetails.js ~ line 20 ~ AddPharmacyDetails ~ data", data)
-    const [UserID, setUserID] = useState("123456");
+    const [UserID, setUserID] = useState(userDetails._id);
+    console.log("🚀 ~ file: AddPharmacyDetails.js ~ line 25 ~ AddPharmacyDetails ~ UserID", UserID)
     
-  
+    
   
     const navigate = useNavigate()
 
@@ -77,7 +80,7 @@ const AddPharmacyDetails = () => {
 
   return (
       <div className="layout">
-            <ToastContainer />
+            {/* <ToastContainer /> */}
           <form  controlId="formBasicEmail" action="">
               <h2 className="brand-title" style={{ fontWeight: "bolder", fontSize: "35px" }}>Pharmacy Details</h2>
               <div className="input">
