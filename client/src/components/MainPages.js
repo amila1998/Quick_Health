@@ -14,6 +14,7 @@ import AddPharmacyDetails from './pharmacist/addPharmacyDetails/AddPharmacyDetai
 import PharmacistHome from './pharmacist/pharmacistHome/PharmacistHome';
 import PharmacyDrugsList from './pharmacist/pharmacyDrugsList/PharmacyDrugsList';
 import AllPharmecy from './pharmecy/AllPharmecy/AllPharmecy';
+import PharmacyDrug from './pharmecy/pharmacyDrug/PharmacyDrug';
 import Profile from './profile/Profile';
 import Questions from './questions/allQuestion/Questions';
 import CreateQuestion from './questions/createQuestion/CreateQuestion';
@@ -49,6 +50,7 @@ const MainPages = () => {
     <Route path='/pharmacist/addDrugsDetails' element={<AddDrugsDetails/>} />
     {/* pharmacy  */}
     <Route path='/pharmacy/' element={<AllPharmecy/>} />
+    <Route path='/pharmacy/:dID' element={<PharmacyDrug/>} />
 
     {/* Profile */}
     <Route path='/profile' element={isLogged&&<Profile />} />
