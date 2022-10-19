@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import QandAReports from './QandAReports/QandAReports'
 import './report.css'
 import ReportedQuestionReport from './reportedQuestionReport/ReportedQuestionReport'
 
@@ -41,6 +42,7 @@ if(!reportedQuestionR&&!qaR){
 }else if(qaR){
     return(
         <> <div>
+            <QandAReports></QandAReports>
             <div><hr/><center><button onClick={handleBack} className='btnRed'>Back</button></center></div>
         </div>
         </>
