@@ -1,4 +1,4 @@
-.rBody{
+.rcBody{
     overflow-y:hidden;
     margin: auto;
     text-align: center;
@@ -20,5 +20,18 @@
     justify-content: right;
     display: flex;
     right: 0;
+}
+
+.btnr{
+    width: 100% !important;
+    
+}
+
+.imgicon img{
+    margin-right: 10px;
+    margin-right: 10px;
+    width: 20px;
+    height: 20px;
+    filter: brightness(0) invert(1);
 }
 
