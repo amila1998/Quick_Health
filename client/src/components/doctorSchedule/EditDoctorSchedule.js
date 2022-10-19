@@ -31,9 +31,11 @@ const EditDoctorSchedule = () => {
             try {
                 const res = await axios.get(`/api/doctor/getADoctorSchedule/${doctorScheduleId}`)
                 setDoctorSchedule(res.data.fetch)
-                console.log(res)
+                setDay(res.data.fetch.day)
+                setLocation(res.data.fetch.location);
+                //console.log(res)
             } catch (error) {
-                alert(error.response.data)
+                alert(error.message)
             }
         }
         getADoctorSchedule()
@@ -49,10 +51,10 @@ const EditDoctorSchedule = () => {
                     headers: { Authorization: token }
                 });
                 console.log(res)
-                //alert(res.data)
+                alert(res.data.msg)
                 window.location.href = '/doctor'
             } catch (error) {
-                //alert(error.response.data);
+                alert(error.message);
                 console.log(error);
             }
         }
@@ -70,15 +72,15 @@ const EditDoctorSchedule = () => {
                 <div className="input"> <br />
                     <label className="label">Day</label>
                     <br />
-                    <select className="inputs" name="day" value={day} required onChange={handleDay}>
+                    <select className="inputs" name="day"  required onChange={handleDay}>
                         <option value="" disabled>----------Select Your Day----------</option>
-                        <option value="Monday">Monday</option>
-                        <option value="Tuesday">Tuesday</option>
-                        <option value="Wednesday">Wednesday</option>
-                        <option value="Thursday">Thursday</option>
-                        <option value="Friday">Friday</option>
-                        <option value="Saturday">Saturday</option>
-                        <option value="Sunday">Sunday</option>
+                        <option value="Monday" selected={day === "Monday"}>Monday</option>
+                        <option value="Tuesday" selected={day === "Tuesday"}>Tuesday</option>
+                        <option value="Wednesday" selected={day === "Wednesday"}>Wednesday</option>
+                        <option value="Thursday" selected={day === "Thursday"}>Thursday</option>
+                        <option value="Friday" selected={day === "Friday"}>Friday</option>
+                        <option value="Saturday" selected={day === "Saturday"}>Saturday</option>
+                        <option value="Sunday" selected={day === "Sunday"}>Sunday</option>
                     </select><br /><br />
                     <label>Start Time</label>
                     <br />
@@ -104,11 +106,11 @@ const EditDoctorSchedule = () => {
 
                     <label>Location</label>
                     <br />
-                    <select className="inputs" name="location" value={location} required onChange={handleLocation}>
+                    <select className="inputs" name="location" defaultValue={doctorSchedule?.location} required onChange={handleLocation}>
                         <option value="" disabled>----------Select Your Location----------</option>
-                        <option value="Sethma Hospitals (Pvt) Ltd">Sethma Hospitals (Pvt) Ltd</option>
-                        <option value="Nawaloka Medicare - Gampaha">Nawaloka Medicare - Gampaha</option>
-                        <option value="Arogya Hospitals (Pvt) Ltd">Arogya Hospitals (Pvt) Ltd</option>
+                        <option value="Sethma Hospitals (Pvt) Ltd" selected={location === "Sethma Hospitals (Pvt) Ltd"}>Sethma Hospitals (Pvt) Ltd</option>
+                        <option value="Nawaloka Medicare - Gampaha" selected={location === "Nawaloka Medicare - Gampaha"} >Nawaloka Medicare - Gampaha</option>
+                        <option value="Arogya Hospitals (Pvt) Ltd" selected={location === "Arogya Hospitals (Pvt) Ltd"} >Arogya Hospitals (Pvt) Ltd</option>
                     </select><br /><br /><br />
                     <center>
                         <button className="addVisitBtn" onClick={editDoctorScheduleHandler}>Save Visit</button>
