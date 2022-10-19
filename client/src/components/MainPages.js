@@ -38,7 +38,7 @@ const MainPages = () => {
     <Route path='/signin' element={isLogged?<Navigate to={'/'}/>:<Login />} />
     <Route path='/signup' element={isLogged?<Navigate to={'/'}/>:<Register />} />
     {/* Doctor Routes */}
-    <Route path='/doctor' element={isDoctor?<DoctorScheduleHome/>:<Navigate to={'/signin'}/>} />
+    <Route path='/doctor' element={<DoctorScheduleHome/>} />
     <Route path='/doctor/addDoctorsSchedule' element={isDoctor?<AddDoctorSchedule/>:<Navigate to={'/signin'}/>}/>
     <Route path='/doctor/:dId/doctorSchedules' element={<DoctorScheduleForPatient/>}/>
     <Route path='/doctors' element={<Doctors />} />
