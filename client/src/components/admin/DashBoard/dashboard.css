@@ -1,0 +1,4 @@
+.dashBody{
+  display: flex;
+  flex-wrap: wrap;
+}
