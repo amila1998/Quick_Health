@@ -11,8 +11,11 @@ import DoctorScheduleReport from './doctorSchedule/report/DoctorScheduleReport';
 import Login from './login/Login';
 import AddDrugsDetails from './pharmacist/addDrugsDetails/AddDrugsDetails';
 import AddPharmacyDetails from './pharmacist/addPharmacyDetails/AddPharmacyDetails';
+import MyDrugs from './pharmacist/myDrugs/MyDrugs';
 import PharmacistHome from './pharmacist/pharmacistHome/PharmacistHome';
 import PharmacyDrugsList from './pharmacist/pharmacyDrugsList/PharmacyDrugsList';
+import AllPharmecy from './pharmecy/AllPharmecy/AllPharmecy';
+import PharmacyDrug from './pharmecy/pharmacyDrug/PharmacyDrug';
 import Profile from './profile/Profile';
 import Questions from './questions/allQuestion/Questions';
 import CreateQuestion from './questions/createQuestion/CreateQuestion';
@@ -43,9 +46,14 @@ const MainPages = () => {
     <Route path='/doctor/:dId/doctorScheduleReport' element={<DoctorScheduleReport/>}/>
     {/* Pharmacist */}
     <Route path='/pharmacist/' element={<PharmacistHome/>} />
+    <Route path='/myDrugs/:pid' element={<MyDrugs/>} />
     <Route path='/pharmacist/addPharmacyDetails' element={<AddPharmacyDetails/>} />
     <Route path='/pharmacist/pharmacyDrugsList' element={<PharmacyDrugsList/>} />
-    <Route path='/pharmacist/addDrugsDetails' element={<AddDrugsDetails/>} />
+    <Route path='/pharmacist/addDrugsDetails/:pid' element={<AddDrugsDetails/>} />
+    {/* pharmacy  */}
+    <Route path='/pharmacy/' element={<AllPharmecy/>} />
+    <Route path='/pharmacy/:dID' element={<PharmacyDrug/>} />
+
     {/* Profile */}
     <Route path='/profile' element={isLogged&&<Profile />} />
     <Route path='/updateprofile' element={isLogged&&<UpadateProfile />} />

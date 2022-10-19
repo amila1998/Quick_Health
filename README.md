@@ -12,10 +12,10 @@
 <br />
 <div align="center">
   <a href="https://github.com/amila1998/Quick_Health">
-    <img src="zREAD_ME_DOCUMENTS/IMAGES/SLIIT_Logo_Crest.png" alt="Logo" width="80" height="80">
+    <img src="https://github.com/amila1998/Quick_Health/blob/main/client/src/asserts/SLIIT_Logo_Crest.png" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">Research Project Management Tool
+  <h3 align="center">QUICK HEALTH WEB APPLICATION
 </h3>
 
   <p align="center">
@@ -25,7 +25,7 @@
     <br />
     <br />
     <br />
-    SER052
+    Group No: SER052
     <br />
     
   </p>
@@ -58,9 +58,18 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-
-
 Demo : <a href='https://quick-health-app.herokuapp.com/'>Quick Health Demo</a>
+
+<p> People in many countries of the world, in some cases, follow various treatment methods for 
+diseases without medical advice. These treatments are good treatments for some diseases, but 
+some treatments tend to turn bad.
+The Quick Health web application is a website that helps one get an idea of the treatment 
+before getting any treatment.
+This website can be used as a main feature to answer a question asked by another party or to 
+evaluate a given answer and to post a problem and exchange ideas with others.
+Moreover, this website provides some opportunity to promote their services, especially to doctors 
+and pharmacies in the medical field.
+</p>
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -99,18 +108,16 @@ Demo : <a href='https://quick-health-app.herokuapp.com/'>Quick Health Demo</a>
    ```
 4. Create `.env` file inside the server folder and Enter Following Keys
    ```.env
-      MONGODB_URL = (your mongoDB Url)
-      
-      APP_SECRET=qwertyuiop
-      APP_PORT=8000
-      
-      ACTIVATION_TOKEN=adwdawdawdaw
-      REFRESH_TOKEN=ahbdahwdjawdj
-      ACCESS_TOKEN=ajdwajwdn
+      MONGODB_URI = 
+      NODE_ENV = development
 
-      CLOUD_NAME=(Your Cloudanary Name)
-      CLOUD_API_KEY=(Your Cloudanary Api Key)
-      CLOUD_API_SECRET=(Your Cloudanary SECRET Key)
+      ACCESS_TOKEN = snsndj
+      REFRESH_TOKEN = jkasdjknasjkd
+      ACTIVATION_TOKEN = jnajdnakjsnd
+
+      CLOUD_NAME = 
+      CLOUD_API_KEY = 
+      CLOUD_API_SECRET = 
    ```
  5. To Run the local
       ```sh
