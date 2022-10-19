@@ -148,7 +148,7 @@ const doctorScheduleController = {
             const fetch = await DoctorSchedule.findByIdAndUpdate(doctorScheduleId , newEditDoctorSchedule);
 
             res.status(200).json({ 
-                msg: "Update success." ,
+                msg: "Doctor Visiting Schedule Updated Successfully !" ,
                 fetch : fetch    
             });
 
