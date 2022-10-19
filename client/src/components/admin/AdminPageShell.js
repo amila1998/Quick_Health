@@ -9,6 +9,7 @@ import f from '../../asserts/icons/Edit Pie Chart Report.png'
 import ad from '../../asserts/icons/Admin Settings Male.png'
 import Reports from './reports/Reports'
 import LabelManagement from './LabelManagement/LabelManagement'
+import Dashboard from './DashBoard/Dashboard'
 
 
 const AdminPageShell = () => {
@@ -105,7 +106,9 @@ const AdminPageShell = () => {
                 </div>
                 <div className='ARight'>
                     {
-                        AdminDashBoard && <></>
+                        AdminDashBoard && <>
+                        <Dashboard/>
+                        </>
                     }
                     {
                         userManagement && <></>
