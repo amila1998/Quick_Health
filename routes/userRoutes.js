@@ -12,6 +12,7 @@ route.post("/api/auth/signin", userController.signing);
 route.get('/api/auth/infor', auth, userController.getUser);
 route.patch('/api/auth/updateProfile', auth, userController.updateProfile);
 route.post('/api/auth/logout', userController.logout);
+route.get('/api/admin/getAllUsers',auth,admin, userController.getAllUsers);
 
 
 

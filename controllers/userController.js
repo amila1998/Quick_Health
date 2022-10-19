@@ -144,6 +144,15 @@ const userController = {
         }
 
     },
+    getAllUsers :async(req,res)=>{
+        try {
+            const users = await User.find()
+        res.status(200).json({users});
+        } catch (error) {
+            console.log("🚀 ~ file: userController.js ~ line 132 ~ updateProfile: ~ err", err)
+            res.status(500).json({ msg: error.message });
+        }
+    }
 };
 
 
