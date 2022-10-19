@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import axios from "axios";
 import { GlobalState } from "../../../GlobalState";
 // import "./doctorSchedule.css"
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 const initialState = {
     DrugName:"",
@@ -15,18 +15,23 @@ const AddDrugsDetails = () => {
 
 
     const gState = useContext(GlobalState)
+    const [userDetails] = gState.userAPI.userDetails
+    // console.log("🚀 ~ file: AddDrugsDetails.js ~ line 19 ~ AddDrugsDetails ~ userDetails", userDetails._id)
     const [token] = gState.token
     const [data, setData] = useState(initialState);
     const {  DrugName,DrugQuantity,Description,DrugPrice} = data
     console.log("🚀 ~ file: AddPharmacyDetails.js ~ line 20 ~ AddPharmacyDetails ~ data", data)
-    const [UserID, setUserID] = useState("123456");
-    const [PharmacyID, setPharmacyID] = useState("123456");
+    const UserID=userDetails._id;
+    console.log("🚀 ~ file: AddDrugsDetails.js ~ line 25 ~ AddDrugsDetails ~ UserID", UserID)
+    // const [PharmacyID, setPharmacyID] = useState("123456");
     const [DrugImage, setDrugImage] = useState(false);
     console.log("🚀 ~ file: addDrugsDetails.js ~ line 25 ~ AddDrugsDetails ~ DrugImage", DrugImage)
     const [fileName, setFileName]=useState("");
     const [file, setFile] = useState(false);
     const [fileURL, setfileURL] = useState('');
-    
+    const params=useParams();
+    const PharmacyID=params.pid;
+    console.log("🚀 ~ file: AddDrugsDetails.js ~ line 31 ~ AddDrugsDetails ~ PharmacyID", PharmacyID)
   
   
     const navigate = useNavigate()
@@ -37,7 +42,7 @@ const AddDrugsDetails = () => {
 
     
 
-    console.log(token);
+    // console.log(token);
     const addPharmacyDetailsHandler = async (e) => {
         e.preventDefault();
         if (DrugPrice === "" ||   DrugName===""||DrugQuantity===""||Description==="" ) {

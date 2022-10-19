@@ -19,6 +19,30 @@ const pharmacyController={
             });
         }
     }, 
+    editPharmacy : async ( req , res ) => {
+        try {
+
+            let PharmacyId = req.params.id ;
+            const {UserID,PharmacyName,StreetAddress,City,State,OpenTime, CloseTime } = req.body;
+
+            const newEditPharmacy = {
+                UserID,PharmacyName,StreetAddress,City,State,OpenTime, CloseTime
+            };
+
+            const fetch = await Pharmacy.findByIdAndUpdate(PharmacyId,newEditPharmacy);
+
+            res.status(200).json({ 
+                msg: "Update success." ,
+                fetch : fetch    
+            });
+
+        } catch (error) {
+            res.status(500).json({
+                msg: error.message,
+                success: false
+            });
+        }
+    },
     
     getAll:async(req,res)=>{
         try {
@@ -47,7 +71,38 @@ const pharmacyController={
                 success: false
             }); 
         }
-    }
+    },
+    getOnePharmacy:async(req,res)=>{
+        try {
+            const OnePharmacy = await Pharmacy.find({"_id":req.params.id});
+            res.status(200).json({ 
+                OnePharmacy,
+                success: true
+            })                
+        } catch (error) {
+            res.status(500).json({ 
+                msg: error.message ,
+                success: false
+            }); 
+        }
+    },
+    deletePharmacy : async (req, res) => {
+        try {
+            const fetch = await Pharmacy.findByIdAndDelete(req.params.id);
+
+
+            res.status(200).json({
+                msg: "Pharmacy Deleted Success ! ",
+                success: true,
+            });
+
+        } catch (error) {
+            res.status(500).json({
+                msg: error.message,
+                success: false
+            });
+        }
+    },
 
 }
 module.exports = pharmacyController;

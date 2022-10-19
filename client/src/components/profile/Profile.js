@@ -61,6 +61,9 @@ const Profile = () => {
         navigate('/updateprofile');
 
     }
+    const handleMyPharmacies=()=>{
+        navigate('/pharmacist');
+    }
     return (
         <div>
             <ToastContainer />
@@ -112,7 +115,7 @@ const Profile = () => {
                 }
                   {
                     isPharmacist&&<>
-                    
+                     <div  onClick={handleMyPharmacies} className="pNavs">My Pharmacies</div>
                     </>
                 }
 
