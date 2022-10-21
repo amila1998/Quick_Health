@@ -1,0 +1,7 @@
+.chartBody{
+    overflow-x: scroll !important;
+}
+
+.chartHead{
+    font-weight: 900;
+}

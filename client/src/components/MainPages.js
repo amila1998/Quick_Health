@@ -41,10 +41,10 @@ const MainPages = () => {
     <Route path='/signup' element={isLogged?<Navigate to={'/'}/>:<Register />} />
     {/* Doctor Routes */}
     <Route path='/doctor' element={<DoctorScheduleHome/>} />
-    <Route path='/doctor/addDoctorsSchedule' element={<AddDoctorSchedule/>} />
+    <Route path='/doctor/addDoctorsSchedule' element={isDoctor?<AddDoctorSchedule/>:<Navigate to={'/signin'}/>}/>
     <Route path='/doctor/:dId/doctorSchedules' element={<DoctorScheduleForPatient/>}/>
     <Route path='/doctors' element={<Doctors />} />
-    <Route path='/doctor/editDoctorSchedule/:doctorScheduleId' element={<EditDoctorSchedule/>} />
+    <Route path='/doctor/editDoctorSchedule/:doctorScheduleId' element={isDoctor?<EditDoctorSchedule/>:<Navigate to={'/signin'}/>} />
     <Route path='/doctor/:dId/doctorScheduleReport' element={<DoctorScheduleReport/>}/>
     {/* Pharmacist */}
     <Route path='/pharmacist/' element={<PharmacistHome/>} />

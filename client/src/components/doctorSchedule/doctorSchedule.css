@@ -122,7 +122,7 @@
 
 .doctorScheduleLayout {
   width: 100%;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.85) !important;
   padding: 20px;
   border-radius: 20px;
   margin-bottom: 15px;
@@ -136,7 +136,7 @@
 .doctorScheduleMainLayout {
   margin: auto;
   width: 99%;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.85) !important;
   height: 100%;
   padding: 20px;
   border-radius: 5px;
@@ -151,7 +151,7 @@
 
 .addDoctorScheduleLayout {
   width: 50%;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.85) !important;
   height: 100%;
   padding: 20px;
   border-radius: 20px;
@@ -184,7 +184,7 @@
   overflow: hidden;
   width: 93% !important;
   margin-bottom: 10px;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.85) !important;
   padding: 30px !important;
   border-radius: 10px !important;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -234,7 +234,7 @@
   margin-left: auto;
   overflow: hidden;
   width: 26.5% !important;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.85) !important;
   padding: 35px !important;
   margin-bottom: 10px;
   border-radius: 20px !important;
@@ -247,7 +247,7 @@
   overflow: hidden;
   width: 66% !important;
   margin-left: 10px;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.85) !important;
   padding: 20px;
   border-radius: 20px !important;
   margin-bottom: 10px;

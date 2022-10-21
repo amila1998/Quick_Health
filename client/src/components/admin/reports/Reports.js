@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
+import QandAReports from './QandAReports/QandAReports'
 import './report.css'
 import ReportedQuestionReport from './reportedQuestionReport/ReportedQuestionReport'
+import report from '../../../asserts/icons/file-solid.svg'
 
 const Reports = () => {
     const [reportedQuestionR,setReportedQuestionR]=useState(false)
@@ -22,9 +24,9 @@ const Reports = () => {
 
 if(!reportedQuestionR&&!qaR){
     return (
-        <div className='rBody'>
-            <div className='rRow'><button onClick={handleReportedQuestionR} className='btnOrange'>Reported Question Report</button></div>
-            <div className='rRow'><button onClick={handleQAR} className='btnOrange'>Q&A Report</button></div>
+        <div className='rcBody'>
+            <div className='rRow'><button onClick={handleReportedQuestionR} className='btnOrange btnr'><span className='imgicon'>< img  src={report}/></span>Reported Question Report</button></div>
+            <div className='rRow'><button onClick={handleQAR} className='btnOrange btnr'><span className='imgicon'>< img  src={report}/></span>Q&A Report</button></div>
             
             
         </div>
@@ -41,6 +43,7 @@ if(!reportedQuestionR&&!qaR){
 }else if(qaR){
     return(
         <> <div>
+            <QandAReports></QandAReports>
             <div><hr/><center><button onClick={handleBack} className='btnRed'>Back</button></center></div>
         </div>
         </>
