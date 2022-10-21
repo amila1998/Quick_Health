@@ -22,7 +22,8 @@ const drugsController={
     
     getAllDrugs:async(req,res)=>{
         try {
-           const allDrugs = await drugs.find();
+           let DrugId = req.params.id ;
+           const allDrugs = await drugs.findOne({"_id":DrugId});
             res.status(200).json({ 
                 allDrugs,
                 success: true

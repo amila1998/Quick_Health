@@ -13,7 +13,8 @@ const initialState = {
     OpenTime: "",
      CloseTime: ""
 };
-const AddPharmacyDetails = () => {
+const AddPharmacyDetails = (props) => {
+    const {setOpen}=props;
     const gState = useContext(GlobalState)
     const [token] = gState.token
     const [userDetails] = gState.userAPI.userDetails
@@ -41,11 +42,12 @@ const AddPharmacyDetails = () => {
             alert("Fill all the fields");
         } else {
             try {
-                const res = await axios.post("/api/pharmacy/add", { UserID, PharmacyName,StreetAddress,City, State,OpenTime,  CloseTime }, {
+                const res = await axios.post("/api/pharmacy/add", { UserID, PharmacyName,StreetAddress,City, State,number,OpenTime,  CloseTime }, {
                     headers: { Authorization: token }
                 });
                 // console.log(res)
                 // alert(res.data)
+                setOpen(false)
                 toast.success(res.data.msg, {
                     position: "top-right",
                     autoClose: 5000,
@@ -72,6 +74,7 @@ const AddPharmacyDetails = () => {
     };
 
     const cancelBtn = () => {
+        setOpen(false)
         navigate('/pharmacist')
     }
 

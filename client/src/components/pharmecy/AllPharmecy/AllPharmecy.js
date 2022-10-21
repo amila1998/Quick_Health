@@ -8,6 +8,14 @@ const AllPharmecy = () =>{
 
     const navigate = useNavigate();
     const [pharmacy, setPharmacy] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [searchInput, setSearchInput] = useState('');
+    const [filterInput, setFilterInput] = useState('');
+    console.log("🚀 ~ file: AllPharmecy.js ~ line 14 ~ AllPharmecy ~ filterInput", filterInput)
+    const [showBtn, setShowButton] = useState(false)
+    
+    console.log("🚀 ~ file: AllPharmecy.js ~ line 13 ~ AllPharmecy ~ searchInput", searchInput)
+    console.log("🚀 ~ file: AllPharmecy.js ~ line 12 ~ AllPharmecy ~ searchTerm", searchTerm)
     console.log("🚀 ~ file: AllPharmecy.js ~ line 10 ~ AllPharmecy ~ pharmacy", pharmacy)
     // console.log("🚀 ~ file: Questions.js ~ line 11 ~ Questions ~ questions", questions)
 
@@ -31,6 +39,26 @@ const AllPharmecy = () =>{
         getAllpharmacys(); 
     }, [])
 
+    const handleOnClickSearch = (e) => {
+        setSearchTerm(searchInput)
+        setShowButton(true)
+    }
+    const handleResetSearch = (e) => {
+        setSearchTerm(e.target.value = '')
+        setShowButton(false)
+    }
+    const handleOnClickFilter = (e) => {
+        setSearchTerm(filterInput)
+        setShowButton(true)
+    }
+   
+    const filteredCountries = pharmacy.filter(pharmacy => {
+        return (pharmacy.PharmacyName.toLowerCase().includes(searchTerm.toLocaleLowerCase()) ||
+                pharmacy.StreetAddress.toLowerCase().includes(searchTerm.toLocaleLowerCase()) ||
+                pharmacy.City.toLowerCase().includes(searchTerm.toLocaleLowerCase()) ||
+                pharmacy.State.toLowerCase().includes(searchTerm.toLocaleLowerCase()))
+    
+    })
 
     const navigateToPharmacySchedules = (pharmacyId) => {
         navigate(`/pharmacy/${pharmacyId}`)
@@ -39,8 +67,13 @@ const AllPharmecy = () =>{
         <div>
             <div className='Qbody'>
                 <div className='QTop'>
-                    <div className='QRow1'><input className="inputs" type="text" name="title" placeholder='Search' />
-                        <button className="btnOrange"  >Search</button>
+                    <div className='QRow1'>
+                        <input className="inputs" type="text" name="Search" placeholder='Search' onChange={(e)=>setSearchInput(e.target.value)}
+                        />
+                        <button className="btnOrange" onClick={handleOnClickSearch} >Search</button>
+                        {
+                            showBtn && <button onClick={handleResetSearch} className="btnRed"  >Reset</button>
+                        }
                     </div>
                 </div>
 
@@ -48,42 +81,50 @@ const AllPharmecy = () =>{
                     <div className='QBottomL'>
                         <h2 className='brand-title Qleft'>Advance Filter</h2>
                         <hr />
-                        <label>By Type</label>
-                        <select className="inputs" name="lable" >
+                        <label>By location</label>
+                        <select className="inputs" name="lable" onChange={(e)=>setFilterInput(e.target.value)}>
                             <option value="" selected>All Types</option>
-                            <option value="Allergists">Allergists</option>
-                            <option value="Dermatologists">Dermatologists</option>
-                            <option value="Ophthalmologists">Ophthalmologists</option>
-                            <option value="Cardiologists">Cardiologists</option>
-                            <option value="Endocrinologists">Endocrinologists</option>
-                            <option value="Gastroenterologists">Gastroenterologists</option>
-                            <option value="Nephrologists">Nephrologists</option>
-                            <option value="Urologists">Urologists</option>
-                            <option value="Pulmonologists">Pulmonologists</option>
-                            <option value="Otolaryngologists">Otolaryngologists</option>
-                            <option value="Psychiatrists">Psychiatrists</option>
-                            <option value="Oncologists">Oncologists</option>
-                            <option value="Radiologists">Radiologists</option>
-                            <option value="Rheumatologists">Rheumatologists</option>
-                            <option value="General Surgeons">General Surgeons</option>
-                            <option value="Orthopedic Surgeons">Orthopedic Surgeons</option>
-                            <option value="Cardiac Surgeons">Cardiac Surgeons</option>
-                            <option value="Anesthesiologists">Anesthesiologists</option>
+                            <option value="Ampara">Ampara</option>
+                            <option value="Anuradhapura">	Anuradhapura</option>
+                            <option value="Badulla">Badulla</option>
+                            <option value="Batticaloa">Batticaloa</option>
+                            <option value="Colombo">Colombo</option>
+                            <option value="Galle">Galle</option>
+                            <option value="Gampaha">Gampaha</option>
+                            <option value="Hambantota">Hambantota</option>
+                            <option value="Jaffna">Jaffna</option>
+                            <option value="Kalutara">Kalutara</option>
+                            <option value="Kandy">Kandy</option>
+                            <option value="Kegalle">Kegalle</option>
+                            <option value="Kilinochchi">Kilinochchi</option>
+                            <option value="Kurunegala">Kurunegala</option>
+                            <option value="Mannar">Mannar</option>
+                            <option value="Matale">Matale</option>
+                            <option value="Matara">Matara</option>
+                            <option value="Moneragala">Moneragala</option>
+                            <option value="Mullaitivu">Mullaitivu</option>
+                            <option value="Nuwara Eliya">Nuwara Eliya</option>
+                            <option value="Polonnaruwa">Polonnaruwa</option>
+                            <option value="Ratnapura">Ratnapura</option>
+                            <option value="Trincomalee">Trincomalee</option>
+                            <option value="Vavuniya">Vavuniya</option>
                         </select>
                         <div className='Qcenter'>
-                            <button className="btnOrange mt-3"  >Filter</button><br /><br />
-                            <button className="btnRed"  >Reset</button>
+                            <button className="btnOrange mt-3" onClick={handleOnClickFilter} >Filter</button><br /><br />
+                            {
+                               showBtn && <button className="btnRed" onClick={handleResetSearch} >Reset</button>
+                            }
                         </div>
                     </div>
                     <div className='QBottomR'>
                         <div className=''>
-                            {pharmacy.map((pharmacy)=>(
+                            {filteredCountries.map((pharmacy,index)=>(
                                 <div className="parent container d-flex justify-content-center align-items-center h-100">
                                     <div className="doctorScheduleLayout" style={{ width: "95%"}}>
                                         <div class="container">
                                             <div class="row">
                                                 <div class="col-sm-1">
-                                                    <img className='pLogo' src='' alt="userlogo"  />
+                                                    <img className='pLogo' src='https://res.cloudinary.com/quick-health/image/upload/v1666282124/DrugPicture/istockphoto-1275720974-612x612_babp6v.jpg' alt="userlogo" style={{ width: "100px", height: "100px" }} />
                                                 </div>
                                                 <div class="col-sm-8 ms-4">
                                                     <div class="row">
