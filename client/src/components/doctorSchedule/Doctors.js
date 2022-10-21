@@ -10,6 +10,8 @@ const Doctors = () => {
     const [search, setSearch] = useState('');
     const [showBtn, setShowButton] = useState(false)
     const [callback, setCallback] = useState(true);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [filterInput, setFilterInput] = useState('');
 
     const handleSearch = (e) => {
         setSearch(e.target.value)
@@ -22,11 +24,14 @@ const Doctors = () => {
         setCallback(true)
     }
 
-
     const handleOnClickSearch = () => {
         setCallback(true)
     }
 
+    const handleOnClickFilter = (e) => {
+        setSearchTerm(filterInput)
+        setShowButton(true)
+    }
 
     useEffect(() => {
 
@@ -45,6 +50,10 @@ const Doctors = () => {
         getAllDoctors();
     }, [callback])
 
+    const filteredSpeciality = doctors.filter(doctor => {
+        return (doctor.doctor?.speciality.includes(searchTerm))
+    
+    })
 
     const navigateToDoctorSchedules = (doctorId) => {
         navigate(`/doctor/${doctorId}/doctorSchedules`)
@@ -56,7 +65,7 @@ const Doctors = () => {
                     <div className='QRow1'><input onChange={handleSearch} className="inputs" value={search} type="text" name="search" placeholder='Search' />
                         <button className="btnOrange" onClick={handleOnClickSearch} >Search</button>
                         {
-                            showBtn && <button onClick={handleResetSearch} className="btnRed"  >Reset</button>
+                             <button onClick={handleResetSearch} className="btnRed"  >Reset</button>
                         }
                     </div>
                 </div>
@@ -66,7 +75,7 @@ const Doctors = () => {
                         <h2 className='brand-title Qleft'>Advance Filter</h2>
                         <hr />
                         <label>By Type</label>
-                        <select className="inputs" name="lable" >
+                        <select className="inputs" name="lable" onChange={(e)=>setFilterInput(e.target.value)}>
                             <option value="" selected>All Types</option>
                             <option value="Allergists">Allergists</option>
                             <option value="Dermatologists">Dermatologists</option>
@@ -88,13 +97,13 @@ const Doctors = () => {
                             <option value="Anesthesiologists">Anesthesiologists</option>
                         </select>
                         <div className='Qcenter'>
-                            <button className="btnOrange mt-3"  >Filter</button><br /><br />
-                            <button className="btnRed"  >Reset</button>
+                            <button className="btnOrange mt-3" onClick={handleOnClickFilter} >Filter</button><br /><br />
+                            <button className="btnRed" onClick={(e)=>setSearchTerm(e.target.value = '')} >Reset</button>
                         </div>
                     </div>
                     <div className='QBottomR'>
                         <div className=''>
-                            {doctors.map(doctor => (
+                            {filteredSpeciality.map(doctor => (
                                 <div className="parent container d-flex justify-content-center align-items-center h-100">
                                     <div className="doctorScheduleLayout" style={{ width: "95%" }}>
                                         <div class="container">
