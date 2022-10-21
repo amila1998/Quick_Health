@@ -20,6 +20,10 @@ const pharmacySchema=({
         type: String,
         required: true
     },
+    number:{
+        type: String,
+        required: true
+    },
     OpenTime:{
         type: String,
         required: true

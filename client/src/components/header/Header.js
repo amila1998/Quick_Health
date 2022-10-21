@@ -30,7 +30,7 @@ const Header = () => {
                                 <a className="nav-link" aria-current="page" href="/">Questions</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link linkColor" href="/pharmacy/">Drugs</a>
+                                <a className="nav-link linkColor" href="/pharmacy/">Pharmacy</a>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link linkColor" href="/doctors">Doctors</a>
@@ -68,9 +68,9 @@ const Header = () => {
                                 {/* <li className="nav-item">
                                 <a className="nav-link linkColor" href="#">Drugs</a>
                                </li> */}
-                                    <li className="nav-item">
+                                    {/* <li className="nav-item">
                                         <a className="nav-link linkColor" href="/pharmacist/addDrugsDetails">My Sellers</a>
-                                    </li>
+                                    </li> */}
                                 </>
                             }
 

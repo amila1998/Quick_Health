@@ -1,3 +1,4 @@
+import { green } from '@mui/material/colors';
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -5,94 +6,103 @@ import { useNavigate, useParams } from 'react-router-dom'
 const PharmacyDrug = () => {
 
     const navigate = useNavigate();
-    const [drugs,setDrug] = useState([]);
-    const [OnePharmacy,setOnePharmacy] = useState('');
-    console.log("🚀 ~ file: PharmacyDrug.js ~ line 10 ~ PharmacyDrug ~ OnePharmacy", OnePharmacy)
-    console.log("🚀 ~ file: PharmacyDrug.js ~ line 9 ~ PharmacyDrug ~ drugs", drugs)
-    
-    const params=useParams();
-    const PharmacyID=params.dID;
-    console.log("🚀 ~ file: PharmacyDrug.js ~ line 12 ~ PharmacyDrug ~ PharmacyID", PharmacyID)
-    // console.log("🚀 ~ file: Questions.js ~ line 11 ~ Questions ~ questions", questions)
+    const params = useParams();
+    const PharmacyID = params.dID;
+    const [drugs, setDrug] = useState([]);
+    const [OnePharmacy, setOnePharmacy] = useState('');
+    const [searchTerm, setSearchTerm] = useState('');
+    console.log("🚀 ~ file: PharmacyDrug.js ~ line 13 ~ PharmacyDrug ~ searchTerm", searchTerm)
+    const [searchInput, setSearchInput] = useState('');
+    console.log("🚀 ~ file: PharmacyDrug.js ~ line 14 ~ PharmacyDrug ~ searchInput", searchInput)
+    const [showBtn, setShowButton] = useState(false)
 
-    useEffect(() => {
 
-        const getAllDrug = async () => {
-            await axios.get(`/api/drugs/${PharmacyID}`).then((res) => {
-                console.log("🚀 ~ file: PharmacistHome.js ~ line 101 ~ awaitaxios.get ~ res", res);
-                setDrug(res.data.pharmacyDrug);
-            }).catch((err) => {
-                console.log(err.massage);
-            })
-        }
-        getAllDrug();
-    }, [])
-    useEffect(() => {
 
-        const getOnePharmacys = async () => {
-            await axios.get(`/api/onePharmacy/${PharmacyID}`).then((res) => {
-                console.log("🚀 ~ file: PharmacistHome.js ~ line 101 ~ awaitaxios.get ~ res", res);
-                setOnePharmacy(res.data.OnePharmacy);
-            }).catch((err) => {
-                console.log(err.massage);
-            })
-        }
-        getOnePharmacys();
-    }, [])
-
-    const navigateToPharmacySchedules = (pharmacyId) => {
-        navigate(`/pharmacy/${pharmacyId}`)
+    const getAllDrug = async () => {
+        await axios.get(`/api/drugs/${PharmacyID}`).then((res) => {
+            console.log("🚀 ~ file: PharmacistHome.js ~ line 101 ~ awaitaxios.get ~ res", res);
+            setDrug(res.data.pharmacyDrug);
+        }).catch((err) => {
+            console.log(err.massage);
+        })
     }
+    const getOnePharmacy = async () => {
+        await axios.get(`/api/onePharmacy/${PharmacyID}`).then((res) => {
+            console.log("🚀 ~ file: PharmacistHome.js ~ line 101 ~ awaitaxios.get ~ res", res);
+            setOnePharmacy(res.data.AllPharmacy);
+        }).catch((err) => {
+            console.log(err.massage);
+        })
+    }
+    useEffect(() => {
+
+        getOnePharmacy();
+        getAllDrug();
+
+    }, [])
+
+    const handleOnClickSearch = (e) => {
+        setSearchTerm(searchInput)
+        setShowButton(true)
+    }
+    const handleResetSearch = (e) => {
+        setSearchTerm(e.target.value = '')
+        setShowButton(false)
+    }
+
+    const filteredCountries = drugs.filter(drugs => {
+        return (drugs.DrugName.toLowerCase().includes(searchTerm.toLocaleLowerCase()) ||
+            drugs.DrugPrice.toLowerCase().includes(searchTerm.toLocaleLowerCase()) ||
+            drugs.DrugQuantity.toLowerCase().includes(searchTerm.toLocaleLowerCase()) ||
+            drugs.Description.toLowerCase().includes(searchTerm.toLocaleLowerCase()))
+
+    })
+
     return (
         <div>
             <div className='Qbody'>
                 <div className='QTop'>
-                    <div className='QRow1'><input className="inputs" type="text" name="title" placeholder='Search' />
-                        <button className="btnOrange"  >Search</button>
+                    <div className='QRow1'><input className="inputs" type="text" name="title" placeholder='Search' onChange={(e) => setSearchInput(e.target.value)} />
+                        <button className="btnOrange" onClick={handleOnClickSearch} >Search</button>
+                        {
+                            showBtn && <button onClick={handleResetSearch} className="btnRed"  >Reset</button>
+                        }
                     </div>
                 </div>
 
                 <div className='QBottom'>
                     <div className='QBottomL'>
-                        <h2 className='brand-title Qleft'>Advance Filter{OnePharmacy.PharmacyName}</h2>
+
+                        <h2 className='brand-title Qleft'>{OnePharmacy.PharmacyName}Pharmacy</h2>
                         <hr />
-                        <label>By Type</label>
-                        <select className="inputs" name="lable" >
-                            <option value="" selected>All Types</option>
-                            <option value="Allergists">Allergists</option>
-                            <option value="Dermatologists">Dermatologists</option>
-                            <option value="Ophthalmologists">Ophthalmologists</option>
-                            <option value="Cardiologists">Cardiologists</option>
-                            <option value="Endocrinologists">Endocrinologists</option>
-                            <option value="Gastroenterologists">Gastroenterologists</option>
-                            <option value="Nephrologists">Nephrologists</option>
-                            <option value="Urologists">Urologists</option>
-                            <option value="Pulmonologists">Pulmonologists</option>
-                            <option value="Otolaryngologists">Otolaryngologists</option>
-                            <option value="Psychiatrists">Psychiatrists</option>
-                            <option value="Oncologists">Oncologists</option>
-                            <option value="Radiologists">Radiologists</option>
-                            <option value="Rheumatologists">Rheumatologists</option>
-                            <option value="General Surgeons">General Surgeons</option>
-                            <option value="Orthopedic Surgeons">Orthopedic Surgeons</option>
-                            <option value="Cardiac Surgeons">Cardiac Surgeons</option>
-                            <option value="Anesthesiologists">Anesthesiologists</option>
-                        </select>
-                        <div className='Qcenter'>
-                            <button className="btnOrange mt-3"  >Filter</button><br /><br />
-                            <button className="btnRed"  >Reset</button>
-                        </div>
+                        <center>
+                            {OnePharmacy.StreetAddress},
+                            <br />
+                            {OnePharmacy.City},
+                            <br />
+                            {OnePharmacy.State}.
+                            <br />
+                            {OnePharmacy.number}
+                            <br/>
+                            OpenTime: {OnePharmacy.OpenTime} CloseTime: {OnePharmacy.CloseTime}
+                        </center>
+                        {/* OpenTime: {OnePharmacy.OpenTime} CloseTime: {OnePharmacy.CloseTime} */}
+                        {/* <h4 className='brand-title Qleft'>CloseTime{OnePharmacy.CloseTime}</h4> */}
+
+                        {/* <label>By Type</label> */}
+
+
                     </div>
                     <div className='QBottomR'>
                         <div className=''>
-                            {drugs.map((drugs)=>(
+                            {filteredCountries.map((drugs, index) => (
                                 <div className="parent container d-flex justify-content-center align-items-center h-100">
-                                    <div className="doctorScheduleLayout" style={{ width: "95%"}}>
+                                    <div className="doctorScheduleLayout" style={{ width: "95%" }}>
                                         <div class="container">
                                             <div class="row">
                                                 <div class="col-sm-1">
-                                                    {/* <img className='pLogo' src={drugs} alt="userlogo"  /> */}
-                                                </div>
+                                                    <img className='pLogo' src={drugs.DrugImage} alt="userlogo" style={{ width: "100px", height: "100px" }} />
+                                                </div>&nbsp;&nbsp;
                                                 <div class="col-sm-8 ms-4">
                                                     <div class="row">
                                                         <div class="col-sm-11 mt-3">
@@ -100,10 +110,29 @@ const PharmacyDrug = () => {
                                                             <div className=''>{drugs.DrugPrice}</div>
                                                             <div className=''>{drugs.DrugQuantity}</div>
                                                             <div className=''>{drugs.Description}</div>
-                                                            
+
                                                         </div>
                                                         <div class="col-sm-1 mt-4">
-                                                            {/* <center><button className="viewDoctor ms-5 float-start" onClick={() => navigateToPharmacySchedules(pharmacy._id)}>View pharmacy</button></center> */}
+
+                                                            {drugs.DrugQuantity &&
+                                                               <center>
+                                                                
+                                                                    <p>
+                                                                    <span style={{color:'green'}}>available</span>{' '}
+                                                                    </p>
+                                                                
+                                                            </center>
+                                                            }
+                                                            {!drugs.DrugQuantity &&
+                                                                <center>
+                                                                
+                                                                    <p>
+                                                                    <span style={{color:'red'}}>Not&nbsp;available</span>{' '}
+                                                                    </p>
+                                                                
+                                                            </center>
+                                                            }
+                                                            
                                                         </div>
                                                     </div>
                                                 </div>
