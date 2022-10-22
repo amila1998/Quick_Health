@@ -5,6 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
+import moment from 'moment'
 
 const style = {
     position: 'absolute',
@@ -173,14 +174,26 @@ const LabelManagement = () => {
             });
         }
     }
+    const [searchTerm, setSearchTerm] = useState('');
+    const [search, setSearch] = useState('');
+    const handleSearch = (e) => {
+        setSearch(e.target.value)
+    }
+    const handleOnSearch = () => {
+        setSearchTerm(search)
+    }
+    const filteredLabels = labels.filter(label => {
+        return (label.LabelName.includes(searchTerm))
+    
+    })
     return (
         <div>
             <ToastContainer />
             <div className='labelBody'>
                 <div className='labelSearch'>
                     <div className='labelSearch2'>
-                        <input className='inputs' placeholder='Search Label...'></input>
-                        <button className='btnOrange'>Search</button>
+                        <input className='inputs' placeholder='Search Label...' onChange={(e)=>handleSearch(e)}></input>
+                        <button className='btnOrange' onClick={()=>handleOnSearch()}>Search</button>
                     </div>
                     <div>
                         <button onClick={handleOnClickAddLble} className='btnGreen'>Add Label</button>
@@ -221,12 +234,12 @@ const LabelManagement = () => {
                         </tr>
 
                         {
-                            labels.map(lb => (
+                            filteredLabels.map(lb => (
                                 <tr key={lb._id}>
                                     <td>{lb._id}</td>
                                     <td>{lb.LabelName}</td>
-                                    <td>{lb.createdAt}</td>
-                                    <td>{lb.updatedAt}</td>
+                                    <td>{moment(lb.createdAt).format("MMM Do YY")}</td>
+                                    <td>{moment(lb.updatedAt).format("MMM Do YY")}</td>
                                     <td> <div className='labelBtnEdit'><button onClick={()=>handleEditOpen(lb)} className='btnOrange'>Edit</button>
                                     
                                         <button onClick={()=>handleOpenDelete(lb)} className='btnRed'>Delete</button>
