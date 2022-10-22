@@ -9,7 +9,7 @@ const labelController={
             })
            const submitNew = await newLabel.save();  
             res.status(200).json({ 
-                msg:"Label Registration Successfully" ,
+                msg:"Label Created Successfully" ,
                 success: true
             })     
         } catch (error) {
